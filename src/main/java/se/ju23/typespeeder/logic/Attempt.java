@@ -1,6 +1,7 @@
-package se.ju23.typespeeder;
+package se.ju23.typespeeder.logic;
 
 import jakarta.persistence.*;
+import se.ju23.typespeeder.databas.User;
 
 import java.sql.Timestamp;
 import java.util.Objects;

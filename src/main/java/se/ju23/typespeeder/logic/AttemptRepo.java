@@ -1,11 +1,10 @@
 /*Emanuel sleyman, Zakaria jaouhari
 2024-02-08
 */
-package se.ju23.typespeeder;
+package se.ju23.typespeeder.logic;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
 import java.util.Optional;
 
 

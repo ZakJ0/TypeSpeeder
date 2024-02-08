@@ -1,6 +1,11 @@
-package se.ju23.typespeeder;
+/*Zakaria Jaouhari
+30-01-24
+zakaria.jaouhari@iths.se*/
+package se.ju23.typespeeder.databas;
 
 import jakarta.persistence.*;
+import se.ju23.typespeeder.Main;
+import se.ju23.typespeeder.logic.Attempt;
 
 import java.sql.Timestamp;
 import java.util.*;
@@ -29,11 +34,10 @@ public class User {
     private Collection<Leaderboard> leaderboardsByUserid;
 
 
-
     public User(String userName, String password, String gamename) {
-        this.username=userName;
-        this.password=password;
-        this.gamename=gamename;
+        this.username = userName;
+        this.password = password;
+        this.gamename = gamename;
     }
 
     public User() {
@@ -119,6 +123,7 @@ public class User {
                 ", gamename='" + gamename + '\'' +
                 '}';
     }
+
     public void updateUserInDatabase() {
         System.out.println("Updatera user information");
         System.out.print("Skriv in userID för att uppdatera: ");
@@ -127,7 +132,7 @@ public class User {
         Optional<User> optionalUser = Main.iuser.findById(userIdToUpdate);
 
         if (optionalUser.isPresent()) {
-            User existingUser =  optionalUser.get();
+            User existingUser = optionalUser.get();
             System.out.print("write your username: ");
             existingUser.setUsername(validInput());
 
@@ -145,6 +150,7 @@ public class User {
             System.out.println("User with ID " + userIdToUpdate + " not found!");
         }
     }
+
     public void createUser() {
         String userName;
         String gameName;
@@ -154,26 +160,24 @@ public class User {
         System.out.print("Ange userName: ");
         userName = validInput();
         Optional<User> names = Main.iuser.findByUsername(userName);
-        if (names.isPresent()){
+        if (names.isPresent()) {
             System.out.println("Användarnamnet är upptaget!");
             return;
 
         }
-            System.out.print("Ange gameName: ");
-            gameName = validInput();
-            Optional<User> name = Main.iuser.findByGamename(gameName);
-            if (name.isPresent()) {
-                System.out.println("Användarnamnet är upptaget!");
-                return;
-            }
-
-        else{
+        System.out.print("Ange gameName: ");
+        gameName = validInput();
+        Optional<User> name = Main.iuser.findByGamename(gameName);
+        if (name.isPresent()) {
+            System.out.println("Användarnamnet är upptaget!");
+            return;
+        } else {
             System.out.print("Ange password: ");
             password = validInput();
         }
         User user1 = new User(userName, password, gameName);
         Main.iuser.save(user1);
-        System.out.println("Användaren "+userName +" har lagts till.");
+        System.out.println("Användaren " + userName + " har lagts till.");
     }
 
     public Timestamp getCurrentTime() {
@@ -202,7 +206,8 @@ public class User {
                     "\nAnvändar-id: " + a.getUserid() + "\n-----------------------");
         }
     }
-    public  long getJavaLevel(long userid) {
+
+    public long getJavaLevel(long userid) {
         long levl = 0;
         Optional<User> getlevel = Main.iuser.findById(userid);
         if (getlevel.isPresent()) {
@@ -213,6 +218,7 @@ public class User {
         }
         return levl;
     }
+
     public String validInput() {
         String inputString;
         while (true) {
@@ -224,6 +230,7 @@ public class User {
             }
         }
     }
+
     public long readLongOnly() {
         while (true) {
             try {
@@ -233,14 +240,16 @@ public class User {
             }
         }
     }
-    public int readIntOnly() {
-        while (true) {
-            try {
-                int intOnly = Integer.parseInt(validInput());
-                return intOnly;
-            } catch (NumberFormatException e) {
-                System.err.println(e + " Vänligen skriv in ett heltal:");
+
+            public int readIntOnly () {
+                while (true) {
+                    try {
+                        int intOnly = Integer.parseInt(validInput());
+                        return intOnly;
+                    } catch (NumberFormatException e) {
+                        System.err.println(e + " Vänligen skriv in ett heltal:");
+                    }
+                }
             }
         }
-    }
-}
+
