@@ -29,19 +29,21 @@ public class Main  implements CommandLineRunner {
         System.out.println("3. Exit");
 
         System.out.println("Skriv in ditt alternativ: ");
-        int choice = input.nextInt();
+        System.out.print(">");
+        String choice = input.nextLine();
 
         switch(choice) {
-            case 1:
+            case "1":
                 System.out.println("Du valde att logga in.");
+
                 // Add login functionality here
 
                 break;
-            case 2:
+            case "2":
                 System.out.println("Du valde att skapa en användare.");
                 // Add create user functionality here
                 break;
-            case 3:
+            case "3":
                 System.out.println("Du valde att avsluta. Hejdå!");
                 System.exit(0);
                 break;
