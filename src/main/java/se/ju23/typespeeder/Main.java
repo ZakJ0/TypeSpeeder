@@ -17,7 +17,13 @@ public class Main  implements CommandLineRunner {
     static iGameTask igametask;
     @Autowired
     static Leaderboard leaderboard;
+    @Autowired
+    public Main(iUser iuser) { // Constructor injection
+        this.iuser = iuser;
+    }
+    private User user= new User();
 
+    static Scanner input = new Scanner(System.in);
     @Override
     public void run(String[] args)  {
         System.out.println();
@@ -34,12 +40,12 @@ public class Main  implements CommandLineRunner {
         switch(choice) {
             case 1:
                 System.out.println("Du valde att logga in.");
-                // Add login functionality here
+                user.createUser();
 
                 break;
             case 2:
                 System.out.println("Du valde att skapa en användare.");
-                // Add create user functionality here
+                user.updateUserInDatabase();
                 break;
             case 3:
                 System.out.println("Du valde att avsluta. Hejdå!");

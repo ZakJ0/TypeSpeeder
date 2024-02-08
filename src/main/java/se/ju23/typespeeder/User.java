@@ -2,8 +2,8 @@ package se.ju23.typespeeder;
 
 import jakarta.persistence.*;
 
-import java.util.Collection;
-import java.util.Objects;
+import java.sql.Timestamp;
+import java.util.*;
 
 @Entity
 public class User {
@@ -27,6 +27,18 @@ public class User {
     private Collection<Attempt> attemptsByUserid;
     @OneToMany(mappedBy = "userByPlayerid")
     private Collection<Leaderboard> leaderboardsByUserid;
+
+
+
+    public User(String userName, String password, String gamename) {
+        this.username=userName;
+        this.password=password;
+        this.gamename=gamename;
+    }
+
+    public User() {
+
+    }
 
     public long getUserid() {
         return userid;
@@ -95,5 +107,140 @@ public class User {
 
     public void setLeaderboardsByUserid(Collection<Leaderboard> leaderboardsByUserid) {
         this.leaderboardsByUserid = leaderboardsByUserid;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userid=" + userid +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", gamelevel=" + gamelevel +
+                ", gamename='" + gamename + '\'' +
+                '}';
+    }
+    public void updateUserInDatabase() {
+        System.out.println("Updatera user information");
+        System.out.print("Skriv in userID för att uppdatera: ");
+        long userIdToUpdate = readLongOnly();
+
+        Optional<User> optionalUser = Main.iuser.findById(userIdToUpdate);
+
+        if (optionalUser.isPresent()) {
+            User existingUser =  optionalUser.get();
+            System.out.print("write your username: ");
+            existingUser.setUsername(validInput());
+
+            System.out.print("write your password: ");
+            existingUser.setPassword(validInput());
+
+            System.out.print("write your gameName: ");
+            existingUser.setGamename(validInput());
+
+            // Save the updated user to the database
+            Main.iuser.save(existingUser);
+
+            System.out.println("User informationen uppdated!");
+        } else {
+            System.out.println("User with ID " + userIdToUpdate + " not found!");
+        }
+    }
+    public void createUser() {
+        String userName;
+        String gameName;
+        String password = null;
+        boolean trueName = true;
+
+        System.out.print("Ange userName: ");
+        userName = validInput();
+        Optional<User> names = Main.iuser.findByUsername(userName);
+        if (names.isPresent()){
+            System.out.println("Användarnamnet är upptaget!");
+            return;
+
+        }
+            System.out.print("Ange gameName: ");
+            gameName = validInput();
+            Optional<User> name = Main.iuser.findByGamename(gameName);
+            if (name.isPresent()) {
+                System.out.println("Användarnamnet är upptaget!");
+                return;
+            }
+
+        else{
+            System.out.print("Ange password: ");
+            password = validInput();
+        }
+        User user1 = new User(userName, password, gameName);
+        Main.iuser.save(user1);
+        System.out.println("Användaren "+userName +" har lagts till.");
+    }
+
+    public Timestamp getCurrentTime() {
+        return (new Timestamp(System.currentTimeMillis()));
+    }
+/*
+    public void deleteUser() {
+        System.out.println("Vilken användare vill du ta bort med hjälp av userId");
+        System.out.println("Ange userID");
+        long userId = readLongOnly();
+        if (iUser.existsById(userId)) {
+            iUser.deleteAllById(Collections.singleton((long) userId));
+            System.out.println("användare med id: " + userId + " har tagits bort");
+        } else {
+            System.out.println("userId existerar inte");
+        }
+    }
+
+ */
+
+    public void showJavaLevels() {
+        List<User> levels = Main.iuser.findAll();
+        for (User a : levels) {
+            System.out.println("Användarnamn: " + a.getUsername() +
+                    "\nJava-nivå: " + a.getGamelevel() +
+                    "\nAnvändar-id: " + a.getUserid() + "\n-----------------------");
+        }
+    }
+    public  long getJavaLevel(long userid) {
+        long levl = 0;
+        Optional<User> getlevel = Main.iuser.findById(userid);
+        if (getlevel.isPresent()) {
+            User lev = getlevel.get();
+            levl = lev.getGamelevel();
+        } else {
+            return levl;
+        }
+        return levl;
+    }
+    public String validInput() {
+        String inputString;
+        while (true) {
+            inputString = Main.input.nextLine().trim();
+            if (inputString.isEmpty()) {
+                System.out.println("Du måste ange något!");
+            } else {
+                return inputString;
+            }
+        }
+    }
+    public long readLongOnly() {
+        while (true) {
+            try {
+                return Long.parseLong(validInput());
+            } catch (NumberFormatException e) {
+                System.err.println("Ogiltig inmatning. Vänligen skriv in ett heltal: ");
+            }
+        }
+    }
+    public int readIntOnly() {
+        while (true) {
+            try {
+                int intOnly = Integer.parseInt(validInput());
+                return intOnly;
+            } catch (NumberFormatException e) {
+                System.err.println(e + " Vänligen skriv in ett heltal:");
+            }
+        }
     }
 }
