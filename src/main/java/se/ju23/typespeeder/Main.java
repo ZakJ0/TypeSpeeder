@@ -20,7 +20,7 @@ public class Main  implements CommandLineRunner {
 
     @Override
     public void run(String[] args)  {
-
+        System.out.println();
         Scanner input = new Scanner(System.in);
 
         System.out.println("Välkommen till TypeSpeeder!");
