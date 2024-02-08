@@ -1,11 +1,23 @@
 package se.ju23.typespeeder;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
+
+import java.util.Optional;
 import java.util.Scanner;
+@Component
+public class Main  implements CommandLineRunner {
 
-public class Main {
+    @Autowired
+    static AttemptRepo attemptRepo;
 
-    public static void main(String[] args) {
-       /* Scanner input = new Scanner(System.in);
+    @Override
+    public void run(String[] args)  {
+
+        
+
+        Scanner input = new Scanner(System.in);
 
         System.out.println("Välkommen till TypeSpeeder!");
         System.out.println("1. Logga in");
@@ -19,6 +31,7 @@ public class Main {
             case 1:
                 System.out.println("Du valde att logga in.");
                 // Add login functionality here
+
                 break;
             case 2:
                 System.out.println("Du valde att skapa en användare.");
@@ -33,8 +46,4 @@ public class Main {
         }
     }
 
-
-        */
-        System.out.println("hello");
-    }
 }
