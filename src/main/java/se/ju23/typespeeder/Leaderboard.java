@@ -27,7 +27,7 @@ public class Leaderboard {
     @Column(name = "resultcol", nullable = true, length = 45)
     private String resultcol;
     @Basic
-    @Column(name = "playerid", nullable = true)
+    @Column(name = "playerid", nullable = true, updatable = false,insertable = false)
     private Long playerid;
     @ManyToOne
     @JoinColumn(name = "playerid", referencedColumnName = "userid")

@@ -12,10 +12,10 @@ public class Attempt {
     @Column(name = "attempt_id", nullable = false)
     private long attemptId;
     @Basic
-    @Column(name = "user_id", nullable = false)
+    @Column(name = "user_id", nullable = false,insertable = false,updatable = false)
     private long userId;
     @Basic
-    @Column(name = "task_id", nullable = false)
+    @Column(name = "task_id", nullable = false,updatable = false,insertable = false)
     private long taskId;
     @Basic
     @Column(name = "outcome", nullable = false, length = 100)
