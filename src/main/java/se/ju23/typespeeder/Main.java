@@ -11,11 +11,15 @@ public class Main  implements CommandLineRunner {
 
     @Autowired
     static AttemptRepo attemptRepo;
+    @Autowired
+    static iUser iuser;
+    @Autowired
+    static iGameTask igametask;
+    @Autowired
+    static Leaderboard leaderboard;
 
     @Override
     public void run(String[] args)  {
-
-        
 
         Scanner input = new Scanner(System.in);
 
