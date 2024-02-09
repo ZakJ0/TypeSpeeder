@@ -5,6 +5,7 @@ package se.ju23.typespeeder.databas;
 
 import jakarta.persistence.*;
 import se.ju23.typespeeder.Main;
+import se.ju23.typespeeder.io.IO;
 import se.ju23.typespeeder.logic.Attempt;
 
 import java.sql.Timestamp;
