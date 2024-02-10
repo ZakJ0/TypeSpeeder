@@ -1,5 +1,6 @@
-/*Emanuel sleyman
-2024-02-08  */
+/*Emanuel sleyman, Zakaria jaohari
+2024-02-08
+*/
 
 package se.ju23.typespeeder;
 
@@ -31,8 +32,18 @@ public class Game implements CommandLineRunner {
         TimeUnit.SECONDS.sleep(1);
 
         Random randomWords = new Random();
-        for (int i = 0; i < 10; i++) {
-            System.out.print(words[randomWords.nextInt(9)] + " ");
+        Set<Integer> selectedIndexes = new HashSet<>();
+        int totalWords = 10;
+
+        for (int i = 0; i < totalWords; i++) {
+            int randomIndex;
+            do {
+                randomIndex = randomWords.nextInt(words.length); // Generate random index
+            } while (selectedIndexes.contains(randomIndex)); // Check if index already selected
+
+            selectedIndexes.add(randomIndex); // Add selected index to the set
+
+            System.out.print(words[randomIndex] + " "); // Print the word at the selected index
         }
         System.out.println();
         double start = LocalTime.now().toNanoOfDay();
