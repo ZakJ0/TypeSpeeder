@@ -8,10 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalTime;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Component
@@ -38,12 +35,12 @@ public class Game implements CommandLineRunner {
         for (int i = 0; i < totalWords; i++) {
             int randomIndex;
             do {
-                randomIndex = randomWords.nextInt(words.length); // Generate random index
-            } while (selectedIndexes.contains(randomIndex)); // Check if index already selected
+                randomIndex = randomWords.nextInt(words.length);
+            } while (selectedIndexes.contains(randomIndex));
 
-            selectedIndexes.add(randomIndex); // Add selected index to the set
+            selectedIndexes.add(randomIndex);
 
-            System.out.print(words[randomIndex] + " "); // Print the word at the selected index
+            System.out.print(words[randomIndex] + " ");
         }
         System.out.println();
         double start = LocalTime.now().toNanoOfDay();
@@ -55,16 +52,24 @@ public class Game implements CommandLineRunner {
         double seconds = elapsedTime / 1000000000.0;
         System.out.println(seconds + " Seconds");
 
-        String[] incorrectWordsArr = typedWords.split(" ");
+        String[] typedWordsArr = typedWords.split(" ");
         Set<String> alreadyCounted = new HashSet<>();
-        int incorrectCount = 0;
-        for (int i = 0; i < Math.min(words.length, incorrectWordsArr.length); i++) {
-            if (words[i].equalsIgnoreCase(incorrectWordsArr[i]) && !alreadyCounted.contains(incorrectWordsArr[i])) {
-                incorrectCount++;
-                alreadyCounted.add(incorrectWordsArr[i]);
+        int incorrectTypedWords = 0;
+        int correctTypedWords = 0;
+
+        for (String typedWord : typedWordsArr) {
+            if (Arrays.asList(words).contains(typedWord)) {
+                correctTypedWords++;
+            } else {
+                incorrectTypedWords++;
             }
         }
-        System.out.println("Number of incorrect words typed " + incorrectCount);
+
+        System.out.println("Correct words typed: "+ correctTypedWords);
+        System.out.println("Incorrect words typed: "+ incorrectTypedWords);
+        System.out.println(Arrays.toString(typedWordsArr));
+
+
         int numChars = typedWords.length();
         int wpm = (int) (((double) (numChars / 5) / seconds) * 60);
 
