@@ -1,4 +1,4 @@
-/*Zakaria Jaouhari
+/*Zakaria Jaouhari,Emanuel Sleyman
 30-01-24
 zakaria.jaouhari@iths.se*/
 package se.ju23.typespeeder.databas;

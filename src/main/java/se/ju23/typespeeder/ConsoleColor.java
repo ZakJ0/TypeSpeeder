@@ -1,3 +1,7 @@
+/*Zakaria Jaouhari
+2024-02-08
+zakaria.jaouhari@iths.se
+ */
 package se.ju23.typespeeder;
 
 public enum ConsoleColor {

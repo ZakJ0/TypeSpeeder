@@ -1,3 +1,6 @@
+/*Zakaria Jaouhari, Emanuel Sleyman
+2024-02-10
+ */
 package se.ju23.typespeeder;
 
 import org.junit.jupiter.api.Test;
@@ -92,6 +95,4 @@ public class MenuTest {
         long count = outContent.toString().lines().count();
         assertTrue(count >= 5, "The menu should print out at least 5 alternatives.");
     }
-
-
 }
