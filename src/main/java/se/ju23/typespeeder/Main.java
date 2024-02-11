@@ -31,8 +31,9 @@ public class Main  implements CommandLineRunner {
     public static Scanner input = new Scanner(System.in);
 
     @Override
-    public void run(String[] args)  {
-
+    public void run(String[] args) throws InterruptedException {
+        Menu menu = new Menu();
+        menu.start();
     }
 
 }

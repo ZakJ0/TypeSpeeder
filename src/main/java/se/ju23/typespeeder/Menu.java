@@ -14,9 +14,10 @@ public class Menu implements MenuService{
     MenuService menuService;
     public Menu() {
         this.user = new User(); // Initialize user object
-
     }
-    public void start() {
+
+    Game game = new Game();
+    public void start() throws InterruptedException {
         System.out.println();
         Scanner input = new Scanner(System.in);
         System.out.println("Välkommen till TypeSpeeder!");
@@ -36,13 +37,15 @@ public class Menu implements MenuService{
                 user.updateUserInDatabase();
                 break;
             case 3:
+                game.playGame();
+                break;
+            case 4:
                 System.out.println("Du valde att avsluta. Hejdå!");
                 System.exit(0);
                 break;
             default:
                 System.out.println("Ogiltigt svar. Testa igen");
-            case 4:
-               break;
+
 
 
         }
@@ -52,10 +55,10 @@ public class Menu implements MenuService{
     @Override
     public List<String> getMenuOptions() {
         List<String> options = new ArrayList<>();
-        options.add("1. log in");
-        options.add("2. update login");
-        options.add("3. exit");
-        options.add("4. playgame");
+        options.add("1. Create User");
+        options.add("2. Update User");
+        options.add("3. Play Game");
+        options.add("4. Exit game");
         options.add("Option 5");
         return options;
     }
