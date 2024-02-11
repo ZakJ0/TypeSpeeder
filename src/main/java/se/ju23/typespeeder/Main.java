@@ -11,21 +11,24 @@ import se.ju23.typespeeder.logic.iGameTask;
 
 import java.util.Optional;
 import java.util.Scanner;
+
 @Component
-public class Main  implements CommandLineRunner {
+public class Main implements CommandLineRunner {
 
     @Autowired
-    static AttemptRepo attemptRepo;
+    public static AttemptRepo attemptRepo;
     @Autowired
     public static iUser iuser;
     @Autowired
     static iGameTask igametask;
     @Autowired
     static Leaderboard leaderboard;
+
     @Autowired
-    public Main(iUser iuser){
+    public Main(iUser iuser) {
         this.iuser = iuser;
     }
+
     private User user;
 
     public static Scanner input = new Scanner(System.in);

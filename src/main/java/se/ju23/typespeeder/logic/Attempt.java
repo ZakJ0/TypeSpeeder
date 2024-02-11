@@ -31,6 +31,17 @@ public class Attempt {
     @JoinColumn(name = "task_id", referencedColumnName = "task_id", nullable = false)
     private Gametask gametaskByTaskId;
 
+    public Attempt(long attemptId, long userId, long taskId, String outcome){
+        this.attemptId = attemptId;
+        this.userId = userId;
+        this.taskId = taskId;
+        this.outcome = outcome;
+    }
+
+    public Attempt() {
+
+    }
+
     public long getAttemptId() {
         return attemptId;
     }

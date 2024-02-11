@@ -2,17 +2,21 @@
 Emanuel sleyman
 2024-02-08
 */
-package se.ju23.typespeeder;
+package se.ju23.typespeeder.logic;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import se.ju23.typespeeder.Main;
+import se.ju23.typespeeder.logic.AttemptRepo;
 
+import java.sql.Timestamp;
 import java.time.LocalTime;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Component
 public class Game  {
+
 
     public Game(){
 
@@ -22,6 +26,7 @@ public class Game  {
 
 
     public void playGame() throws InterruptedException {
+
             System.out.println("3");
             TimeUnit.SECONDS.sleep(1);
 
@@ -74,12 +79,18 @@ public class Game  {
 
 
             int numChars = typedWords.length();
-            int wpm = (int) (((double) (numChars / 5) / seconds) * 60);
+            String wpm = String.valueOf((int) (((double) (numChars / 5) / seconds) * 60));
 
             System.out.println("your wpm " + wpm + "!");
+
+        Attempt attempt1 = new Attempt(1L, 1L, 1L, wpm);
+
+        // Set the endTime attribute to the current timestamp
+        attempt1.setEndTime(new Timestamp(System.currentTimeMillis()));
+
+        Main.attemptRepo.save(attempt1);
+
         }
-
-
     }
 
 
