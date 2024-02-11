@@ -1,7 +1,7 @@
-/*Emanuel sleyman, Zakaria jaohari
+/*
+Emanuel sleyman
 2024-02-08
 */
-
 package se.ju23.typespeeder;
 
 import org.springframework.boot.CommandLineRunner;
@@ -67,7 +67,7 @@ public class Game implements CommandLineRunner {
 
         System.out.println("Correct words typed: "+ correctTypedWords);
         System.out.println("Incorrect words typed: "+ incorrectTypedWords);
-        System.out.println(Arrays.toString(typedWordsArr));
+        System.out.println(Arrays.toString(typedWordsArr)); // Comparison reasons
 
 
         int numChars = typedWords.length();
