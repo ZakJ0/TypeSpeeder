@@ -6,49 +6,56 @@ package se.ju23.typespeeder;
 import se.ju23.typespeeder.databas.User;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
 public class Menu implements MenuService{
     User user;
     MenuService menuService;
-    public void start(){
-    System.out.println();
-    Scanner input = new Scanner(System.in);
+    public Menu() {
+        this.user = new User(); // Initialize user object
+
+    }
+    public void start() {
+        System.out.println();
+        Scanner input = new Scanner(System.in);
         System.out.println("Välkommen till TypeSpeeder!");
-        getMenuOptions();
+        displayMenu();
 
         System.out.println("Skriv in ditt alternativ: ");
-    int choice = input.nextInt();
+        int choice = input.nextInt();
 
-        switch(choice) {
-        case 1:
-            System.out.println("Du valde att logga in.");
-            user.createUser();
+        switch (choice) {
+            case 1:
+                System.out.println("Du valde att logga in.");
+                user.createUser();
 
-            break;
-        case 2:
-            System.out.println("Du valde att skapa en användare.");
-            user.updateUserInDatabase();
-            break;
-        case 3:
-            System.out.println("Du valde att avsluta. Hejdå!");
-            System.exit(0);
-            break;
-        default:
-            System.out.println("Ogiltigt svar. Testa igen");
+                break;
+            case 2:
+                System.out.println("Du valde att skapa en användare.");
+                user.updateUserInDatabase();
+                break;
+            case 3:
+                System.out.println("Du valde att avsluta. Hejdå!");
+                System.exit(0);
+                break;
+            default:
+                System.out.println("Ogiltigt svar. Testa igen");
+            case 4:
+               break;
+
+
+        }
     }
-}
 
 
     @Override
     public List<String> getMenuOptions() {
         List<String> options = new ArrayList<>();
-        options.add("Option 1");
-        options.add("Option 2");
-        options.add("Option 3");
-        options.add("Option 4");
+        options.add("1. log in");
+        options.add("2. update login");
+        options.add("3. exit");
+        options.add("4. playgame");
         options.add("Option 5");
         return options;
     }
