@@ -20,31 +20,35 @@ public class Menu implements MenuService{
     public void start() throws InterruptedException {
         System.out.println();
         Scanner input = new Scanner(System.in);
-        System.out.println("Välkommen till TypeSpeeder!");
+        System.out.println("Welcome to TypeSpeeder!");
         displayMenu();
 
-        System.out.println("Skriv in ditt alternativ: ");
+        System.out.println("choose an alternative: ");
         int choice = input.nextInt();
 
         switch (choice) {
             case 1:
-                System.out.println("Du valde att logga in.");
+                System.out.println("You chose to create a user.");
                 user.createUser();
 
                 break;
             case 2:
-                System.out.println("Du valde att skapa en användare.");
+                System.out.println("You chose to update a User.");
                 user.updateUserInDatabase();
                 break;
             case 3:
                 game.playGame();
                 break;
             case 4:
-                System.out.println("Du valde att avsluta. Hejdå!");
+                System.out.println("You chose to exit. Bye!");
                 System.exit(0);
                 break;
+            case 5:
+                System.out.println("You chose to login");
+                user.readUsersFromDatabase();
+                break;
             default:
-                System.out.println("Ogiltigt svar. Testa igen");
+                System.out.println("invalid answer. Test again");
 
 
 
@@ -59,7 +63,7 @@ public class Menu implements MenuService{
         options.add("2. Update User");
         options.add("3. Play Game");
         options.add("4. Exit game");
-        options.add("Option 5");
+        options.add("5. Login");
         return options;
     }
     @Override
