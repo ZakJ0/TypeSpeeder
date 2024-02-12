@@ -84,6 +84,16 @@ public class Attempt {
     }
 
     @Override
+    public String toString() {
+        return "Attempt{" +
+                "attemptId=" + attemptId +
+                ", userId=" + userId +
+                ", taskId=" + taskId +
+                ", outcome='" + outcome + '\'' +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

@@ -23,34 +23,36 @@ public class Game {
 
     }
 
-    public static String[] words = {"batman", "corn", "bike", "hund", "Skola", "dator", "Lax", "Skatt", "President", "lång", "Kort", "apple", "sour", "Ulf", "Oskar"};
+    public static String[] words = {
+            "water","house","hus","kom","look","sir","hear",
+            "se","kolla","bil","bild","fodral","glasögon","ferrari","adidas","batman",
+            "corn", "bike", "hund", "Skola", "dator", "Lax", "Skatt", "President", "lång",
+            "Kort", "apple", "sour", "Ulf", "Oskar","lamborghini","kalle","hej","java","nobell","vem","som",
+            "maggot","faggot","mus","tratt","it","program","programmering"
+    };
 
 
     public void playGame() throws InterruptedException {
 
-        // Obtain the next attempt ID by incrementing the maximum existing ID
         Long nextAttemptId = Main.attemptRepo.getNextAttemptId();
 
-        // Handle case when attempt ID is null (no existing attempts)
-        if (nextAttemptId == null) {
-            nextAttemptId = 1L; // Assign the initial ID
-        }
-
-        long taskId = 1;
-        Optional<Gametask> optionalGametask = Main.igametask.findById(taskId);
-        Gametask gametask = optionalGametask.orElse(null);
-
-        if (optionalGametask == null) {
-            System.out.println("Error: Gametask with ID " + taskId + " not found.");
-            return;
-        }
-
-        long userId = 1; // Assuming the user ID to be used
+        System.out.print("Enter User ID: ");
+        long userId = Main.input.nextLong();
         Optional<User> optionalUser = Main.iuser.findById(userId);
         User user = optionalUser.orElse(null);
 
         if (user == null) {
             System.out.println("Error: User with ID " + userId + " not found.");
+            return;
+        }
+
+        System.out.print("Enter Task ID: ");
+        long taskId = Main.input.nextLong();
+        Optional<Gametask> optionalGametask = Main.igametask.findById(taskId);
+        Gametask gametask = optionalGametask.orElse(null);
+
+        if (gametask == null) {
+            System.out.println("Error: Gametask with ID " + taskId + " not found.");
             return;
         }
 
@@ -107,15 +109,16 @@ public class Game {
 
         int numChars = typedWords.length();
         String wpm = String.valueOf((int) (((double) (numChars / 5) / seconds) * 60));
-
-        System.out.println("your wpm " + wpm + "!");
+        System.out.println(user.getUsername()+ " Your WPM " +"= "+ wpm + "!"+ "\n");
 
         Attempt newAttempt = new Attempt(nextAttemptId, userId, taskId, wpm, Timestamp.valueOf(LocalDateTime.now()));
         newAttempt.setGametaskByTaskId(gametask);
         newAttempt.setUserByUserId(user);
-
         // Save the new Attempt entity
         Main.attemptRepo.save(newAttempt);
+
+
+
 
     }
 
