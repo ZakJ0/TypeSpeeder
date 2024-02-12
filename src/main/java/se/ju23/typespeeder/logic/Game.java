@@ -1,6 +1,5 @@
 /*
 Emanuel sleyman
-Zakaria Jaouhari
 2024-02-08
 */
 package se.ju23.typespeeder.logic;
@@ -104,8 +103,8 @@ public class Game {
 
         System.out.println("Correct words typed: " + correctTypedWords);
         System.out.println("Incorrect words typed: " + incorrectTypedWords);
-        System.out.println(Arrays.toString(typedWordsArr)); // Comparison reasons
-
+        //printing out what the person has written to comare
+        System.out.println(Arrays.toString(typedWordsArr));
 
         int numChars = typedWords.length();
         String wpm = String.valueOf((int) (((double) (numChars / 5) / seconds) * 60));
