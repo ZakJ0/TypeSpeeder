@@ -3,7 +3,9 @@ package se.ju23.typespeeder.logic;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -84,7 +86,26 @@ public class Gametask {
         return attemptsByTaskId;
     }
 
+    @Override
+    public String toString() {
+        return "Gametask{" +
+                "solution='" + solution + '\'' +
+                '}';
+    }
+
     public void setAttemptsByTaskId(Collection<Attempt> attemptsByTaskId) {
         this.attemptsByTaskId = attemptsByTaskId;
     }
+    public static Gametask getGameTaskByLanguage(String language) {
+        // Assume you have a method to fetch from the database based on language
+        // Example: GametaskDAO.getGameTaskByLanguage(language);
+        // Implement your database logic here
+        // Return a sample task for demonstration
+        Gametask task = new Gametask();
+        task.setLanguage(language);
+        task.setTaskType(1); // Assuming a task type
+        task.setSolution("This is a sample solution."); // Sample solution
+        return task;
+    }
+
 }

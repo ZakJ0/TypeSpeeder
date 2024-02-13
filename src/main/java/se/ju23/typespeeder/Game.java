@@ -6,6 +6,7 @@ package se.ju23.typespeeder;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import se.ju23.typespeeder.logic.Gametask;
 
 import java.time.LocalTime;
 import java.util.*;
@@ -13,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 @Component
 public class Game  {
-
+    Gametask gametask;
     public Game(){
 
     }
@@ -30,7 +31,7 @@ public class Game  {
 
             System.out.println("1");
             TimeUnit.SECONDS.sleep(1);
-
+            language();
             Random randomWords = new Random();
             Set<Integer> selectedIndexes = new HashSet<>();
             int totalWords = 10;
@@ -77,6 +78,38 @@ public class Game  {
             int wpm = (int) (((double) (numChars / 5) / seconds) * 60);
 
             System.out.println("your wpm " + wpm + "!");
+        }
+        public void language(){
+            Scanner scanner = new Scanner(System.in);
+
+            // Prompt the user to choose a language
+            System.out.println("Choose a language: ");
+            System.out.println("1. English");
+            System.out.println("2. Svenska");
+            System.out.print("Enter the number corresponding to your choice: ");
+            int languageChoice = scanner.nextInt();
+            String language;
+            switch (languageChoice) {
+                case 1:
+                    language = "English";
+                    break;
+                case 2:
+                    language = "Svenska";
+                    break;
+                default:
+                    System.out.println("Invalid choice, defaulting to English.");
+                    language = "English";
+            }
+
+            // Fetch the game task based on the selected language
+            Gametask gameTask = Gametask.getGameTaskByLanguage(language);
+
+            // Use the solution fetched from the database
+            String solution = gameTask.getSolution();
+            String[] words = solution.split("\\s+");
+            System.out.println(words.toString());
+
+            // Rest of your game logic...
         }
 
 

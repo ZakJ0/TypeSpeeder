@@ -18,47 +18,46 @@ public class Menu implements MenuService{
 
     Game game = new Game();
     public void start() throws InterruptedException {
-        System.out.println();
+
         Scanner input = new Scanner(System.in);
-        System.out.println("Welcome to TypeSpeeder!");
-        displayMenu();
+        int choice;
+        do {
+            System.out.println("Welcome to TypeSpeeder!");
+            displayMenu();
 
-        System.out.println("choose an alternative: ");
-        int choice = input.nextInt();
+            System.out.println("choose an alternative: ");
+            choice = input.nextInt();
+            if (choice > 6) {
+                System.out.println("Wrong choice");
+            }
+            switch (choice) {
+                case 1-> {
+                    System.out.println("You chose to create a user.");
+                    user.createUser();
+                }
 
-        switch (choice) {
-            case 1:
-                System.out.println("You chose to create a user.");
-                user.createUser();
-
-                break;
-            case 2:
-                System.out.println("You chose to update a User.");
-                user.updateUserInDatabase();
-                break;
-            case 3:
-                game.playGame();
-                break;
-            case 4:
-                System.out.println("You chose to exit. Bye!");
-                System.exit(0);
-                break;
-            case 5:
-                System.out.println("You chose to login");
-                user.readUsersFromDatabase();
-                break;
-            default:
-                System.out.println("invalid answer. Test again");
-
-
-
-        }
+                case 2-> {
+                    System.out.println("You chose to update a User.");
+                    user.updateUserInDatabase();
+                }
+                case 3->
+                    game.playGame();
+                //case 4->;
+                case 5-> {
+                    System.out.println("You chose to login");
+                    user.readUsersFromDatabase();
+                }
+            }
+        } while (choice != 0);
+        System.out.println("End program");
+        System.exit(0);
     }
 
 
     @Override
     public List<String> getMenuOptions() {
         List<String> options = new ArrayList<>();
+        options.add("0. End program");
         options.add("1. Create User");
         options.add("2. Update User");
         options.add("3. Play Game");
