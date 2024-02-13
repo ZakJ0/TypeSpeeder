@@ -39,10 +39,6 @@ public class Game {
         return (double)  correctTypedWords/totalWords * 100;
     }
 
-
-
-
-
     public void playGame() throws InterruptedException {
 
         Long nextAttemptId = Main.attemptRepo.getNextAttemptId();
@@ -76,6 +72,7 @@ public class Game {
         System.out.println("1");
         TimeUnit.SECONDS.sleep(1);
 
+        System.out.println(user.getGamename());
         Random randomWords = new Random();
         Set<Integer> selectedIndexes = new HashSet<>();
         int totalWords = 10;
@@ -90,6 +87,7 @@ public class Game {
 
             System.out.print(words[randomIndex] + " ");
         }
+
         System.out.println();
         double start = LocalTime.now().toNanoOfDay();
         Scanner scan = new Scanner(System.in);
@@ -123,7 +121,7 @@ public class Game {
 
         int numChars = typedWords.length();
         String wpm = String.valueOf((int) (((double) (numChars / 5) / seconds) * 60));
-        System.out.println(user.getUsername()+ " Your WPM " +"= "+ wpm + "!"+ "\n");
+        System.out.println(user.getGamename() + " Your WPM " +"= "+ wpm + "!"+ "\n");
 
         Attempt newAttempt = new Attempt(nextAttemptId, userId, taskId, wpm, Timestamp.valueOf(LocalDateTime.now()));
         newAttempt.setGametaskByTaskId(gametask);
@@ -134,12 +132,7 @@ public class Game {
         Leaderboard newLeaderboard = new Leaderboard(average,wpm,userId,seconds, correctTypedWords);
         newLeaderboard.setUserByPlayerid(user);
         Main.leaderboard.save(newLeaderboard);
-
-
-
     }
-
-
 }
 
 

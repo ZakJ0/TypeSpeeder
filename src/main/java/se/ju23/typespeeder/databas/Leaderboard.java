@@ -42,9 +42,6 @@ public class Leaderboard {
         this.playerid = playerid;
         this.speed = speed;
         this.mostrights = mostrights;
-
-
-
     }
 
     public Leaderboard() {
