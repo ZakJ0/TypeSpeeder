@@ -16,7 +16,7 @@ public class Leaderboard {
     private long leaderboardId;
     @Basic
     @Column(name = "average", nullable = true)
-    private Integer average;
+    private double average;
     @Basic
     @Column(name = "speed", nullable = true)
     private double speed;
@@ -36,7 +36,7 @@ public class Leaderboard {
     @JoinColumn(name = "playerid", referencedColumnName = "userid")
     private User userByPlayerid;
 
-    public Leaderboard(int average, String resultcol, long playerid, double speed, int mostrights) {
+    public Leaderboard(double average, String resultcol, long playerid, double speed, int mostrights) {
         this.average = average;
         this.resultcol = resultcol;
         this.playerid = playerid;
@@ -56,7 +56,7 @@ public class Leaderboard {
         this.leaderboardId = leaderboardId;
     }
 
-    public Integer getAverage() {
+    public double getAverage() {
         return average;
     }
 

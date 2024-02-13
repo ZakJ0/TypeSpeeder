@@ -31,17 +31,9 @@ public class Game {
             "maggot","faggot","mus","tratt","it","program","programmering"
     };
 
-    public double calcAverage(int correctTypedWords){
-        int totalWords = 10;
-        if (totalWords==0){
-            return 0.0;
-        }
-        return (double)  correctTypedWords/totalWords * 100;
-    }
-
     public void playGame() throws InterruptedException {
 
-        Long nextAttemptId = Main.attemptRepo.getNextAttemptId();
+
 
         System.out.print("Enter User ID: ");
         long userId = Main.input.nextLong();
@@ -73,20 +65,9 @@ public class Game {
         TimeUnit.SECONDS.sleep(1);
 
         System.out.println(user.getGamename());
-        Random randomWords = new Random();
-        Set<Integer> selectedIndexes = new HashSet<>();
-        int totalWords = 10;
+        System.out.println(gametask.getSolution());
 
-        for (int i = 0; i < totalWords; i++) {
-            int randomIndex;
-            do {
-                randomIndex = randomWords.nextInt(words.length);
-            } while (selectedIndexes.contains(randomIndex));
 
-            selectedIndexes.add(randomIndex);
-
-            System.out.print(words[randomIndex] + " ");
-        }
 
         System.out.println();
         double start = LocalTime.now().toNanoOfDay();
@@ -99,13 +80,13 @@ public class Game {
         double seconds =  (elapsedTime / 1000000000.0);
         System.out.println(seconds + " Seconds");
 
+        String[] solution = gametask.getSolution().split(" ");
         String[] typedWordsArr = typedWords.split(" ");
-        Set<String> alreadyCounted = new HashSet<>();
         int incorrectTypedWords = 0;
         int correctTypedWords = 0;
 
-        for (String typedWord : typedWordsArr) {
-            if (Arrays.asList(words).contains(typedWord)) {
+        for (String typedW : typedWordsArr) {
+            if (Arrays.asList(solution).contains(typedW)) {
                 correctTypedWords++;
             } else {
                 incorrectTypedWords++;
@@ -114,24 +95,29 @@ public class Game {
 
         System.out.println("Correct words typed: " + correctTypedWords);
         System.out.println("Incorrect words typed: " + incorrectTypedWords);
-        System.out.println("Average= "+ calcAverage(correctTypedWords));
-        int average = (int) calcAverage(correctTypedWords);
-        //printing out what the person has written to comare
+
+
+        double totalWords = solution.length ;
+        double countAverage =  correctTypedWords / totalWords * 100;
+        System.out.printf("%.2f %s %n ", countAverage ,"%");
+
+
+        //printing out what the person has written to compare
         System.out.println(Arrays.toString(typedWordsArr));
 
         int numChars = typedWords.length();
         String wpm = String.valueOf((int) (((double) (numChars / 5) / seconds) * 60));
         System.out.println(user.getGamename() + " Your WPM " +"= "+ wpm + "!"+ "\n");
 
-        Attempt newAttempt = new Attempt(nextAttemptId, userId, taskId, wpm, Timestamp.valueOf(LocalDateTime.now()));
+        /*Attempt newAttempt = new Attempt( userId, taskId, wpm, Timestamp.valueOf(LocalDateTime.now()));
         newAttempt.setGametaskByTaskId(gametask);
         newAttempt.setUserByUserId(user);
         // Save the new Attempt entity
         Main.attemptRepo.save(newAttempt);
         //creating leaderboard saves
-        Leaderboard newLeaderboard = new Leaderboard(average,wpm,userId,seconds, correctTypedWords);
+        Leaderboard newLeaderboard = new Leaderboard(countAverage,wpm,userId,seconds, correctTypedWords);
         newLeaderboard.setUserByPlayerid(user);
-        Main.leaderboard.save(newLeaderboard);
+        Main.leaderboard.save(newLeaderboard);*/
     }
 }
 
