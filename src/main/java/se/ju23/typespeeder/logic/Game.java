@@ -6,6 +6,7 @@ package se.ju23.typespeeder.logic;
 
 import org.springframework.stereotype.Component;
 import se.ju23.typespeeder.Main;
+import se.ju23.typespeeder.databas.Leaderboard;
 import se.ju23.typespeeder.databas.User;
 
 
@@ -29,6 +30,17 @@ public class Game {
             "Kort", "apple", "sour", "Ulf", "Oskar","lamborghini","kalle","hej","java","nobell","vem","som",
             "maggot","faggot","mus","tratt","it","program","programmering"
     };
+
+    public double calcAverage(int correctTypedWords){
+        int totalWords = 10;
+        if (totalWords==0){
+            return 0.0;
+        }
+        return (double)  correctTypedWords/totalWords * 100;
+    }
+
+
+
 
 
     public void playGame() throws InterruptedException {
@@ -84,8 +96,9 @@ public class Game {
         String typedWords = scan.nextLine();
         double end = LocalTime.now().toNanoOfDay();
 
+
         double elapsedTime = end - start;
-        double seconds = elapsedTime / 1000000000.0;
+        double seconds =  (elapsedTime / 1000000000.0);
         System.out.println(seconds + " Seconds");
 
         String[] typedWordsArr = typedWords.split(" ");
@@ -103,6 +116,8 @@ public class Game {
 
         System.out.println("Correct words typed: " + correctTypedWords);
         System.out.println("Incorrect words typed: " + incorrectTypedWords);
+        System.out.println("Average= "+ calcAverage(correctTypedWords));
+        int average = (int) calcAverage(correctTypedWords);
         //printing out what the person has written to comare
         System.out.println(Arrays.toString(typedWordsArr));
 
@@ -115,11 +130,15 @@ public class Game {
         newAttempt.setUserByUserId(user);
         // Save the new Attempt entity
         Main.attemptRepo.save(newAttempt);
-
+        //creating leaderboard saves
+        Leaderboard newLeaderboard = new Leaderboard(average,wpm,userId,seconds, correctTypedWords);
+        newLeaderboard.setUserByPlayerid(user);
+        Main.leaderboard.save(newLeaderboard);
 
 
 
     }
+
 
 }
 

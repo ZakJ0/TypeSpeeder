@@ -19,10 +19,10 @@ public class Leaderboard {
     private Integer average;
     @Basic
     @Column(name = "speed", nullable = true)
-    private Timestamp speed;
+    private double speed;
     @Basic
     @Column(name = "mostrights", nullable = true, length = 45)
-    private String mostrights;
+    private Integer mostrights;
     @Basic
     @Column(name = "mostright_inorder", nullable = true, length = 45)
     private String mostrightInorder;
@@ -35,6 +35,21 @@ public class Leaderboard {
     @ManyToOne
     @JoinColumn(name = "playerid", referencedColumnName = "userid")
     private User userByPlayerid;
+
+    public Leaderboard(int average, String resultcol, long playerid, double speed, int mostrights) {
+        this.average = average;
+        this.resultcol = resultcol;
+        this.playerid = playerid;
+        this.speed = speed;
+        this.mostrights = mostrights;
+
+
+
+    }
+
+    public Leaderboard() {
+
+    }
 
     public long getLeaderboardId() {
         return leaderboardId;
@@ -52,19 +67,19 @@ public class Leaderboard {
         this.average = average;
     }
 
-    public Timestamp getSpeed() {
+    public double getSpeed() {
         return speed;
     }
 
-    public void setSpeed(Timestamp speed) {
+    public void setSpeed(double speed) {
         this.speed = speed;
     }
 
-    public String getMostrights() {
+    public int getMostrights() {
         return mostrights;
     }
 
-    public void setMostrights(String mostrights) {
+    public void setMostrights(int mostrights) {
         this.mostrights = mostrights;
     }
 
