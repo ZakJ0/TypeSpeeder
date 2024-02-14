@@ -42,7 +42,6 @@ public class User {
     }
 
     public User() {
-
     }
 
     public long getUserid() {
@@ -179,6 +178,9 @@ public class User {
         User user1 = new User(userName, password, gameName);
         Main.iuser.save(user1);
         System.out.println("Användaren " + userName + " har lagts till.");
+    }
+    public void printGameName() {
+        System.out.println("GameName: " + gamename);
     }
 
     public Timestamp getCurrentTime() {
