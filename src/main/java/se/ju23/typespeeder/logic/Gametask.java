@@ -38,6 +38,9 @@ public class Gametask {
     public Object getLanguage() {
         return language;
     }
+    public Object getSvenska(){
+        return "svenska"+solution;
+    }
 
     public void setLanguage(Object language) {
         this.language = language;
@@ -66,6 +69,7 @@ public class Gametask {
     public void setSolution(String solution) {
         this.solution = solution;
     }
+
 
     @Override
     public boolean equals(Object o) {

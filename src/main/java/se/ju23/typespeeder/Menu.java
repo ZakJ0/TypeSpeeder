@@ -5,6 +5,7 @@ package se.ju23.typespeeder;
 
 import se.ju23.typespeeder.databas.User;
 import se.ju23.typespeeder.logic.Game;
+import se.ju23.typespeeder.logic.iGameTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.Scanner;
 public class Menu implements MenuService{
     User user;
     MenuService menuService;
+    iGameTask gameTask;
     public Menu() {
         this.user = new User(); // Initialize user object
     }
@@ -72,4 +74,5 @@ public class Menu implements MenuService{
             System.out.println(option);
         }
     }
+
 }

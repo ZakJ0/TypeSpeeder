@@ -31,16 +31,20 @@ public class Attempt {
     @JoinColumn(name = "task_id", referencedColumnName = "task_id", nullable = false)
     private Gametask gametaskByTaskId;
 
-    public Attempt( long userId, long taskId, String outcome, Timestamp endTime){
-        this.userId = userId;
-        this.taskId = taskId;
-        this.outcome = outcome;
-        this.endTime = endTime;
-    }
+
 
     public Attempt() {
 
     }
+
+    public Attempt(long userId, long taskId, String outcome, Timestamp timestamp) {
+        this.userId = userId;
+        this.taskId = taskId;
+        this.outcome = outcome;
+        this.endTime = timestamp;
+    }
+
+
 
     public long getAttemptId() {
         return attemptId;

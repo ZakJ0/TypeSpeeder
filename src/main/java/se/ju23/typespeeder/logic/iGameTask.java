@@ -9,6 +9,4 @@ public interface iGameTask extends JpaRepository <Gametask,Long>{
 
     Optional findById(long task_id);
 
-
-
 }
