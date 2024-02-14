@@ -43,7 +43,7 @@ public class Menu implements MenuService{
                 System.out.println("Du valde att spela:");
                 game.playGame();
                 break;
-            case 4:
+            case 4:user.login();
 
                 break;
             case 5:
@@ -62,7 +62,7 @@ public class Menu implements MenuService{
         options.add("1. Create User");
         options.add("2. Update User");
         options.add("3. Play Game");
-        options.add("4. ");
+        options.add("4. Login");
         options.add("5. Exit game");
         return options;
     }
