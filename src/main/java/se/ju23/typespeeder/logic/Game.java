@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 public class Game {
     iGameTask gameTask;
     User user;
-    XPlevel xp = new XPlevel();
+    //XPlevel xp = new XPlevel();
 
     public Game() {
 
@@ -121,17 +121,24 @@ public class Game {
         double totalWords = solution.length;
         double countAverage = correctTypedWords / totalWords * 100;
         System.out.printf("%.2f %s %n ", countAverage, "%");
-        xp.levelUp(user,countAverage);
+        int saveXp= user.levelUp(user,countAverage);
+
 
         Attempt newAttempt = new Attempt(userId, taskId, wpm, Timestamp.valueOf(LocalDateTime.now()));
         newAttempt.setGametaskByTaskId(gametask);
         newAttempt.setUserByUserId(user);
+
 // Save the new Attempt entity
         Main.attemptRepo.save(newAttempt);
 //creating leaderboard saves
         Leaderboard newLeaderboard = new Leaderboard(countAverage, wpm, userId, seconds, correctTypedWords, mostWordsInOrder);
         newLeaderboard.setUserByPlayerid(user);
         Main.leaderboard.save(newLeaderboard);
+        user.setXp(user.getXp() + saveXp);
+
+// Save the updated user to the database
+        Main.iuser.save(user);
+
     }
     private int findMostAccurateWordsIndices(String typedWords, String[] solution) {
         String[] typedWordsArr = typedWords.split(" ");

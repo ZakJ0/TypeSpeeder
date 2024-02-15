@@ -28,12 +28,18 @@ public class User {
     @Basic
     @Column(name = "gamename", nullable = false, length = 45)
     private String gamename;
+
+    @Basic
+    @Column(name = "xp",nullable=false)
+    private int xp;
     @OneToMany(mappedBy = "userByUserId")
     private Collection<Attempt> attemptsByUserid;
     @OneToMany(mappedBy = "userByPlayerid")
     private Collection<Leaderboard> leaderboardsByUserid;
 
-
+    public User(int xp) {
+        this.xp = xp;
+    }
 
     public User(String userName, String password, String gamename) {
         this.username = userName;
@@ -42,6 +48,14 @@ public class User {
     }
 
     public User() {
+    }
+
+    public int getXp() {
+        return xp;
+    }
+
+    public void setXp(int xp) {
+        this.xp = xp;
     }
 
     public long getUserid() {
@@ -262,7 +276,33 @@ public class User {
             }
         }
     }
+    public int levelUp(User user, double accuracyPercentage) {
+        int xpGained = 0;
+        if (accuracyPercentage >= 70) {
+            // Gain XP
+            xpGained = 5; // Adjust the XP gained as per your requirements
+            user.setXp(user.getXp() + xpGained); // Update user's XP
+            System.out.println("Congratulations! You gained " + xpGained*2 + " XP.");
+        } else {
+            // Lose XP (if not already at level 1)
+            if (user.getXp() > 5) {
+                xpGained = -5; // Adjust the XP lost as per your requirements
+                user.setXp(Math.max(0, user.getXp() + xpGained)); // Update user's XP
+                System.out.println("You lost " + -xpGained*2 + " XP.");
+            } else {
+                System.out.println("You are already at the lowest level and cannot lose further XP.");
+            }
+        }
 
+        // Check for level up
+        while (user.getXp() >= 99) { // Loop to handle multiple level ups if earned XP exceeds 100
+            // Level up
+            user.setGamelevel(user.getGamelevel() + 1);
+            user.setXp(user.getXp() - 99); // Deduct 100 XP for each level up
+            System.out.println("Congratulations! You leveled up to level " + user.getGamelevel() + ".");
+        }
 
+        return xpGained;
+    }
 }
 
