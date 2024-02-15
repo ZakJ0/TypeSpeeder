@@ -21,34 +21,11 @@ import java.util.concurrent.TimeUnit;
 public class Game {
     iGameTask gameTask;
     User user;
-
+    XPlevel xp=new XPlevel();
     public Game() {
 
     }
 
-    private int findMostAccurateWordsIndices(String typedWords, String[] solution) {
-        String[] typedWordsArr = typedWords.split(" ");
-
-        int maxCorrectTypedWords = 0;
-        int currentCorrectTypedWords = 0;
-
-        for (int i = 0; i < typedWordsArr.length; i++) {
-            if (Arrays.asList(solution).contains(typedWordsArr[i])) {
-                currentCorrectTypedWords++;
-            } else {
-                if (currentCorrectTypedWords > maxCorrectTypedWords) {
-                    maxCorrectTypedWords = currentCorrectTypedWords;
-                }
-                currentCorrectTypedWords = 0;
-            }
-        }
-
-        if (currentCorrectTypedWords > maxCorrectTypedWords) {
-            maxCorrectTypedWords = currentCorrectTypedWords;
-        }
-
-        return maxCorrectTypedWords;
-    }
 
     public void playGame() throws InterruptedException {
         System.out.print("Enter User ID: ");
@@ -61,7 +38,7 @@ public class Game {
             return;
         }
 
-
+// Prompt the player to choose their preferred language
         System.out.println("Choose your preferred language:");
         System.out.println("1. English");
         System.out.println("2. Svenska");
@@ -69,7 +46,7 @@ public class Game {
         int languageChoice = Main.input.nextInt();
         String chosenLanguage;
 
-
+// Set the chosen language based on the player's input
         if (languageChoice == 1) {
             chosenLanguage = "engelska";
         } else if (languageChoice == 2) {
@@ -77,12 +54,6 @@ public class Game {
         } else {
             System.out.println("Invalid choice. Please choose 1 for English or 2 for Svenska.");
             return;
-        }
-
-        List<Gametask> allGametasks = Main.igametask.findAll();
-        for (Gametask gametask : allGametasks) {
-            System.out.print("Language: " + gametask.getLanguage());
-            System.out.println(", Task ID: " + gametask.getTaskId());
         }
 
         System.out.print("Enter Task ID: ");
@@ -95,24 +66,24 @@ public class Game {
             return;
         }
 
+// Check if the task's language matches the chosen language
         if (!Objects.equals(chosenLanguage, gametask.getLanguage())) {
             System.out.println("Error: Chosen language does not match the task language.");
             return;
         }
+        if(user.getGamelevel()==gametask.getTaskType())
 
-
-        System.out.println("Starting in 3 Seconds!");
         System.out.println("3");
-        Thread.sleep(1000);
+        TimeUnit.SECONDS.sleep(1);
+
         System.out.println("2");
-        Thread.sleep(1000);
+        TimeUnit.SECONDS.sleep(1);
+
         System.out.println("1");
-        Thread.sleep(1000);
-
-        System.out.println();
-        System.out.println();
-        System.out.println(user.getGamename() + " Your GameLevel: " + user.getGamelevel());
-
+        TimeUnit.SECONDS.sleep(1);
+        System.out.println(user.getGamelevel());
+        System.out.println(user.getGamename());
+        System.out.println(gametask.getLanguage());
         System.out.println(gametask.getSolution());
 
 
@@ -140,16 +111,18 @@ public class Game {
             }
         }
 
-        int mostWordsInOrder = findMostAccurateWordsIndices(typedWords, solution);
         System.out.println("Correct words typed: " + correctTypedWords);
         System.out.println("Incorrect words typed: " + incorrectTypedWords);
 
-
+        findMostAccurateWordsIndices(typedWords,solution);
         double totalWords = solution.length;
         double countAverage = correctTypedWords / totalWords * 100;
         System.out.printf("%.2f %s %n ", countAverage, "%");
 
+        double accuracyPercentage = (correctTypedWords / totalWords) * 100;
 
+// Call levelUp method
+        xp.levelUp(user, accuracyPercentage);
         //printing out what the person has written to compare
         System.out.println(Arrays.toString(typedWordsArr));
 
@@ -163,12 +136,42 @@ public class Game {
         // Save the new Attempt entity
         Main.attemptRepo.save(newAttempt);
         //creating leaderboard saves
-        Leaderboard newLeaderboard = new Leaderboard(countAverage, wpm, userId, seconds, correctTypedWords, mostWordsInOrder);
+        Leaderboard newLeaderboard = new Leaderboard(countAverage, wpm, userId, seconds, correctTypedWords);
         newLeaderboard.setUserByPlayerid(user);
         Main.leaderboard.save(newLeaderboard);
 
 
     }
+    private int[] findMostAccurateWordsIndices(String typedWords, String[] solution) {
+        String[] typedWordsArr = typedWords.split(" ");
+
+        int maxCorrectTypedWords = 0;
+        int currentCorrectTypedWords = 0;
+        int[] mostAccurateWordsIndices = new int[2];
+
+        for (int i = 0; i < typedWordsArr.length; i++) {
+            if (Arrays.asList(solution).contains(typedWordsArr[i])) {
+                currentCorrectTypedWords++;
+            } else {
+                if (currentCorrectTypedWords > maxCorrectTypedWords) {
+                    maxCorrectTypedWords = currentCorrectTypedWords;
+                    mostAccurateWordsIndices[0] = i - currentCorrectTypedWords; // Start index of the most accurate words
+                    mostAccurateWordsIndices[1] = i; // End index of the most accurate words
+                }
+                currentCorrectTypedWords = 0;
+            }
+        }
+
+        // Check if the last sequence of words was the most accurate
+        if (currentCorrectTypedWords > maxCorrectTypedWords) {
+            maxCorrectTypedWords = currentCorrectTypedWords;
+            mostAccurateWordsIndices[0] = typedWordsArr.length - currentCorrectTypedWords; // Start index of the most accurate words
+            mostAccurateWordsIndices[1] = typedWordsArr.length; // End index of the most accurate words
+        }
+
+        return mostAccurateWordsIndices;
+    }
+
 
 
 }
