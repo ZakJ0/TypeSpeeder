@@ -21,9 +21,11 @@ import java.util.concurrent.TimeUnit;
 public class Game {
     iGameTask gameTask;
     User user;
+    XPlevel xp=new XPlevel();
     public Game() {
 
     }
+
 
     public void playGame() throws InterruptedException {
         System.out.print("Enter User ID: ");
@@ -112,12 +114,15 @@ public class Game {
         System.out.println("Correct words typed: " + correctTypedWords);
         System.out.println("Incorrect words typed: " + incorrectTypedWords);
 
-
+        findMostAccurateWordsIndices(typedWords,solution);
         double totalWords = solution.length;
         double countAverage = correctTypedWords / totalWords * 100;
         System.out.printf("%.2f %s %n ", countAverage, "%");
 
+        double accuracyPercentage = (correctTypedWords / totalWords) * 100;
 
+// Call levelUp method
+        xp.levelUp(user, accuracyPercentage);
         //printing out what the person has written to compare
         System.out.println(Arrays.toString(typedWordsArr));
 
@@ -136,6 +141,35 @@ public class Game {
         Main.leaderboard.save(newLeaderboard);
 
 
+    }
+    private int[] findMostAccurateWordsIndices(String typedWords, String[] solution) {
+        String[] typedWordsArr = typedWords.split(" ");
+
+        int maxCorrectTypedWords = 0;
+        int currentCorrectTypedWords = 0;
+        int[] mostAccurateWordsIndices = new int[2];
+
+        for (int i = 0; i < typedWordsArr.length; i++) {
+            if (Arrays.asList(solution).contains(typedWordsArr[i])) {
+                currentCorrectTypedWords++;
+            } else {
+                if (currentCorrectTypedWords > maxCorrectTypedWords) {
+                    maxCorrectTypedWords = currentCorrectTypedWords;
+                    mostAccurateWordsIndices[0] = i - currentCorrectTypedWords; // Start index of the most accurate words
+                    mostAccurateWordsIndices[1] = i; // End index of the most accurate words
+                }
+                currentCorrectTypedWords = 0;
+            }
+        }
+
+        // Check if the last sequence of words was the most accurate
+        if (currentCorrectTypedWords > maxCorrectTypedWords) {
+            maxCorrectTypedWords = currentCorrectTypedWords;
+            mostAccurateWordsIndices[0] = typedWordsArr.length - currentCorrectTypedWords; // Start index of the most accurate words
+            mostAccurateWordsIndices[1] = typedWordsArr.length; // End index of the most accurate words
+        }
+
+        return mostAccurateWordsIndices;
     }
 
 
