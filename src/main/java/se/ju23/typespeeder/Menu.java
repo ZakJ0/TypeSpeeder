@@ -4,7 +4,6 @@
 package se.ju23.typespeeder;
 
 import se.ju23.typespeeder.databas.User;
-import se.ju23.typespeeder.logic.Game;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,52 +15,52 @@ public class Menu implements MenuService{
     public Menu() {
         this.user = new User(); // Initialize user object
     }
-
-    Game game = new Game();
     public void start() throws InterruptedException {
-        System.out.println();
+
         Scanner input = new Scanner(System.in);
-        System.out.println("Välkommen till TypeSpeeder!");
-        displayMenu();
+        int choice;
+        do {
+            System.out.println("Welcome to TypeSpeeder!");
+            displayMenu();
 
-        System.out.println("Skriv in ditt alternativ: ");
-        int choice = input.nextInt();
+            System.out.println("choose an alternative: ");
+            choice = input.nextInt();
+            if (choice > 6) {
+                System.out.println("Wrong choice");
+            }
+            switch (choice) {
+                case 1-> {
+                    System.out.println("You chose to create a user.");
+                    user.createUser();
+                }
 
-        switch (choice) {
-            case 1:
-                System.out.println("Du valde att skapa en User:");
-                user.createUser();
+                case 2-> {
+                    System.out.println("You chose to update a User.");
+                    user.updateUserInDatabase();
+                }
+                //case 3->
 
-                break;
-            case 2:
-                System.out.println("Du valde att uppdatera en användare:");
-                user.updateUserInDatabase();
-                break;
-            case 3:
-                System.out.println("Du valde att spela:");
-                game.playGame();
-                break;
-            case 4:
-
-                break;
-            case 5:
-                System.out.println("Du valde att avsluta. Hejdå!");
-                System.exit(0);
-                break;
-            default:
-                System.out.println("Ogiltigt svar. Testa igen");
-        }
+                //case 4->;
+                case 5-> {
+                    System.out.println("You chose to login");
+                    user.login();
+                }
+            }
+        } while (choice != 0);
+        System.out.println("End program");
+        System.exit(0);
     }
 
 
     @Override
     public List<String> getMenuOptions() {
         List<String> options = new ArrayList<>();
+        options.add("0. End program");
         options.add("1. Create User");
         options.add("2. Update User");
         options.add("3. Play Game");
-        options.add("4. ");
-        options.add("5. Exit game");
+        options.add("4. Exit game");
+        options.add("5. Login");
         return options;
     }
     @Override
