@@ -21,7 +21,8 @@ import java.util.concurrent.TimeUnit;
 public class Game {
     iGameTask gameTask;
     User user;
-    XPlevel xp=new XPlevel();
+    XPlevel xp = new XPlevel();
+
     public Game() {
 
     }
@@ -71,7 +72,6 @@ public class Game {
             System.out.println("Error: Chosen language does not match the task language.");
             return;
         }
-        if(user.getGamelevel()==gametask.getTaskType())
 
         System.out.println("3");
         TimeUnit.SECONDS.sleep(1);
@@ -81,11 +81,11 @@ public class Game {
 
         System.out.println("1");
         TimeUnit.SECONDS.sleep(1);
-        System.out.println(user.getGamelevel());
-        System.out.println(user.getGamename());
-        System.out.println(gametask.getLanguage());
-        System.out.println(gametask.getSolution());
+        System.out.println();
+        System.out.println();
+        System.out.println(user.getGamename() + " Your GameLevel: " + user.getGamelevel());
 
+        System.out.println(gametask.getSolution());
 
         System.out.println();
         double start = LocalTime.now().toNanoOfDay();
@@ -111,43 +111,33 @@ public class Game {
             }
         }
 
+        int mostWordsInOrder = findMostAccurateWordsIndices(typedWords, solution);
         System.out.println("Correct words typed: " + correctTypedWords);
         System.out.println("Incorrect words typed: " + incorrectTypedWords);
-
-        findMostAccurateWordsIndices(typedWords,solution);
-        double totalWords = solution.length;
-        double countAverage = correctTypedWords / totalWords * 100;
-        System.out.printf("%.2f %s %n ", countAverage, "%");
-
-        double accuracyPercentage = (correctTypedWords / totalWords) * 100;
-
-// Call levelUp method
-        xp.levelUp(user, accuracyPercentage);
-        //printing out what the person has written to compare
-        System.out.println(Arrays.toString(typedWordsArr));
-
         int numChars = typedWords.length();
         String wpm = String.valueOf((int) (((double) (numChars / 5) / seconds) * 60));
         System.out.println(user.getGamename() + " Your WPM " + "= " + wpm + "!" + "\n");
 
+        double totalWords = solution.length;
+        double countAverage = correctTypedWords / totalWords * 100;
+        System.out.printf("%.2f %s %n ", countAverage, "%");
+        xp.levelUp(user,countAverage);
+
         Attempt newAttempt = new Attempt(userId, taskId, wpm, Timestamp.valueOf(LocalDateTime.now()));
         newAttempt.setGametaskByTaskId(gametask);
         newAttempt.setUserByUserId(user);
-        // Save the new Attempt entity
+// Save the new Attempt entity
         Main.attemptRepo.save(newAttempt);
-        //creating leaderboard saves
-        Leaderboard newLeaderboard = new Leaderboard(countAverage, wpm, userId, seconds, correctTypedWords);
+//creating leaderboard saves
+        Leaderboard newLeaderboard = new Leaderboard(countAverage, wpm, userId, seconds, correctTypedWords, mostWordsInOrder);
         newLeaderboard.setUserByPlayerid(user);
         Main.leaderboard.save(newLeaderboard);
-
-
     }
-    private int[] findMostAccurateWordsIndices(String typedWords, String[] solution) {
+    private int findMostAccurateWordsIndices(String typedWords, String[] solution) {
         String[] typedWordsArr = typedWords.split(" ");
 
         int maxCorrectTypedWords = 0;
         int currentCorrectTypedWords = 0;
-        int[] mostAccurateWordsIndices = new int[2];
 
         for (int i = 0; i < typedWordsArr.length; i++) {
             if (Arrays.asList(solution).contains(typedWordsArr[i])) {
@@ -155,26 +145,19 @@ public class Game {
             } else {
                 if (currentCorrectTypedWords > maxCorrectTypedWords) {
                     maxCorrectTypedWords = currentCorrectTypedWords;
-                    mostAccurateWordsIndices[0] = i - currentCorrectTypedWords; // Start index of the most accurate words
-                    mostAccurateWordsIndices[1] = i; // End index of the most accurate words
                 }
                 currentCorrectTypedWords = 0;
             }
         }
 
-        // Check if the last sequence of words was the most accurate
         if (currentCorrectTypedWords > maxCorrectTypedWords) {
             maxCorrectTypedWords = currentCorrectTypedWords;
-            mostAccurateWordsIndices[0] = typedWordsArr.length - currentCorrectTypedWords; // Start index of the most accurate words
-            mostAccurateWordsIndices[1] = typedWordsArr.length; // End index of the most accurate words
         }
 
-        return mostAccurateWordsIndices;
+        return maxCorrectTypedWords;
+    }
     }
 
-
-
-}
 
 
 
