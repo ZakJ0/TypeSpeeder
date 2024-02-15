@@ -4,6 +4,7 @@
 package se.ju23.typespeeder;
 
 import se.ju23.typespeeder.databas.User;
+import se.ju23.typespeeder.logic.Game;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.Scanner;
 public class Menu implements MenuService{
     User user;
     MenuService menuService;
+    Game game = new Game();
     public Menu() {
         this.user = new User(); // Initialize user object
     }
@@ -38,9 +40,10 @@ public class Menu implements MenuService{
                     System.out.println("You chose to update a User.");
                     user.updateUserInDatabase();
                 }
-                //case 3->
+                case 3-> game.playGame();
 
                 //case 4->;
+
                 case 5-> {
                     System.out.println("You chose to login");
                     user.login();

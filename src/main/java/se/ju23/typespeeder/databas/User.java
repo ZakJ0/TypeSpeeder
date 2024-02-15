@@ -178,9 +178,6 @@ public class User {
         Main.iuser.save(user1);
         System.out.println("Användaren " + userName + " har lagts till.");
     }
-    public void printGameName() {
-        System.out.println("GameName: " + gamename);
-    }
 
     public long login() {
         int attempts = 3;
@@ -207,9 +204,10 @@ public class User {
 
         return -1; // Indicate unsuccessful login after all attempts.
     }
+
     public long authenticateUser(String username, String password) {
         // Connect to the database and retrieve user information
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/typespeeder", "tester", "Java1234")) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/typespeeder", "root", "Dollar1221122*")) {
             String query = "SELECT * FROM user WHERE username = ? AND password = ?";
             try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
                 preparedStatement.setString(1, username);
@@ -231,87 +229,6 @@ public class User {
 
     public Timestamp getCurrentTime() {
         return (new Timestamp(System.currentTimeMillis()));
-    }
-/*
-    public void deleteUser() {
-        System.out.println("Vilken användare vill du ta bort med hjälp av userId");
-        System.out.println("Ange userID");
-        long userId = readLongOnly();
-        if (iUser.existsById(userId)) {
-            iUser.deleteAllById(Collections.singleton((long) userId));
-            System.out.println("användare med id: " + userId + " har tagits bort");
-        } else {
-            System.out.println("userId existerar inte");
-        }
-    }
-
- */
-
-    public void showJavaLevels() {
-        List<User> levels = Main.iuser.findAll();
-        for (User a : levels) {
-            System.out.println("Användarnamn: " + a.getUsername() +
-                    "\nJava-nivå: " + a.getGamelevel() +
-                    "\nAnvändar-id: " + a.getUserid() + "\n-----------------------");
-        }
-    }
-
-    public long getJavaLevel(long userid) {
-        long levl = 0;
-        Optional<User> getlevel = Main.iuser.findById(userid);
-        if (getlevel.isPresent()) {
-            User lev = getlevel.get();
-            levl = lev.getGamelevel();
-        } else {
-            return levl;
-        }
-        return levl;
-    }
-    public  long login() {
-        int attempts = 3;
-
-        do {
-            System.out.print("Enter username: ");
-            String username = validInput();
-
-            System.out.print("Enter password: ");
-            String password = validInput();
-
-            long foundId = authenticateUser(username, password);
-
-            if (foundId >= 0) {
-                System.out.println("Logged in as: " + username.toLowerCase());
-                return foundId;
-            } else {
-                attempts--;
-                System.out.println("Attempts left: " + attempts);
-                System.out.println("Login failed. Invalid username or password.");
-            }
-
-        } while (attempts != 0);
-
-        return -1; // Indicate unsuccessful login after all attempts.
-    }
-    public long authenticateUser(String username, String password) {
-        // Connect to the database and retrieve user information
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/typespeeder", "tester", "Java1234")) {
-            String query = "SELECT * FROM user WHERE username = ? AND password = ?";
-            try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-                preparedStatement.setString(1, username);
-                preparedStatement.setString(2, password);
-                try (ResultSet resultSet = preparedStatement.executeQuery()) {
-
-                    if (resultSet.next()) {
-                        return resultSet.getInt("userid"); // Returns true if a matching user is found
-                    } else {
-                        return -1;
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return 0;
     }
 
 
@@ -337,15 +254,15 @@ public class User {
         }
     }
 
-            public int readIntOnly () {
-                while (true) {
-                    try {
-                        int intOnly = Integer.parseInt(validInput());
-                        return intOnly;
-                    } catch (NumberFormatException e) {
-                        System.err.println(e + " Vänligen skriv in ett heltal:");
-                    }
-                }
+    public int readIntOnly() {
+        while (true) {
+            try {
+                int intOnly = Integer.parseInt(validInput());
+                return intOnly;
+            } catch (NumberFormatException e) {
+                System.err.println(e + " Vänligen skriv in ett heltal:");
             }
         }
+    }
+}
 
