@@ -34,6 +34,7 @@ public class User {
     private Collection<Leaderboard> leaderboardsByUserid;
 
 
+
     public User(String userName, String password, String gamename) {
         this.username = userName;
         this.password = password;
@@ -202,7 +203,7 @@ public class User {
 
         } while (attempts != 0);
 
-        return -1; // Indicate unsuccessful login after all attempts.
+        return -1;
     }
 
     public long authenticateUser(String username, String password) {
@@ -227,9 +228,6 @@ public class User {
         return 0;
     }
 
-    public Timestamp getCurrentTime() {
-        return (new Timestamp(System.currentTimeMillis()));
-    }
 
 
     public String validInput() {
@@ -264,5 +262,7 @@ public class User {
             }
         }
     }
+
+
 }
 

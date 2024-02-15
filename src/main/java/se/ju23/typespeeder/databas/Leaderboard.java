@@ -25,7 +25,7 @@ public class Leaderboard {
     private Integer mostrights;
     @Basic
     @Column(name = "mostright_inorder", nullable = true, length = 45)
-    private String mostrightInorder;
+    private Integer mostrightInorder;
     @Basic
     @Column(name = "resultcol", nullable = true, length = 45)
     private String resultcol;
@@ -36,12 +36,14 @@ public class Leaderboard {
     @JoinColumn(name = "playerid", referencedColumnName = "userid")
     private User userByPlayerid;
 
-    public Leaderboard(double average, String resultcol, long playerid, double speed, int mostrights) {
+    public Leaderboard(double average, String resultcol, long playerid, double speed, int mostrights, int mostrightInorder) {
         this.average = average;
         this.resultcol = resultcol;
         this.playerid = playerid;
         this.speed = speed;
         this.mostrights = mostrights;
+        this.mostrightInorder = mostrightInorder;
+
     }
 
     public Leaderboard() {
@@ -80,11 +82,11 @@ public class Leaderboard {
         this.mostrights = mostrights;
     }
 
-    public String getMostrightInorder() {
+    public int getMostrightInorder() {
         return mostrightInorder;
     }
 
-    public void setMostrightInorder(String mostrightInorder) {
+    public void setMostrightInorder(int mostrightInorder) {
         this.mostrightInorder = mostrightInorder;
     }
 
