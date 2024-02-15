@@ -12,4 +12,6 @@ public interface LeaderboardRepo extends JpaRepository<Leaderboard, Long> {
 
 
     Optional<Leaderboard> findById(Long id);
+
+
 }

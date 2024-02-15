@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import se.ju23.typespeeder.databas.Leaderboard;
+import se.ju23.typespeeder.databas.LeaderboardRepo;
 import se.ju23.typespeeder.databas.User;
 import se.ju23.typespeeder.databas.iUser;
 import se.ju23.typespeeder.logic.AttemptRepo;
@@ -23,13 +24,14 @@ public class Main implements CommandLineRunner {
     @Autowired
     public static iGameTask igametask;
     @Autowired
-    static Leaderboard leaderboard;
+    public static LeaderboardRepo leaderboard;
 
     @Autowired
-    public Main(iUser iuser,AttemptRepo attemptRepo1, iGameTask igametask) {
+    public Main(iUser iuser, AttemptRepo attemptRepo1, iGameTask igametask, LeaderboardRepo leaderboard) {
         this.iuser = iuser;
         this.attemptRepo = attemptRepo1;
         this.igametask = igametask;
+        this.leaderboard = leaderboard;
     }
 
     private User user;
