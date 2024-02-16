@@ -27,7 +27,6 @@ public class Menu implements MenuService{
             Scanner input = new Scanner(System.in);
             System.out.println("Välj språk (svenska/engelska):");
             String selectedLanguage="svenska";
-
             while (selectedLanguage.isBlank()) {
                 if (input.hasNextLine()) {
                     selectedLanguage = input.nextLine().toLowerCase();
@@ -62,6 +61,53 @@ public class Menu implements MenuService{
                 choice = input.nextInt();
                 if (choice > 5) {
                     System.out.println("Wrong choice");
+                }
+                switch (choice) {
+                    case 1:
+                        System.out.println("You chose to create a user.");
+                        user.createUser();
+                        break;
+                    case 2:
+                        System.out.println("You chose to update a User.");
+                        user.updateUserInDatabase();
+                        break;
+                    case 3:
+                        game.playGame();
+                        break;
+                    case 5:
+                        System.out.println("You chose to login");
+                        user.login();
+                        break;
+                    case 6:
+                        startEnglish();
+                        break;
+                }
+            } while (choice != 0);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        System.out.println("End program");
+        System.exit(0);
+    }
+    public void startEnglish()  {
+        try {
+            Scanner input = new Scanner(System.in);
+            int choice;
+            do {
+                System.out.println("Welcome to TypeSpeeder - ");
+                System.out.println("0. exit");
+                System.out.println("1. Create User");
+                System.out.println("2. Update User");
+                System.out.println("3. Play Game");
+                System.out.println("4.exit");
+                System.out.println("5. login");
+                System.out.println("6.Switch to swedish");
+
+                System.out.println("Choose an option: ");
+                choice = input.nextInt();
+                if (choice > 5) {
+                    System.out.println("Wrong choice");
 
                 }
 
@@ -81,8 +127,9 @@ public class Menu implements MenuService{
                         System.out.println("You chose to login");
                         user.login();
                         break;
-                    case 6:
-                        getMenuOptionsEng();
+                    case 6:start();
+                    break;
+
                 }
             } while (choice != 0);
         } catch (InterruptedException e) {
@@ -118,7 +165,6 @@ public class Menu implements MenuService{
         return options;
     }
 
-
     public void displayMenu() {
 
         languageChoosing();
@@ -138,8 +184,8 @@ public class Menu implements MenuService{
         if (menuOptions.size() < 5) {
             System.out.println("not enough with alternatives");
         }
-
-
     }
 
 }
+
+
