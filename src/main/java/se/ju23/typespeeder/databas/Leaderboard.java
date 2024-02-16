@@ -19,7 +19,7 @@ public class Leaderboard {
     private double average;
     @Basic
     @Column(name = "speed", nullable = true)
-    private double speed;
+    private Double speed;
     @Basic
     @Column(name = "mostrights", nullable = true, length = 45)
     private Integer mostrights;

@@ -12,12 +12,14 @@ import java.util.Scanner;
 
 public class Menu implements MenuService{
     User user;
+
+
     MenuService menuService;
     Game game = new Game();
     public Menu() {
         this.user = new User(); // Initialize user object
     }
-    public void start() throws InterruptedException {
+    public void start() {
 
         Scanner input = new Scanner(System.in);
         int choice;
@@ -42,7 +44,7 @@ public class Menu implements MenuService{
                 }
                 case 3-> game.playGame();
 
-                //case 4->;
+                //case 4->
 
                 case 5-> {
                     System.out.println("You chose to login");
@@ -62,7 +64,7 @@ public class Menu implements MenuService{
         options.add("1. Create User");
         options.add("2. Update User");
         options.add("3. Play Game");
-        options.add("4. Exit game");
+        options.add("4. Show statistics");
         options.add("5. Login");
         return options;
     }
