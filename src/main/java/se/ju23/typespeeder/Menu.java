@@ -5,7 +5,6 @@ package se.ju23.typespeeder;
 
 import se.ju23.typespeeder.databas.User;
 import se.ju23.typespeeder.logic.Game;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -63,7 +62,9 @@ public class Menu implements MenuService{
                 choice = input.nextInt();
                 if (choice > 5) {
                     System.out.println("Wrong choice");
+
                 }
+
                 switch (choice) {
                     case 1:
                         System.out.println("You chose to create a user.");
@@ -80,6 +81,8 @@ public class Menu implements MenuService{
                         System.out.println("You chose to login");
                         user.login();
                         break;
+                    case 6:
+                        getMenuOptionsEng();
                 }
             } while (choice != 0);
         } catch (InterruptedException e) {
@@ -99,6 +102,7 @@ public class Menu implements MenuService{
         options.add("3. Play Game");
         options.add("4. Exit game");
         options.add("5. Login");
+        options.add("6. Switch to swedish");
         return options;
     }
 
@@ -110,6 +114,7 @@ public class Menu implements MenuService{
         options.add("3. Spela");
         options.add("4. -----");
         options.add("5. Logga in");
+        options.add("6. Byt till Engelska");
         return options;
     }
 
