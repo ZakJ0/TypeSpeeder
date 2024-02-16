@@ -83,8 +83,10 @@ public class Game {
         int mostWordsInOrder = accuracyInfo[2];
 
         printResults(correctTypedWords, incorrectTypedWords, typedWords, user, mostWordsInOrder, calculateAccuracyPercentage(correctTypedWords, solution.length));
+        System.out.println(user.getGamename() + ": your WPM ->" + calculateWpm(typedWords, seconds)+ "!");
 
         int saveXp = user.levelUp(user, calculateAccuracyPercentage(correctTypedWords, solution.length));
+        System.out.println();
 
         Attempt newAttempt = new Attempt(userId, taskId, calculateWpm(typedWords, seconds), Timestamp.valueOf(LocalDateTime.now()));
         newAttempt.setGametaskByTaskId(gametask);
@@ -134,8 +136,7 @@ public class Game {
     private void printResults(int correctTypedWords, int incorrectTypedWords, String typedWords, User user, int mostWordsInOrder, int accuracyPercentage) {
         System.out.println("Correct words typed: " + correctTypedWords);
         System.out.println("Incorrect words typed: " + incorrectTypedWords);
-        System.out.println("Most words typed in order: " + mostWordsInOrder);
-        System.out.println(user.getGamename() + " Your WPM " + "= " + calculateWpm(typedWords, 1) + "!" + "\n");
+        System.out.println("Correct words typed in order: " + mostWordsInOrder);
         System.out.println("Accuracy: " + accuracyPercentage + "%");
     }
 
