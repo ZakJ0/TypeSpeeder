@@ -43,7 +43,6 @@ public class Main implements CommandLineRunner {
         Menu menu = new Menu();
         menu.start();
 
-
     }
 
 }

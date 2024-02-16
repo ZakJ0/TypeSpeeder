@@ -8,6 +8,7 @@ import se.ju23.typespeeder.logic.Game;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Menu implements MenuService{
@@ -20,31 +21,42 @@ public class Menu implements MenuService{
         this.user = new User(); // Initialize user object
     }
 
-    private String language = "English"; // Default language
+    private String language = "svenska"; // Default language
 
     public void languageChoosing() {
-        Scanner input = new Scanner(System.in);
-        System.out.println("Choose the language (Swedish/English):");
-        String selectedLanguage = input.nextLine().toLowerCase();
+        try {
+            Scanner input = new Scanner(System.in);
+            System.out.println("Välj språk (svenska/engelska):");
+            String selectedLanguage="svenska";
 
-        if (selectedLanguage.equals("swedish") || selectedLanguage.equals("s")) {
-            language = "Swedish";
-        } else if (selectedLanguage.equals("english") || selectedLanguage.equals("e")) {
-            language = "English";
-        } else {
-            System.out.println("Invalid language selection. Default language set to English.");
-            language = "English";
+            while (selectedLanguage.isBlank()) {
+                if (input.hasNextLine()) {
+                    selectedLanguage = input.nextLine().toLowerCase();
+                } else {
+                    System.out.println("No input detected. Please enter the language choice.");
+                }
+            }
+
+            if (selectedLanguage.equals("svenska") || selectedLanguage.equals("s")) {
+                System.out.println("Svenska valt.");
+                language = "svenska";
+            } else if (selectedLanguage.equals("engelska") || selectedLanguage.equals("e")) {
+                language = "engelska";
+            } else {
+                System.out.println("Invalid language selection. Default language set to English.");
+                language = "English";
+            }
+        } catch (NoSuchElementException e) {
+            throw new NoSuchElementException(e);
         }
     }
 
     public void start()  {
-
-        Scanner input = new Scanner(System.in);
-        int choice;
-
         try {
+            Scanner input = new Scanner(System.in);
+            int choice;
             do {
-                System.out.println("Welcome to TypeSpeeder - " + language);
+                System.out.println("Welcome to TypeSpeeder - ");
                 displayMenu();
 
                 System.out.println("Choose an option: ");
@@ -79,7 +91,7 @@ public class Menu implements MenuService{
     }
 
 
-    public List<String> getMenuOptions() {
+    public List<String> getMenuOptionsEng() {
         List<String> options = new ArrayList<>();
         options.add("0. End program");
         options.add("1. Create User");
@@ -90,7 +102,7 @@ public class Menu implements MenuService{
         return options;
     }
 
-    public List<String> getMenuOptionsSwe() {
+    public List<String> getMenuOptions() {
         List<String> options = new ArrayList<>();
         options.add("0. Avsluta programmet");
         options.add("1. Skapa användare");
@@ -103,21 +115,26 @@ public class Menu implements MenuService{
 
 
     public void displayMenu() {
-        languageChoosing();
 
-        if (language.equalsIgnoreCase("swedish")){
-            List<String> sweOptions = getMenuOptionsSwe();
+        languageChoosing();
+        List<String> menuOptions;
+        if (language.equalsIgnoreCase("svenska")) {
+            menuOptions = getMenuOptions();
             System.out.println("Meny Alternativ - " + language + ":");
-            for (String option : sweOptions) {
-                System.out.println(option);
-            }
-        }else {
-            List<String> options = getMenuOptions(); // or getMenuOptionsSwe() based on the selected language
+        } else {
+            menuOptions = getMenuOptionsEng();
             System.out.println("Menu Options - " + language + ":");
-            for (String option : options) {
-                System.out.println(option);
-            }
         }
 
+        for (String option : menuOptions) {
+            System.out.println(option);
+        }
+
+        if (menuOptions.size() < 5) {
+            System.out.println("not enough with alternatives");
+        }
+
+
     }
+
 }
