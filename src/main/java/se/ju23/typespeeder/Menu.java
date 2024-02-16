@@ -24,12 +24,16 @@ public class Menu implements MenuService{
 
     public void languageChoosing() {
         Scanner input = new Scanner(System.in);
-        System.out.println("Välj språk (svenska/engelska):");
+        System.out.println("Choose the language (Swedish/English):");
         String selectedLanguage = input.nextLine().toLowerCase();
-        if (selectedLanguage.equals("svenska")) {
+
+        if (selectedLanguage.equals("swedish") || selectedLanguage.equals("s")) {
             language = "Swedish";
-            System.out.println("Svenska valt.");
-            displayMenu();
+        } else if (selectedLanguage.equals("english") || selectedLanguage.equals("e")) {
+            language = "English";
+        } else {
+            System.out.println("Invalid language selection. Default language set to English.");
+            language = "English";
         }
     }
 
@@ -101,10 +105,19 @@ public class Menu implements MenuService{
     public void displayMenu() {
         languageChoosing();
 
-        List<String> options = getMenuOptions();
-        System.out.println("Menu Options - " + language + ":");
-        for (String option : options) {
-            System.out.println(option);
+        if (language.equalsIgnoreCase("swedish")){
+            List<String> sweOptions = getMenuOptionsSwe();
+            System.out.println("Meny Alternativ - " + language + ":");
+            for (String option : sweOptions) {
+                System.out.println(option);
+            }
+        }else {
+            List<String> options = getMenuOptions(); // or getMenuOptionsSwe() based on the selected language
+            System.out.println("Menu Options - " + language + ":");
+            for (String option : options) {
+                System.out.println(option);
+            }
         }
+
     }
 }
