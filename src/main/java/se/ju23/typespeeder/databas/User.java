@@ -139,8 +139,8 @@ public class User {
     }
 
     public void updateUserInDatabase() {
-        System.out.println("Updatera user information");
-        System.out.print("Skriv in userID för att uppdatera: ");
+        System.out.println("Update user information");
+        System.out.print("Write  userID to uppdate: ");
         long userIdToUpdate = readLongOnly();
 
         Optional<User> optionalUser = Main.iuser.findById(userIdToUpdate);
@@ -171,27 +171,27 @@ public class User {
         String password = null;
         boolean trueName = true;
 
-        System.out.print("Ange userName: ");
+        System.out.print("Enter userName: ");
         userName = validInput();
         Optional<User> names = Main.iuser.findByUsername(userName);
         if (names.isPresent()) {
-            System.out.println("Användarnamnet är upptaget!");
+            System.out.println("UserName is taken!");
             return;
 
         }
-        System.out.print("Ange gameName: ");
+        System.out.print("Enter gameName: ");
         gameName = validInput();
         Optional<User> name = Main.iuser.findByGamename(gameName);
         if (name.isPresent()) {
-            System.out.println("Användarnamnet är upptaget!");
+            System.out.println("gameName is taken!");
             return;
         } else {
-            System.out.print("Ange password: ");
+            System.out.print("Enter password: ");
             password = validInput();
         }
         User user1 = new User(userName, password, gameName);
         Main.iuser.save(user1);
-        System.out.println("Användaren " + userName + " har lagts till.");
+        System.out.println("User " + userName + " has been added.");
     }
 
     public long login() {
@@ -249,7 +249,7 @@ public class User {
         while (true) {
             inputString = Main.input.nextLine().trim();
             if (inputString.isEmpty()) {
-                System.out.println("Du måste ange något!");
+                System.out.println("Wrong input. You have to actually write something!");
             } else {
                 return inputString;
             }
@@ -261,7 +261,7 @@ public class User {
             try {
                 return Long.parseLong(validInput());
             } catch (NumberFormatException e) {
-                System.err.println("Ogiltig inmatning. Vänligen skriv in ett heltal: ");
+                System.err.println("wrong input. Please enter an integer or double with ,: ");
             }
         }
     }
@@ -272,7 +272,7 @@ public class User {
                 int intOnly = Integer.parseInt(validInput());
                 return intOnly;
             } catch (NumberFormatException e) {
-                System.err.println(e + " Vänligen skriv in ett heltal:");
+                System.err.println(e + "Wrong input. Please enter an integer:");
             }
         }
     }
@@ -295,10 +295,10 @@ public class User {
         }
 
         // Check for level up
-        while (user.getXp() >= 99) { // Loop to handle multiple level ups if earned XP exceeds 100
+        while (user.getXp() >= 99) {
             // Level up
             user.setGamelevel(user.getGamelevel() + 1);
-            user.setXp(user.getXp() - 99); // Deduct 100 XP for each level up
+            user.setXp(user.getXp() - 99);
             System.out.println("Congratulations! You leveled up to level " + user.getGamelevel() + ".");
         }
 
