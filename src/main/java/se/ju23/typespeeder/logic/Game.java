@@ -202,7 +202,7 @@ public class Game {
             return;
         }
 
-// Prompt the player to choose their preferred language
+        // Prompt the player to choose their preferred language
         System.out.println("Choose your preferred language:");
         System.out.println("1. English");
         System.out.println("2. Svenska");
@@ -210,7 +210,7 @@ public class Game {
         int languageChoice = Main.input.nextInt();
         String chosenLanguage;
 
-// Set the chosen language based on the player's input
+        // Set the chosen language based on the player's input
         if (languageChoice == 1) {
             chosenLanguage = "engelska";
         } else if (languageChoice == 2) {
@@ -230,7 +230,7 @@ public class Game {
             return;
         }
 
-// Check if the task's language matches the chosen language
+        // Check if the task's language matches the chosen language
         if (!Objects.equals(chosenLanguage, gametask.getLanguage())) {
             System.out.println("Error: Chosen language does not match the task language.");
             return;
@@ -291,9 +291,9 @@ public class Game {
         newAttempt.setGametaskByTaskId(gametask);
         newAttempt.setUserByUserId(user);
 
-// Save the new Attempt entity
+        // Save the new Attempt entity
         Main.attemptRepo.save(newAttempt);
-//creating leaderboard saves
+        //creating leaderboard saves
         Leaderboard newLeaderboard = new Leaderboard(countAverage, wpm, userId, seconds, correctTypedWords, mostWordsInOrder);
         newLeaderboard.setUserByPlayerid(user);
         Main.leaderboard.save(newLeaderboard);

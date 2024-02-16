@@ -14,6 +14,8 @@ public class Menu implements MenuService{
     User user;
     MenuService menuService;
     Game game = new Game();
+
+    Challenge challenge = new Challenge();
     public Menu() {
         this.user = new User(); // Initialize user object
     }
