@@ -39,7 +39,7 @@ public class Main implements CommandLineRunner {
     public static Scanner input = new Scanner(System.in);
 
     @Override
-    public void run(String[] args) throws InterruptedException {
+    public void run(String[] args) {
         Menu menu = new Menu();
         menu.start();
 
