@@ -15,49 +15,66 @@ public class Menu implements MenuService{
     MenuService menuService;
     Game game = new Game();
 
-    Challenge challenge = new Challenge();
+
     public Menu() {
         this.user = new User(); // Initialize user object
     }
-    public void start() throws InterruptedException {
+
+    private String language = "English"; // Default language
+
+    public void languageChoosing() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Välj språk (svenska/engelska):");
+        String selectedLanguage = input.nextLine().toLowerCase();
+        if (selectedLanguage.equals("svenska")) {
+            language = "Swedish";
+            System.out.println("Svenska valt.");
+            displayMenu();
+        }
+    }
+
+    public void start()  {
 
         Scanner input = new Scanner(System.in);
         int choice;
-        do {
-            System.out.println("Welcome to TypeSpeeder!");
-            displayMenu();
 
-            System.out.println("choose an alternative: ");
-            choice = input.nextInt();
-            if (choice > 6) {
-                System.out.println("Wrong choice");
-            }
-            switch (choice) {
-                case 1-> {
-                    System.out.println("You chose to create a user.");
-                    user.createUser();
+        try {
+            do {
+                System.out.println("Welcome to TypeSpeeder - " + language);
+                displayMenu();
+
+                System.out.println("Choose an option: ");
+                choice = input.nextInt();
+                if (choice > 5) {
+                    System.out.println("Wrong choice");
                 }
-
-                case 2-> {
-                    System.out.println("You chose to update a User.");
-                    user.updateUserInDatabase();
+                switch (choice) {
+                    case 1:
+                        System.out.println("You chose to create a user.");
+                        user.createUser();
+                        break;
+                    case 2:
+                        System.out.println("You chose to update a User.");
+                        user.updateUserInDatabase();
+                        break;
+                    case 3:
+                        game.playGame();
+                        break;
+                    case 5:
+                        System.out.println("You chose to login");
+                        user.login();
+                        break;
                 }
-                case 3-> game.playGame();
+            } while (choice != 0);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
-                //case 4->;
-
-                case 5-> {
-                    System.out.println("You chose to login");
-                    user.login();
-                }
-            }
-        } while (choice != 0);
         System.out.println("End program");
         System.exit(0);
     }
 
 
-    @Override
     public List<String> getMenuOptions() {
         List<String> options = new ArrayList<>();
         options.add("0. End program");
@@ -68,10 +85,24 @@ public class Menu implements MenuService{
         options.add("5. Login");
         return options;
     }
-    @Override
+
+    public List<String> getMenuOptionsSwe() {
+        List<String> options = new ArrayList<>();
+        options.add("0. Avsluta programmet");
+        options.add("1. Skapa användare");
+        options.add("2. Updatera användare");
+        options.add("3. Spela");
+        options.add("4. -----");
+        options.add("5. Logga in");
+        return options;
+    }
+
+
     public void displayMenu() {
+        languageChoosing();
+
         List<String> options = getMenuOptions();
-        System.out.println("Menu Options:");
+        System.out.println("Menu Options - " + language + ":");
         for (String option : options) {
             System.out.println(option);
         }
