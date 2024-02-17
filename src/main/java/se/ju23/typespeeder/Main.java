@@ -12,8 +12,6 @@ import se.ju23.typespeeder.logic.AttemptRepo;
 import se.ju23.typespeeder.logic.iGameTask;
 
 
-import javax.sound.midi.Patch;
-import java.time.LocalDateTime;
 import java.util.Scanner;
 
 @Component
@@ -44,7 +42,6 @@ public class Main implements CommandLineRunner {
     public void run(String[] args) {
         Menu menu = new Menu();
         menu.start();
-
 
     }
 
