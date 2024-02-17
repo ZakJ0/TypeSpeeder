@@ -12,6 +12,7 @@ import se.ju23.typespeeder.logic.AttemptRepo;
 import se.ju23.typespeeder.logic.iGameTask;
 
 
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 @Component
