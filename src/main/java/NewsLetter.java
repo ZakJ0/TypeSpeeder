@@ -1,5 +1,3 @@
-package se.ju23.typespeeder;
-
 import java.time.LocalDateTime;
 
 public class NewsLetter {
