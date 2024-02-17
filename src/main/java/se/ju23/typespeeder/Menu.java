@@ -5,6 +5,8 @@ package se.ju23.typespeeder;
 
 import se.ju23.typespeeder.databas.User;
 import se.ju23.typespeeder.logic.Game;
+import se.ju23.typespeeder.logic.Games;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -14,7 +16,7 @@ public class Menu implements MenuService{
     User user;
     MenuService menuService;
     Game game = new Game();
-
+    Games games = new Games();
 
     public Menu() {
         this.user = new User(); // Initialize user object
@@ -58,9 +60,7 @@ public class Menu implements MenuService{
 
             System.out.println("Choose an option: ");
             choice = input.nextInt();
-            if (choice > 5) {
-                System.out.println("Wrong choice");
-            }
+
             switch (choice) {
                 case 1:
                     System.out.println("You chose to create a user.");
@@ -73,11 +73,17 @@ public class Menu implements MenuService{
                 case 3:
                     game.playGame();
                     break;
+                case 4:
+                    games.warmUp();
+                    break;
                 case 5:
+                    games.countUppercaseWordsGame();
+                    break;
+                case 6:
                     System.out.println("You chose to login");
                     user.login();
                     break;
-                case 6:
+                case 7:
                     startEnglish();
                     break;
             }
@@ -96,15 +102,12 @@ public class Menu implements MenuService{
             System.out.println("2. Update User");
             System.out.println("3. Play Game");
             System.out.println("4. Play Alt Game/Warm up");
-            System.out.println("5. Login");
-            System.out.println("6. Switch to swedish");
+            System.out.println("5. Play Find UpperCase words");
+            System.out.println("6. Login");
+            System.out.println("7. Switch to swedish");
 
             System.out.println("Choose an option: ");
             choice = input.nextInt();
-            if (choice > 5) {
-                System.out.println("Wrong choice");
-
-            }
 
             switch (choice) {
                 case 1:
@@ -118,11 +121,17 @@ public class Menu implements MenuService{
                 case 3:
                     game.playGame();
                     break;
+                case 4:
+                    games.warmUp();
+                    break;
                 case 5:
+                    games.countUppercaseWordsGame();
+                    break;
+                case 6:
                     System.out.println("You chose to login");
                     user.login();
                     break;
-                case 6:start();
+                case 7:start();
                 break;
 
             }
@@ -140,8 +149,9 @@ public class Menu implements MenuService{
         options.add("2. Update User");
         options.add("3. Play Game");
         options.add("4. Play Alt Game/Warm up");
-        options.add("5. Login");
-        options.add("6. Switch to swedish");
+        options.add("5. Play Find UpperCase words ");
+        options.add("6. Login");
+        options.add("7. Switch to swedish");
         return options;
     }
 
@@ -152,8 +162,9 @@ public class Menu implements MenuService{
         options.add("2. Updatera användare");
         options.add("3. Spela");
         options.add("4. Spela Alt spel");
-        options.add("5. Logga in");
-        options.add("6. Byt till Engelska");
+        options.add("5. Spela Hitta CapsLock orden");
+        options.add("6. Logga in");
+        options.add("7. Byt till Engelska");
         return options;
     }
 

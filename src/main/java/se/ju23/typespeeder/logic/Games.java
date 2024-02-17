@@ -79,7 +79,7 @@ public class Games {
     }
     public void countUppercaseWordsGame() {
         try {
-            System.out.println("Get ready to count uppercase words!");
+            System.out.println("Get ready to count words with uppercase letters!");
             System.out.println("3");
             TimeUnit.SECONDS.sleep(1);
 
@@ -93,7 +93,10 @@ public class Games {
             Set<Integer> selectedIndexes = new HashSet<>();
             int totalWords = 10;
             String[] words = {"Hello", "WORLD", "upPERCASE", "game", "WORD", "Java", "ComPuter",
-                    "player", "apple", "UP","Left","riGht","YoU","kNow"};
+                    "player", "apple", "UP", "Left", "riGht", "YoU", "kNow"};
+
+            int uppercaseWordsCount = 0;
+            System.out.println("Type the number of words with uppercase letters:");
 
             for (int i = 0; i < totalWords; i++) {
                 int randomIndex;
@@ -104,21 +107,21 @@ public class Games {
                 selectedIndexes.add(randomIndex);
 
                 System.out.print(words[randomIndex] + " ");
-            }
-            System.out.println();
-            Scanner scan = new Scanner(System.in);
-            String typedWords = scan.nextLine();
 
-            int countUppercaseWords = 0;
-
-            String[] typedWordsArr = typedWords.split(" ");
-            for (String typedWord : typedWordsArr) {
-                if (typedWord.equals(typedWord.toUpperCase())) {
-                    countUppercaseWords++;
+                if (words[randomIndex].matches(".*[A-Z]+.*")) {
+                    uppercaseWordsCount++;
                 }
             }
+            System.out.println();
 
-            System.out.println("Number of uppercase words typed: " + countUppercaseWords);
+            Scanner scan = new Scanner(System.in);
+            int userAnswer = scan.nextInt();
+
+            if (userAnswer == uppercaseWordsCount) {
+                System.out.println("Correct! The number of words with uppercase letters is " + uppercaseWordsCount);
+            } else {
+                System.out.println("Incorrect! The number of words with uppercase letters is " + uppercaseWordsCount);
+            }
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
