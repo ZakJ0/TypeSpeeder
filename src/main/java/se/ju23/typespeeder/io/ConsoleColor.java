@@ -2,7 +2,7 @@
 2024-02-08
 zakaria.jaouhari@iths.se
  */
-package se.ju23.typespeeder;
+package se.ju23.typespeeder.io;
 
 public enum ConsoleColor {
     RESET("\u001B[0m"),
