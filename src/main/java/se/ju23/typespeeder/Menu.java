@@ -100,16 +100,13 @@ public class Menu implements MenuService{
                 System.out.println("1. Create User");
                 System.out.println("2. Update User");
                 System.out.println("3. Play Game");
-                System.out.println("4.exit");
+                System.out.println("4. Exit");
                 System.out.println("5. login");
-                System.out.println("6.Switch to swedish");
+                System.out.println("6. Switch to swedish");
 
                 System.out.println("Choose an option: ");
                 choice = input.nextInt();
-                if (choice > 5) {
-                    System.out.println("Wrong choice");
 
-                }
 
                 switch (choice) {
                     case 1:
