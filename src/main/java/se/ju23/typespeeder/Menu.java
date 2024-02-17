@@ -50,91 +50,83 @@ public class Menu implements MenuService{
     }
 
     public void start()  {
-        try {
-            Scanner input = new Scanner(System.in);
-            int choice;
-            do {
-                System.out.println("Welcome to TypeSpeeder - ");
-                displayMenu();
+        Scanner input = new Scanner(System.in);
+        int choice;
+        do {
+            System.out.println("Welcome to TypeSpeeder - ");
+            displayMenu();
 
-                System.out.println("Choose an option: ");
-                choice = input.nextInt();
-                if (choice > 5) {
-                    System.out.println("Wrong choice");
-                }
-                switch (choice) {
-                    case 1:
-                        System.out.println("You chose to create a user.");
-                        user.createUser();
-                        break;
-                    case 2:
-                        System.out.println("You chose to update a User.");
-                        user.updateUserInDatabase();
-                        break;
-                    case 3:
-                        game.playGame();
-                        break;
-                    case 5:
-                        System.out.println("You chose to login");
-                        user.login();
-                        break;
-                    case 6:
-                        startEnglish();
-                        break;
-                }
-            } while (choice != 0);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+            System.out.println("Choose an option: ");
+            choice = input.nextInt();
+            if (choice > 5) {
+                System.out.println("Wrong choice");
+            }
+            switch (choice) {
+                case 1:
+                    System.out.println("You chose to create a user.");
+                    user.createUser();
+                    break;
+                case 2:
+                    System.out.println("You chose to update a User.");
+                    user.updateUserInDatabase();
+                    break;
+                case 3:
+                    game.playGame();
+                    break;
+                case 5:
+                    System.out.println("You chose to login");
+                    user.login();
+                    break;
+                case 6:
+                    startEnglish();
+                    break;
+            }
+        } while (choice != 0);
 
         System.out.println("End program");
         System.exit(0);
     }
     public void startEnglish()  {
-        try {
-            Scanner input = new Scanner(System.in);
-            int choice;
-            do {
-                System.out.println("Welcome to TypeSpeeder - ");
-                System.out.println("0. exit");
-                System.out.println("1. Create User");
-                System.out.println("2. Update User");
-                System.out.println("3. Play Game");
-                System.out.println("4.exit");
-                System.out.println("5. login");
-                System.out.println("6.Switch to swedish");
+        Scanner input = new Scanner(System.in);
+        int choice;
+        do {
+            System.out.println("Welcome to TypeSpeeder - ");
+            System.out.println("0. Exit");
+            System.out.println("1. Create User");
+            System.out.println("2. Update User");
+            System.out.println("3. Play Game");
+            System.out.println("4. Play Alt Game/Warm up");
+            System.out.println("5. Login");
+            System.out.println("6. Switch to swedish");
 
-                System.out.println("Choose an option: ");
-                choice = input.nextInt();
-                if (choice > 5) {
-                    System.out.println("Wrong choice");
+            System.out.println("Choose an option: ");
+            choice = input.nextInt();
+            if (choice > 5) {
+                System.out.println("Wrong choice");
 
-                }
+            }
 
-                switch (choice) {
-                    case 1:
-                        System.out.println("You chose to create a user.");
-                        user.createUser();
-                        break;
-                    case 2:
-                        System.out.println("You chose to update a User.");
-                        user.updateUserInDatabase();
-                        break;
-                    case 3:
-                        game.playGame();
-                        break;
-                    case 5:
-                        System.out.println("You chose to login");
-                        user.login();
-                        break;
-                    case 6:start();
+            switch (choice) {
+                case 1:
+                    System.out.println("You chose to create a user.");
+                    user.createUser();
                     break;
+                case 2:
+                    System.out.println("You chose to update a User.");
+                    user.updateUserInDatabase();
+                    break;
+                case 3:
+                    game.playGame();
+                    break;
+                case 5:
+                    System.out.println("You chose to login");
+                    user.login();
+                    break;
+                case 6:start();
+                break;
 
-                }
-            } while (choice != 0);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+            }
+        } while (choice != 0);
 
         System.out.println("End program");
         System.exit(0);
@@ -147,7 +139,7 @@ public class Menu implements MenuService{
         options.add("1. Create User");
         options.add("2. Update User");
         options.add("3. Play Game");
-        options.add("4. Exit game");
+        options.add("4. Play Alt Game/Warm up");
         options.add("5. Login");
         options.add("6. Switch to swedish");
         return options;
@@ -159,7 +151,7 @@ public class Menu implements MenuService{
         options.add("1. Skapa användare");
         options.add("2. Updatera användare");
         options.add("3. Spela");
-        options.add("4. -----");
+        options.add("4. Spela Alt spel");
         options.add("5. Logga in");
         options.add("6. Byt till Engelska");
         return options;
