@@ -195,19 +195,20 @@ public class User {
     }
 
     public long login() {
+        User user = new User();
         int attempts = 3;
 
         do {
-            System.out.print("Enter username: ");
+            System.out.print("Enter Username: ");
             String username = validInput();
 
-            System.out.print("Enter password: ");
+            System.out.print("Enter Password: ");
             String password = validInput();
 
             long foundId = authenticateUser(username, password);
 
             if (foundId >= 0) {
-                System.out.println("Logged in as: " + username.toLowerCase());
+                System.out.println("Your now logged in: " + username);
                 return foundId;
             } else {
                 attempts--;

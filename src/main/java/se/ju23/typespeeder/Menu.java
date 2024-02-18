@@ -64,33 +64,29 @@ public class Menu implements MenuService{
 
             switch (choice) {
                 case 1 -> {
-                    System.out.println("You chose to create a user.");
+                    System.out.println("Du valde att skapa User");
                     user.createUser();
                 }
                 case 2 -> {
-                    System.out.println("You chose to update a User.");
+                    System.out.println("Du valde att uppdatera en User");
                     user.updateUserInDatabase();
                 }
                 case 3 -> {
-                    System.out.println("You chose to play Ranked SpeedTyping Game");
+                    System.out.println("Du valde att spela rankings spelet");
                     game.playGame();
                 }
 
                 case 4 -> {
-                    System.out.println("You Chose to warmup");
+                    System.out.println("Du valde att värma upp");
                     games.warmUp();
                 }
 
                 case 5 -> {
-                    System.out.println("You chose Count-Uppercase Game");
+                    System.out.println("Du valde att spela StoraBokstäver spelet");
                     games.countUppercaseWordsGame();
                 }
 
-                case 6 ->{
-                    System.out.println("You chose to login");
-                    user.login();
-                }
-                case 7 -> startEnglish();
+                case 6 -> startEnglish();
             }
         } while (choice != 0);
 
@@ -108,8 +104,7 @@ public class Menu implements MenuService{
             System.out.println("3. Play Game");
             System.out.println("4. Play Alt Game/Warm up");
             System.out.println("5. Play Find UpperCase words");
-            System.out.println("6. Login");
-            System.out.println("7. Switch to swedish");
+            System.out.println("6. Switch to swedish");
 
             System.out.println("Choose an option: ");
             choice = input.nextInt();
@@ -126,7 +121,10 @@ public class Menu implements MenuService{
                     user.updateUserInDatabase();
                 }
 
-                case 3 -> game.playGame();
+                case 3 -> {
+                    System.out.println("You chose to play Ranked SpeedTyping Game");
+                    game.playGame();
+                }
 
                 case 4 -> {
                     System.out.println("You Chose to warmup");
@@ -138,11 +136,7 @@ public class Menu implements MenuService{
                     games.countUppercaseWordsGame();
                 }
 
-                case 6 ->{
-                    System.out.println("You chose to login");
-                    user.login();
-                }
-                case 7 -> start();
+                case 6 -> start();
 
 
             }
@@ -161,8 +155,7 @@ public class Menu implements MenuService{
         options.add("3. Play Game");
         options.add("4. Play Alt Game/Warm up");
         options.add("5. Play Find UpperCase words ");
-        options.add("6. Login");
-        options.add("7. Switch to swedish");
+        options.add("6. Switch to swedish");
         return options;
     }
 
@@ -174,8 +167,7 @@ public class Menu implements MenuService{
         options.add("3. Spela");
         options.add("4. Spela Alt spel");
         options.add("5. Spela Hitta CapsLock orden");
-        options.add("6. Logga in");
-        options.add("7. Byt till Engelska");
+        options.add("6. Byt till Engelska");
         return options;
     }
 

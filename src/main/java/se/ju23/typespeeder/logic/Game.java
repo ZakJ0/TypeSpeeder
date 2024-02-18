@@ -92,7 +92,7 @@ public class Game {
             int mostWordsInOrder = accuracyInfo[2];
 
             printResults(correctTypedWords, incorrectTypedWords, typedWords, user, mostWordsInOrder, calculateAccuracyPercentage(correctTypedWords, solution.length));
-            System.out.println(user.getGamename() + ": your WPM ->" + calculateWpm(typedWords, seconds)+ "!");
+            System.out.println(user.getGamename() + ": your wpm:" + calculateWpm(typedWords, seconds)+ "!");
 
             int saveXp = user.levelUp(user, calculateAccuracyPercentage(correctTypedWords, solution.length));
             System.out.println();
