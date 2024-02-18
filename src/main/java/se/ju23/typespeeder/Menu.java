@@ -71,7 +71,10 @@ public class Menu implements MenuService{
                     System.out.println("You chose to update a User.");
                     user.updateUserInDatabase();
                 }
-                case 3 -> game.playGame();
+                case 3 -> {
+                    System.out.println("You chose to play Ranked SpeedTyping Game");
+                    game.playGame();
+                }
 
                 case 4 -> {
                     System.out.println("You Chose to warmup");
