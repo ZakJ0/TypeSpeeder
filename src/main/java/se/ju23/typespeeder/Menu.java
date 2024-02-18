@@ -5,6 +5,7 @@ Zakaria Jaouhari, Emanuel Sleyman
 package se.ju23.typespeeder;
 
 import se.ju23.typespeeder.databas.User;
+import se.ju23.typespeeder.io.ConsoleColor;
 import se.ju23.typespeeder.logic.Game;
 import se.ju23.typespeeder.logic.Games;
 
@@ -23,7 +24,7 @@ public class Menu implements MenuService{
         this.user = new User(); // Initialize user object
     }
 
-    private String language = "svenska"; // Default language
+    private String language = "svenska";
 
     public void languageChoosing() {
         try {

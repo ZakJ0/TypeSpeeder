@@ -4,6 +4,9 @@ Emanuel sleyman, Zakaria Jaouhari
 */
 package se.ju23.typespeeder.logic;
 
+import se.ju23.typespeeder.io.ConsoleColor;
+
+import java.io.Console;
 import java.time.LocalTime;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -118,9 +121,13 @@ public class Games {
             int userAnswer = scan.nextInt();
 
             if (userAnswer == uppercaseWordsCount) {
+                System.out.println(ConsoleColor.GREEN);
                 System.out.println("Correct! The number of words with uppercase letters is " + uppercaseWordsCount);
+                System.out.println(ConsoleColor.RESET);
             } else {
+                System.out.println(ConsoleColor.RED);
                 System.out.println("Incorrect! The number of words with uppercase letters is " + uppercaseWordsCount);
+                System.out.println(ConsoleColor.RESET);
             }
         } catch (InterruptedException e) {
             throw new RuntimeException(e);

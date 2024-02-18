@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import se.ju23.typespeeder.Main;
 import se.ju23.typespeeder.databas.Leaderboard;
 import se.ju23.typespeeder.databas.User;
+import se.ju23.typespeeder.io.ConsoleColor;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -73,10 +74,13 @@ public class Game {
             countdown();
 
             System.out.println(user.getGamename() + " Your GameLevel: " + user.getGamelevel());
-            System.out.println(gametask.getSolution());
+
+            System.out.println(ConsoleColor.LIGHT_BLUE + gametask.getSolution());
+
 
             double start = LocalTime.now().toNanoOfDay();
             Scanner scan = new Scanner(System.in);
+            System.out.println(ConsoleColor.RESET);
             String typedWords = scan.nextLine();
             double end = LocalTime.now().toNanoOfDay();
 
@@ -87,6 +91,7 @@ public class Game {
             String[] solution = gametask.getSolution().split(" ");
             String[] typedWordsArr = typedWords.split(" ");
             int[] accuracyInfo = calculateAccuracy(solution, typedWordsArr);
+            System.out.println(ConsoleColor.RED);
             int correctTypedWords = accuracyInfo[0];
             int incorrectTypedWords = accuracyInfo[1];
             int mostWordsInOrder = accuracyInfo[2];
@@ -96,7 +101,7 @@ public class Game {
 
             int saveXp = user.levelUp(user, calculateAccuracyPercentage(correctTypedWords, solution.length));
             System.out.println();
-
+            System.out.println(ConsoleColor.RESET);
             Attempt newAttempt = new Attempt(userId, taskId, calculateWpm(typedWords, seconds), Timestamp.valueOf(LocalDateTime.now()));
             newAttempt.setGametaskByTaskId(gametask);
             newAttempt.setUserByUserId(user);
