@@ -222,7 +222,7 @@ public class User {
 
     public long authenticateUser(String username, String password) {
         // Connect to the database and retrieve user information
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/typespeeder", "tester", "Java1234")) {
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/typespeeder", "root", "Dollar1221122*")) {
             String query = "SELECT * FROM user WHERE username = ? AND password = ?";
             try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
                 preparedStatement.setString(1, username);
