@@ -1,5 +1,8 @@
 package se.ju23.typespeeder.logic;
-
+/*
+Zakaria Jaouhari, Emanuel Sleyman
+2024-02-14
+ */
 import org.springframework.stereotype.Component;
 import se.ju23.typespeeder.Main;
 import se.ju23.typespeeder.databas.Leaderboard;

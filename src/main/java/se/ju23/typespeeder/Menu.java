@@ -63,30 +63,31 @@ public class Menu implements MenuService{
             choice = input.nextInt();
 
             switch (choice) {
-                case 1:
+                case 1 -> {
                     System.out.println("You chose to create a user.");
                     user.createUser();
-                    break;
-                case 2:
+                }
+                case 2 -> {
                     System.out.println("You chose to update a User.");
                     user.updateUserInDatabase();
-                    break;
-                case 3:
-                    game.playGame();
-                    break;
-                case 4:
+                }
+                case 3 -> game.playGame();
+
+                case 4 -> {
+                    System.out.println("You Chose to warmup");
                     games.warmUp();
-                    break;
-                case 5:
+                }
+
+                case 5 -> {
+                    System.out.println("You chose Count-Uppercase Game");
                     games.countUppercaseWordsGame();
-                    break;
-                case 6:
+                }
+
+                case 6 ->{
                     System.out.println("You chose to login");
                     user.login();
-                    break;
-                case 7:
-                    startEnglish();
-                    break;
+                }
+                case 7 -> startEnglish();
             }
         } while (choice != 0);
 
@@ -111,29 +112,35 @@ public class Menu implements MenuService{
             choice = input.nextInt();
 
             switch (choice) {
-                case 1:
+                case 1->{
                     System.out.println("You chose to create a user.");
                     user.createUser();
-                    break;
-                case 2:
+                }
+
+
+                case 2 -> {
                     System.out.println("You chose to update a User.");
                     user.updateUserInDatabase();
-                    break;
-                case 3:
-                    game.playGame();
-                    break;
-                case 4:
+                }
+
+                case 3 -> game.playGame();
+
+                case 4 -> {
+                    System.out.println("You Chose to warmup");
                     games.warmUp();
-                    break;
-                case 5:
+                }
+
+                case 5 -> {
+                    System.out.println("You chose Count-Uppercase Game");
                     games.countUppercaseWordsGame();
-                    break;
-                case 6:
+                }
+
+                case 6 ->{
                     System.out.println("You chose to login");
                     user.login();
-                    break;
-                case 7:start();
-                break;
+                }
+                case 7 -> start();
+
 
             }
         } while (choice != 0);
@@ -170,7 +177,6 @@ public class Menu implements MenuService{
     }
 
     public void displayMenu() {
-
         languageChoosing();
         List<String> menuOptions;
         if (language.equalsIgnoreCase("svenska")) {

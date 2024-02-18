@@ -36,13 +36,14 @@ public class Main implements CommandLineRunner {
         this.leaderboard = leaderboard;
     }
 
-    private User user;
+    User user = new User();
 
     public static Scanner input = new Scanner(System.in);
 
     @Override
     public void run(String[] args) {
         Menu menu = new Menu();
+        user.login();
         menu.start();
 
     }
