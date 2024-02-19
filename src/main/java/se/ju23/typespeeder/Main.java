@@ -42,7 +42,7 @@ public class Main implements CommandLineRunner {
     public void run(String[] args) {
         Menu menu = new Menu();
         menu.start();
-
+        System.out.println();
     }
 
 }
