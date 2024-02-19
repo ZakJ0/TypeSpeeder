@@ -45,7 +45,7 @@ public class Main implements CommandLineRunner {
         Menu menu = new Menu();
         user.login();
         menu.start();
-
+        System.out.println();
     }
 
 }
