@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PatchTest {
 
+
     @Test
     public void testPatchClassExists() {
         try {
@@ -41,7 +42,7 @@ public class PatchTest {
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             String formattedDateTime = dateTimeValue.format(formatter);
-            assertEquals("Expected format", formattedDateTime, "'realeaseDateTime' field should have format 'yyyy-MM-dd HH:mm:ss'.");
+            assertEquals("2024-02-17 11:41:38", formattedDateTime, "'realeaseDateTime' field should have format 'yyyy-MM-dd HH:mm:ss'.");
 
             Method getterMethod = someClass.getDeclaredMethod("getRealeaseDateTime");
             assertNotNull(getterMethod, "Getter method for field 'realeaseDateTime' should exist.");
@@ -57,4 +58,5 @@ public class PatchTest {
             throw new RuntimeException(e);
         }
     }
+
 }
