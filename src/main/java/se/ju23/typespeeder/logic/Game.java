@@ -6,6 +6,7 @@ Zakaria Jaouhari, Emanuel Sleyman
 import org.springframework.stereotype.Component;
 import se.ju23.typespeeder.Main;
 import se.ju23.typespeeder.databas.Leaderboard;
+import se.ju23.typespeeder.databas.Login;
 import se.ju23.typespeeder.databas.User;
 import se.ju23.typespeeder.io.ConsoleColor;
 
@@ -17,8 +18,8 @@ import java.util.concurrent.TimeUnit;
 
 @Component
 public class Game {
-    private iGameTask gameTask;
     private User user;
+    XPlevel xPlevel = new XPlevel();
 
     public Game() {
     }
@@ -99,7 +100,7 @@ public class Game {
             printResults(correctTypedWords, incorrectTypedWords, typedWords, user, mostWordsInOrder, calculateAccuracyPercentage(correctTypedWords, solution.length));
             System.out.println(user.getGamename() + ": your wpm:" + calculateWpm(typedWords, seconds)+ "!");
 
-            int saveXp = user.levelUp(user, calculateAccuracyPercentage(correctTypedWords, solution.length));
+            int saveXp = xPlevel.levelUp(user, calculateAccuracyPercentage(correctTypedWords, solution.length));
             System.out.println();
             System.out.println(ConsoleColor.RESET);
             Attempt newAttempt = new Attempt(userId, taskId, calculateWpm(typedWords, seconds), Timestamp.valueOf(LocalDateTime.now()));
