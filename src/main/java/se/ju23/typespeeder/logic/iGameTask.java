@@ -13,4 +13,6 @@ public interface iGameTask extends JpaRepository <Gametask,Long>{
 
     List<Gametask> findByLanguage(Object language);
 
+    List<Gametask> findGametaskByTaskType(int taskType);
+
 }

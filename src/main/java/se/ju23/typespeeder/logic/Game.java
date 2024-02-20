@@ -4,10 +4,8 @@ Zakaria Jaouhari, Emanuel Sleyman
 2024-02-14
  */
 import org.springframework.stereotype.Component;
-import se.ju23.typespeeder.GameStatistics;
 import se.ju23.typespeeder.Main;
 import se.ju23.typespeeder.databas.Leaderboard;
-import se.ju23.typespeeder.databas.Login;
 import se.ju23.typespeeder.databas.User;
 import se.ju23.typespeeder.io.ConsoleColor;
 
@@ -19,6 +17,12 @@ import java.util.concurrent.TimeUnit;
 
 @Component
 public class Game {
+
+    private int Easy = 1;
+    private int Medium = 2;
+    private int Hard = 3;
+
+    Scanner input = new Scanner(System.in);
     private User user;
     XPlevel xPlevel = new XPlevel();
 
@@ -27,8 +31,8 @@ public class Game {
 
     public void playGame()  {
         try {
-            System.out.print("Enter your User ID: ");
-            long userId = Main.input.nextLong();
+            System.out.print("Enter your User ID: " + "\n");
+            long userId = input.nextLong();
             Optional<User> optionalUser = Main.iuser.findById(userId);
             user = optionalUser.orElse(null);
 
@@ -37,11 +41,38 @@ public class Game {
                 return;
             }
 
-            System.out.println("Choose your preferred language:");
+
+            System.out.println("Choose difficulty");
+            System.out.println("1. Easy"+ "\n"+"2. Medium" +"\n"+ "3. Hard");
+            System.out.print(">");
+            int chosenDifficulty = input.nextInt();
+
+            String chosenDiff;
+            if (chosenDifficulty == Easy)
+                chosenDiff = "Easy";
+            else if (chosenDifficulty == Medium){
+                chosenDiff = "Medium";
+            }else if (chosenDifficulty == Hard){
+                chosenDiff = "Hard";
+            }else {
+                System.out.println("Invalid choice. Please choose 1, 2 or 3");
+                return;
+            }
+
+            System.out.println("Enter taskID to play");
+            List<Gametask> allTypes = Main.igametask.findGametaskByTaskType(chosenDifficulty);
+            for (int i = 0; i < allTypes.size(); i++) {
+                System.out.print(allTypes.get(i).getLanguage() + " ");
+                System.out.print(allTypes.get(i).getTaskId());
+                System.out.println();
+            }
+            System.out.println();
+
+            System.out.println("Choose your preferred language:" );
             System.out.println("1. English");
             System.out.println("2. Svenska");
-
-            int languageChoice = Main.input.nextInt();
+            System.out.print(">");
+            int languageChoice = input.nextInt();
             String chosenLanguage;
 
             if (languageChoice == 1) {
@@ -52,14 +83,21 @@ public class Game {
                 System.out.println("Invalid choice. Please choose 1 for English or 2 for Svenska.");
                 return;
             }
-            System.out.println("Choose task:");
-            List<Gametask> allTasks = Main.igametask.findByLanguage(chosenLanguage);
-            for (Gametask tasks: allTasks) {
-                System.out.println(chosenLanguage + " Enter task-ID to play: " + tasks.getTaskId());
 
+            List<Gametask> taskType = new ArrayList<>();
+            for (Gametask task : allTypes) {
+                if (task.getLanguage().equals(chosenLanguage)) {
+                    taskType.add(task);
+                }
             }
+            for (Gametask tasks : taskType) {
+                System.out.println(chosenLanguage + " taskID -> " + tasks.getTaskId());
+            }
+
+
+
             System.out.print("Enter Task ID: ");
-            long taskId = Main.input.nextLong();
+            long taskId = input.nextLong();
             Optional<Gametask> optionalGametask = Main.igametask.findById(taskId);
             Gametask gametask = optionalGametask.orElse(null);
 
