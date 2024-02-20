@@ -28,12 +28,18 @@ public class User {
     @Basic
     @Column(name = "gamename", nullable = false, length = 45)
     private String gamename;
+
+    @Basic
+    @Column(name = "xp",nullable=false)
+    private int xp;
     @OneToMany(mappedBy = "userByUserId")
     private Collection<Attempt> attemptsByUserid;
     @OneToMany(mappedBy = "userByPlayerid")
     private Collection<Leaderboard> leaderboardsByUserid;
 
-
+    public User(int xp) {
+        this.xp = xp;
+    }
 
     public User(String userName, String password, String gamename) {
         this.username = userName;
@@ -42,6 +48,14 @@ public class User {
     }
 
     public User() {
+    }
+
+    public int getXp() {
+        return xp;
+    }
+
+    public void setXp(int xp) {
+        this.xp = xp;
     }
 
     public long getUserid() {
@@ -125,8 +139,8 @@ public class User {
     }
 
     public void updateUserInDatabase() {
-        System.out.println("Updatera user information");
-        System.out.print("Skriv in userID för att uppdatera: ");
+        System.out.println("Update user information");
+        System.out.print("Write  userID to uppdate: ");
         long userIdToUpdate = readLongOnly();
 
         Optional<User> optionalUser = Main.iuser.findById(userIdToUpdate);
@@ -157,43 +171,44 @@ public class User {
         String password = null;
         boolean trueName = true;
 
-        System.out.print("Ange userName: ");
+        System.out.print("Enter userName: ");
         userName = validInput();
         Optional<User> names = Main.iuser.findByUsername(userName);
         if (names.isPresent()) {
-            System.out.println("Användarnamnet är upptaget!");
+            System.out.println("UserName is taken!");
             return;
 
         }
-        System.out.print("Ange gameName: ");
+        System.out.print("Enter gameName: ");
         gameName = validInput();
         Optional<User> name = Main.iuser.findByGamename(gameName);
         if (name.isPresent()) {
-            System.out.println("Användarnamnet är upptaget!");
+            System.out.println("gameName is taken!");
             return;
         } else {
-            System.out.print("Ange password: ");
+            System.out.print("Enter password: ");
             password = validInput();
         }
         User user1 = new User(userName, password, gameName);
         Main.iuser.save(user1);
-        System.out.println("Användaren " + userName + " har lagts till.");
+        System.out.println("User " + userName + " has been added.");
     }
 
     public long login() {
+        User user = new User();
         int attempts = 3;
 
         do {
-            System.out.print("Enter username: ");
+            System.out.print("Enter Username: ");
             String username = validInput();
 
-            System.out.print("Enter password: ");
+            System.out.print("Enter Password: ");
             String password = validInput();
 
             long foundId = authenticateUser(username, password);
 
             if (foundId >= 0) {
-                System.out.println("Logged in as: " + username.toLowerCase());
+                System.out.println("Your now logged in: " + username);
                 return foundId;
             } else {
                 attempts--;
@@ -235,7 +250,7 @@ public class User {
         while (true) {
             inputString = Main.input.nextLine().trim();
             if (inputString.isEmpty()) {
-                System.out.println("Du måste ange något!");
+                System.out.println("Wrong input. You have to actually write something!");
             } else {
                 return inputString;
             }
@@ -247,7 +262,7 @@ public class User {
             try {
                 return Long.parseLong(validInput());
             } catch (NumberFormatException e) {
-                System.err.println("Ogiltig inmatning. Vänligen skriv in ett heltal: ");
+                System.err.println("wrong input. Please enter an integer or double with ,: ");
             }
         }
     }
@@ -258,11 +273,37 @@ public class User {
                 int intOnly = Integer.parseInt(validInput());
                 return intOnly;
             } catch (NumberFormatException e) {
-                System.err.println(e + " Vänligen skriv in ett heltal:");
+                System.err.println(e + "Wrong input. Please enter an integer:");
             }
         }
     }
+    public int levelUp(User user, double accuracyPercentage) {
+        int xpGained = 0;
+        if (accuracyPercentage >= 70) {
+            // Gain XP
+            xpGained = 5; // Adjust the XP gained as per your requirements
+            user.setXp(user.getXp() + xpGained); // Update user's XP
+            System.out.println("Congratulations! You gained " + xpGained*2 + " XP.");
+        } else {
+            // Lose XP (if not already at level 1)
+            if (user.getXp() > 5) {
+                xpGained = -5; // Adjust the XP lost as per your requirements
+                user.setXp(Math.max(0, user.getXp() + xpGained)); // Update user's XP
+                System.out.println("You lost " + -xpGained*2 + " XP.");
+            } else {
+                System.out.println("You are already at the lowest level and cannot lose further XP.");
+            }
+        }
 
+        // Check for level up
+        while (user.getXp() >= 99) {
+            // Level up
+            user.setGamelevel(user.getGamelevel() + 1);
+            user.setXp(user.getXp() - 99);
+            System.out.println("Congratulations! You leveled up to level " + user.getGamelevel() + ".");
+        }
 
+        return xpGained;
+    }
 }
 

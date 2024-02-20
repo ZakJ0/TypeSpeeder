@@ -15,22 +15,22 @@ public class Leaderboard {
     @Column(name = "leaderboard_id", nullable = false)
     private long leaderboardId;
     @Basic
-    @Column(name = "average", nullable = true)
+    @Column(name = "average", nullable = false)
     private double average;
     @Basic
-    @Column(name = "speed", nullable = true)
-    private double speed;
+    @Column(name = "speed", nullable = false)
+    private Double speed;
     @Basic
-    @Column(name = "mostrights", nullable = true, length = 45)
+    @Column(name = "mostrights", nullable = false, length = 45)
     private Integer mostrights;
     @Basic
-    @Column(name = "mostright_inorder", nullable = true, length = 45)
+    @Column(name = "mostright_inorder", nullable = false, length = 45)
     private Integer mostrightInorder;
     @Basic
-    @Column(name = "resultcol", nullable = true, length = 45)
+    @Column(name = "resultcol", nullable = false, length = 45)
     private String resultcol;
     @Basic
-    @Column(name = "playerid", nullable = true, updatable = false,insertable = false)
+    @Column(name = "playerid", nullable = false, updatable = false,insertable = false)
     private Long playerid;
     @ManyToOne
     @JoinColumn(name = "playerid", referencedColumnName = "userid")

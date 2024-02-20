@@ -20,4 +20,7 @@ public interface AttemptRepo extends JpaRepository<Attempt, Long> {
 
     @Query("SELECT MAX(a.attemptId) + 1 FROM Attempt a")
     Long getNextAttemptId();
+
+    List<Attempt> findByUserId(Long playerid);
+
 }

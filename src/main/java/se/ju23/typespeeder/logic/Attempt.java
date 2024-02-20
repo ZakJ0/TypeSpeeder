@@ -1,6 +1,9 @@
 package se.ju23.typespeeder.logic;
-
+/*Zakaria Jaouhari, Emanuel Sleyman
+2024-02-8
+ */
 import jakarta.persistence.*;
+import org.hibernate.query.results.TableGroupImpl;
 import se.ju23.typespeeder.databas.User;
 
 import java.sql.Timestamp;

@@ -2,12 +2,14 @@
 2024-02-08
 zakaria.jaouhari@iths.se
  */
-package se.ju23.typespeeder;
+package se.ju23.typespeeder.io;
 
 public enum ConsoleColor {
     RESET("\u001B[0m"),
     RED("\u001B[31m"),
-    GREEN("\u001B[32m");
+    GREEN("\u001B[32m"),
+    YELLOW("\u001B[33m"),
+    LIGHT_BLUE("\u001B[94m");
     private final String code;
 
     ConsoleColor(String code) {
