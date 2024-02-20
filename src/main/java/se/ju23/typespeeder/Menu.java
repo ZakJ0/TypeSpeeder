@@ -6,6 +6,7 @@ package se.ju23.typespeeder;
 import se.ju23.typespeeder.databas.Leaderboard;
 
 import se.ju23.typespeeder.databas.User;
+import se.ju23.typespeeder.io.ConsoleColor;
 import se.ju23.typespeeder.io.UserCreateUpdate;
 import se.ju23.typespeeder.logic.Game;
 import se.ju23.typespeeder.logic.Games;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+import java.util.concurrent.locks.Condition;
 
 import static se.ju23.typespeeder.Main.leaderboard;
 
@@ -62,10 +64,10 @@ public class Menu implements MenuService{
         Scanner input = new Scanner(System.in);
         int choice;
         do {
-            System.out.println("Welcome to TypeSpeeder - ");
+            System.out.println(ConsoleColor.LIGHT_PINK+"Welcome to TypeSpeeder - ");
             displayMenu();
 
-            System.out.print("Choose an option: ");
+            System.out.print(ConsoleColor.RESET+"Choose an option: ");
             choice = input.nextInt();
 
             switch (choice) {
@@ -112,7 +114,7 @@ public class Menu implements MenuService{
         Scanner input = new Scanner(System.in);
         int choice;
         do {
-            System.out.println("Welcome to TypeSpeeder - ");
+            System.out.println(ConsoleColor.LIGHT_GREEN+"Welcome to TypeSpeeder - ");
             System.out.println("0. Exit");
             System.out.println("1. Update User account");
             System.out.println("2. Play Game");
@@ -120,7 +122,7 @@ public class Menu implements MenuService{
             System.out.println("4. Play Find UpperCase words");
             System.out.println("5. Switch to swedish");
             System.out.println("6. Show Leaderboard");
-            System.out.print("Choose an option: ");
+            System.out.print("Choose an option: "+ ConsoleColor.RESET);
             choice = input.nextInt();
 
             switch (choice) {

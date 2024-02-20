@@ -45,9 +45,9 @@ public class Games {
 
                 selectedIndexes.add(randomIndex);
 
-                System.out.print(words[randomIndex] + " ");
+                System.out.print(ConsoleColor.YELLOW+words[randomIndex] + " ");
             }
-            System.out.println();
+            System.out.println(ConsoleColor.RESET);
             double start = LocalTime.now().toNanoOfDay();
             Scanner scan = new Scanner(System.in);
             String typedWords = scan.nextLine();
@@ -70,38 +70,39 @@ public class Games {
                 }
             }
 
-            System.out.println("Correct words typed: " + correctTypedWords);
+            System.out.println(ConsoleColor.LIGHT_BLUE+"Correct words typed: " + correctTypedWords);
             System.out.println("Incorrect words typed: " + incorrectTypedWords);
             System.out.println(Arrays.toString(typedWordsArr)); // Comparison reasons
 
 
             int numChars = typedWords.length();
             String wpm = String.valueOf((int) (((double) (numChars / 5) / seconds) * 60));
-            System.out.println("Your WPM " +"="+ wpm + "!"+ "\n");
+            System.out.println(ConsoleColor.RESET+"Your WPM " +"="+ wpm + "!"+ "\n");
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
     public void countUppercaseWordsGame() {
         try {
-            System.out.println("Get ready to count words with uppercase letters!");
+            System.out.println(ConsoleColor.BLUE+"Get ready to count words with uppercase letters!");
             System.out.println("3");
             TimeUnit.SECONDS.sleep(1);
 
             System.out.println("2");
             TimeUnit.SECONDS.sleep(1);
 
-            System.out.println("1");
+            System.out.println(ConsoleColor.RESET+"1");
             TimeUnit.SECONDS.sleep(1);
 
             Random randomWords = new Random();
             Set<Integer> selectedIndexes = new HashSet<>();
             int totalWords = 10;
             String[] words = {"Hello", "WORLD", "upPERCASE", "game", "WORD", "Java", "ComPuter",
-                    "player", "apple", "UP", "Left", "riGht", "YoU", "kNow"};
+                    "player", "apple", "UP", "Left", "riGht", "YoU", "kNow", "hej","Fell", "asTro", "trOn","fail","snail"};
 
             int uppercaseWordsCount = 0;
-            System.out.println("Type the number of words with uppercase letters:");
+            System.out.println(ConsoleColor.YELLOW+"Type the number of words with uppercase letters:");
+            System.out.println(ConsoleColor.RESET);
 
             for (int i = 0; i < totalWords; i++) {
                 int randomIndex;
@@ -111,13 +112,13 @@ public class Games {
 
                 selectedIndexes.add(randomIndex);
 
-                System.out.print(words[randomIndex] + " ");
+                System.out.print(ConsoleColor.LIGHT_BLUE+words[randomIndex] + " ");
 
                 if (words[randomIndex].matches(".*[A-Z]+.*")) {
                     uppercaseWordsCount++;
                 }
             }
-            System.out.println();
+            System.out.println(ConsoleColor.RESET);
 
             Scanner scan = new Scanner(System.in);
             int userAnswer = scan.nextInt();

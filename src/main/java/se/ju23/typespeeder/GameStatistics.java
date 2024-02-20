@@ -2,6 +2,7 @@ package se.ju23.typespeeder;
 
 import se.ju23.typespeeder.databas.Leaderboard;
 import se.ju23.typespeeder.databas.User;
+import se.ju23.typespeeder.io.ConsoleColor;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -47,7 +48,7 @@ public class GameStatistics {
             int averageMostWordsInOrder = totalMostWordsInOrder / numEntries;
             double averageAccuracyPercentage = totalAccuracyPercentage / numEntries;
             int averageWpm = totalWpm / numEntries;
-            System.out.println("Alias: " + players.get(i).getGamename());
+            System.out.println(ConsoleColor.LIGHT_BLUE+"Alias: " + players.get(i).getGamename());
 
             System.out.println("------ Average Game Statistics ------");
             System.out.println("Average Speed: " + averageSeconds + " seconds");
@@ -55,7 +56,7 @@ public class GameStatistics {
             System.out.println("Average Correct words typed in order: " + averageMostWordsInOrder);
             System.out.println("Average Accuracy: " + averageAccuracyPercentage + "%");
             System.out.println("Average Words per minute (WPM): " + averageWpm);
-            System.out.println("-------------------------------------");
+            System.out.println(ConsoleColor.RESET+"-------------------------------------");
         }
     }
 }
