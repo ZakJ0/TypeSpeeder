@@ -4,6 +4,7 @@ Zakaria Jaouhari, Emanuel Sleyman
 2024-02-14
  */
 import org.springframework.stereotype.Component;
+import se.ju23.typespeeder.GameStatistics;
 import se.ju23.typespeeder.Main;
 import se.ju23.typespeeder.databas.Leaderboard;
 import se.ju23.typespeeder.databas.User;

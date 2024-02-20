@@ -45,7 +45,7 @@ public class NewsLetter {
         }
 
     }
-
+    //for testing
     public void testPublishDateTimeFormat() {
 
         if (publishDateTime == null) {

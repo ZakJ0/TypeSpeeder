@@ -4,21 +4,27 @@ Zakaria Jaouhari, Emanuel Sleyman
  */
 package se.ju23.typespeeder;
 
+import se.ju23.typespeeder.databas.Leaderboard;
+import se.ju23.typespeeder.databas.LeaderboardRepo;
 import se.ju23.typespeeder.databas.User;
 import se.ju23.typespeeder.io.ConsoleColor;
 import se.ju23.typespeeder.logic.Game;
 import se.ju23.typespeeder.logic.Games;
+import se.ju23.typespeeder.logic.Gametask;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+import static se.ju23.typespeeder.Main.leaderboard;
+
 public class Menu implements MenuService{
     User user;
     MenuService menuService;
     Game game = new Game();
     Games games = new Games();
+    GameStatistics gameStatistics;
 
     public Menu() {
         this.user = new User(); // Initialize user object
@@ -88,6 +94,15 @@ public class Menu implements MenuService{
                 }
 
                 case 6 -> startEnglish();
+                case 7 -> {
+                    List<Leaderboard> leaderboards = leaderboard.findAll();
+                    if (leaderboards == null) {
+                        System.out.println("No leaderboard data available.");
+                        return;
+                    }
+                    gameStatistics = new GameStatistics(leaderboards);
+                    gameStatistics.displayGameStatistics();
+                }
             }
         } while (choice != 0);
 
@@ -138,6 +153,11 @@ public class Menu implements MenuService{
                 }
 
                 case 6 -> start();
+                case 7-> {
+                    List<Leaderboard> leaderboards = leaderboard.findAll();
+                    gameStatistics = new GameStatistics(leaderboards);
+                    gameStatistics.displayGameStatistics();
+                }
 
 
             }
