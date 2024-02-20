@@ -3,12 +3,11 @@ package se.ju23.typespeeder;
 Zakaria Jaouhari, Emanuel Sleyman
 2024-02-8
  */
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import se.ju23.typespeeder.databas.LeaderboardRepo;
-import se.ju23.typespeeder.databas.Login;
-import se.ju23.typespeeder.databas.User;
 import se.ju23.typespeeder.databas.iUser;
 import se.ju23.typespeeder.io.UserCreateUpdate;
 import se.ju23.typespeeder.io.Valid;
@@ -58,14 +57,14 @@ public class Main implements CommandLineRunner {
 
             System.out.print(">");
             int answer = valid.readIntOnly();
-            if ( answer== 1 ) {
+            if (answer == 1) {
                 up.login();
                 loggedIn = true;
-            } else if ( answer == 2 ) {
+            } else if (answer == 2) {
                 System.out.println("Creating account, remember ID and other important account features!");
-                    up.createUser();
-                    loggedIn = true;
-            }else if ( answer == 0 ){
+                up.createUser();
+                loggedIn = true;
+            } else if (answer == 0) {
                 System.exit(0);
                 System.out.println("Bye..");
             }

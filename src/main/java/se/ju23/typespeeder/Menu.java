@@ -3,15 +3,13 @@ Zakaria Jaouhari, Emanuel Sleyman
 2024-02-10
  */
 package se.ju23.typespeeder;
-
-import se.ju23.typespeeder.databas.Login;
 import se.ju23.typespeeder.databas.Leaderboard;
-import se.ju23.typespeeder.databas.LeaderboardRepo;
+
 import se.ju23.typespeeder.databas.User;
 import se.ju23.typespeeder.io.UserCreateUpdate;
 import se.ju23.typespeeder.logic.Game;
 import se.ju23.typespeeder.logic.Games;
-import se.ju23.typespeeder.logic.Gametask;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,8 +91,8 @@ public class Menu implements MenuService{
                 }
 
                 case 5 -> startEnglish();
-                case 6 -> startEnglish();
-                case 7 -> {
+
+                case 6 -> {
                     List<Leaderboard> leaderboards = leaderboard.findAll();
                     if (leaderboards == null) {
                         System.out.println("No leaderboard data available.");
@@ -121,7 +119,7 @@ public class Menu implements MenuService{
             System.out.println("3. Play Alt Game/Warm up");
             System.out.println("4. Play Find UpperCase words");
             System.out.println("5. Switch to swedish");
-
+            System.out.println("6. Show Leaderboard");
             System.out.print("Choose an option: ");
             choice = input.nextInt();
 
@@ -174,6 +172,7 @@ public class Menu implements MenuService{
         options.add("3. Spela Alt spel");
         options.add("4. Spela Hitta CapsLock orden");
         options.add("5. Byt till Engelska");
+        options.add("6. Visa RankningsListan");
         return options;
     }
 

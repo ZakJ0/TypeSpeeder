@@ -1,11 +1,9 @@
 package se.ju23.typespeeder.databas;
-
-import se.ju23.typespeeder.Main;
-import se.ju23.typespeeder.io.Valid;
-
+/*
+Zakaria Jaouhari, Emanuel Sleyman
+2024-02-20
+ */
 import java.sql.*;
-import java.util.Optional;
-
 public class Login {
 
 
