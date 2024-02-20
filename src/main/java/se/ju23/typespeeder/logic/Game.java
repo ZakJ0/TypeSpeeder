@@ -62,9 +62,9 @@ public class Game {
             System.out.println("Enter taskID to play");
             List<Gametask> allTypes = Main.igametask.findGametaskByTaskType(chosenDifficulty);
             for (int i = 0; i < allTypes.size(); i++) {
-                System.out.print(allTypes.get(i).getLanguage() + " ");
-                System.out.print(allTypes.get(i).getTaskId());
-                System.out.println();
+                System.out.print("Language="+ allTypes.get(i).getLanguage() + " ");
+                System.out.print("Task=" + allTypes.get(i).getTaskId()+" ");
+                System.out.println("Name=" + allTypes.get(i).getName());
             }
             System.out.println();
 
