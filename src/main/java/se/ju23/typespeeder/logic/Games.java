@@ -16,10 +16,12 @@ public class Games {
     public Games(){
 
     }
+
     public static String[] words = {"water","house","hus","kom","look","sir","hear",
             "se","kolla","bil","bild","fodral","glasögon","ferrari","adidas","batman",
             "corn", "bike", "hund", "Skola", "dator", "Lax", "Skatt", "President", "lång",
             "Kort", "apple", "sour", "Ulf", "Oskar"};
+
     public void warmUp(){
         try {
             System.out.println("3");

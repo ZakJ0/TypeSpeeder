@@ -4,10 +4,11 @@ Zakaria Jaouhari, Emanuel Sleyman
  */
 package se.ju23.typespeeder;
 
+import se.ju23.typespeeder.databas.Login;
 import se.ju23.typespeeder.databas.Leaderboard;
 import se.ju23.typespeeder.databas.LeaderboardRepo;
 import se.ju23.typespeeder.databas.User;
-import se.ju23.typespeeder.io.ConsoleColor;
+import se.ju23.typespeeder.io.UserCreateUpdate;
 import se.ju23.typespeeder.logic.Game;
 import se.ju23.typespeeder.logic.Games;
 import se.ju23.typespeeder.logic.Gametask;
@@ -21,13 +22,13 @@ import static se.ju23.typespeeder.Main.leaderboard;
 
 public class Menu implements MenuService{
     User user;
-    MenuService menuService;
     Game game = new Game();
     Games games = new Games();
     GameStatistics gameStatistics;
+    UserCreateUpdate u = new UserCreateUpdate();
 
     public Menu() {
-        this.user = new User(); // Initialize user object
+        this.user = new User();
     }
 
     private String language = "svenska";
@@ -66,33 +67,32 @@ public class Menu implements MenuService{
             System.out.println("Welcome to TypeSpeeder - ");
             displayMenu();
 
-            System.out.println("Choose an option: ");
+            System.out.print("Choose an option: ");
             choice = input.nextInt();
 
             switch (choice) {
+
                 case 1 -> {
-                    System.out.println("Du valde att skapa User");
-                    user.createUser();
-                }
-                case 2 -> {
                     System.out.println("Du valde att uppdatera en User");
-                    user.updateUserInDatabase();
+                    u.updateUserInDatabase();
                 }
-                case 3 -> {
+
+                case 2 -> {
                     System.out.println("Du valde att spela rankings spelet");
                     game.playGame();
                 }
 
-                case 4 -> {
+                case 3 -> {
                     System.out.println("Du valde att värma upp");
                     games.warmUp();
                 }
 
-                case 5 -> {
+                case 4 -> {
                     System.out.println("Du valde att spela StoraBokstäver spelet");
                     games.countUppercaseWordsGame();
                 }
 
+                case 5 -> startEnglish();
                 case 6 -> startEnglish();
                 case 7 -> {
                     List<Leaderboard> leaderboards = leaderboard.findAll();
@@ -109,57 +109,45 @@ public class Menu implements MenuService{
         System.out.println("End program");
         System.exit(0);
     }
+
     public void startEnglish()  {
         Scanner input = new Scanner(System.in);
         int choice;
         do {
             System.out.println("Welcome to TypeSpeeder - ");
             System.out.println("0. Exit");
-            System.out.println("1. Create User");
-            System.out.println("2. Update User");
-            System.out.println("3. Play Game");
-            System.out.println("4. Play Alt Game/Warm up");
-            System.out.println("5. Play Find UpperCase words");
-            System.out.println("6. Switch to swedish");
+            System.out.println("1. Update User account");
+            System.out.println("2. Play Game");
+            System.out.println("3. Play Alt Game/Warm up");
+            System.out.println("4. Play Find UpperCase words");
+            System.out.println("5. Switch to swedish");
 
-            System.out.println("Choose an option: ");
+            System.out.print("Choose an option: ");
             choice = input.nextInt();
 
             switch (choice) {
-                case 1->{
-                    System.out.println("You chose to create a user.");
-                    user.createUser();
-                }
 
+                case 1 -> {
+                    System.out.println("You chose to update a User.");
+                    u.updateUserInDatabase();
+                }
 
                 case 2 -> {
-                    System.out.println("You chose to update a User.");
-                    user.updateUserInDatabase();
-                }
-
-                case 3 -> {
                     System.out.println("You chose to play Ranked SpeedTyping Game");
                     game.playGame();
                 }
 
-                case 4 -> {
+                case 3 -> {
                     System.out.println("You Chose to warmup");
                     games.warmUp();
                 }
 
-                case 5 -> {
+                case 4 -> {
                     System.out.println("You chose Count-Uppercase Game");
                     games.countUppercaseWordsGame();
                 }
 
-                case 6 -> start();
-                case 7-> {
-                    List<Leaderboard> leaderboards = leaderboard.findAll();
-                    gameStatistics = new GameStatistics(leaderboards);
-                    gameStatistics.displayGameStatistics();
-                }
-
-
+                case 5 -> start();
             }
         } while (choice != 0);
 
@@ -167,28 +155,25 @@ public class Menu implements MenuService{
         System.exit(0);
     }
 
-
     public List<String> getMenuOptionsEng() {
         List<String> options = new ArrayList<>();
         options.add("0. End program");
-        options.add("1. Create User");
-        options.add("2. Update User");
-        options.add("3. Play Game");
-        options.add("4. Play Alt Game/Warm up");
-        options.add("5. Play Find UpperCase words ");
-        options.add("6. Switch to swedish");
+        options.add("1. Update User account");
+        options.add("2. Play Game");
+        options.add("3. Play Alt Game/Warm up");
+        options.add("4. Play Find UpperCase words ");
+        options.add("5. Switch to swedish");
         return options;
     }
 
     public List<String> getMenuOptions() {
         List<String> options = new ArrayList<>();
         options.add("0. Avsluta programmet");
-        options.add("1. Skapa användare");
-        options.add("2. Updatera användare");
-        options.add("3. Spela");
-        options.add("4. Spela Alt spel");
-        options.add("5. Spela Hitta CapsLock orden");
-        options.add("6. Byt till Engelska");
+        options.add("1. Updatera användarkonto");
+        options.add("2. Spela");
+        options.add("3. Spela Alt spel");
+        options.add("4. Spela Hitta CapsLock orden");
+        options.add("5. Byt till Engelska");
         return options;
     }
 
