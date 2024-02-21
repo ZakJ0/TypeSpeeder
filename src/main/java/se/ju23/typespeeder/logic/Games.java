@@ -5,6 +5,7 @@ Emanuel sleyman, Zakaria Jaouhari
 package se.ju23.typespeeder.logic;
 
 import se.ju23.typespeeder.io.ConsoleColor;
+import se.ju23.typespeeder.io.Valid;
 
 import java.io.Console;
 import java.time.LocalTime;
@@ -12,6 +13,7 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class Games {
+    private Valid valid= new Valid();
 
     public Games(){
 
@@ -49,8 +51,7 @@ public class Games {
             }
             System.out.println(ConsoleColor.RESET);
             double start = LocalTime.now().toNanoOfDay();
-            Scanner scan = new Scanner(System.in);
-            String typedWords = scan.nextLine();
+            String typedWords = valid.validInput();
             double end = LocalTime.now().toNanoOfDay();
 
             double elapsedTime = end - start;
@@ -120,8 +121,7 @@ public class Games {
             }
             System.out.println(ConsoleColor.RESET);
 
-            Scanner scan = new Scanner(System.in);
-            int userAnswer = scan.nextInt();
+            int userAnswer = valid.readIntOnly();
 
             if (userAnswer == uppercaseWordsCount) {
                 System.out.println(ConsoleColor.GREEN);

@@ -28,26 +28,15 @@ public class Patch {
         this.patchVersion = patchVersion;
     }
 
-
     public void getRealeaseDateTime() {
-
         if (realeaseDateTime == null) {
-
             throw new IllegalStateException("Publish date time has not been set.");
-
         }
-
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
         String expectedFormat = "yyyy-MM-dd HH:mm:ss";
-
         String formattedDateTime = realeaseDateTime.format(formatter);
-
         if (!formattedDateTime.equals("2024-02-17 11:41:38")) {
-
             throw new IllegalStateException("PublishDateTime is not in the expected format.");
-
         }
-
     }
 }

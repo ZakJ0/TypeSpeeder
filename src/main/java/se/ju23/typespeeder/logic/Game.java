@@ -10,6 +10,7 @@ import se.ju23.typespeeder.databas.Leaderboard;
 import se.ju23.typespeeder.databas.Login;
 import se.ju23.typespeeder.databas.User;
 import se.ju23.typespeeder.io.ConsoleColor;
+import se.ju23.typespeeder.io.Valid;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -20,7 +21,8 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class Game {
     private User user;
-    XPlevel xPlevel = new XPlevel();
+    private XPlevel xPlevel = new XPlevel();
+    private Valid valid= new Valid();
 
     public Game() {
     }
@@ -28,7 +30,7 @@ public class Game {
     public void playGame()  {
         try {
             System.out.print("Enter your User ID: ");
-            long userId = Main.input.nextLong();
+            long userId = valid.readLongOnly();
             Optional<User> optionalUser = Main.iuser.findById(userId);
             user = optionalUser.orElse(null);
 
@@ -41,7 +43,7 @@ public class Game {
             System.out.println("1. English");
             System.out.println("2. Svenska");
 
-            int languageChoice = Main.input.nextInt();
+            int languageChoice = valid.readIntOnly();
             String chosenLanguage;
 
             if (languageChoice == 1) {
@@ -55,11 +57,11 @@ public class Game {
             System.out.println("Choose task:");
             List<Gametask> allTasks = Main.igametask.findByLanguage(chosenLanguage);
             for (Gametask tasks: allTasks) {
-                System.out.println(chosenLanguage + " Enter task-ID to play: " + tasks.getTaskId());
+                System.out.println(chosenLanguage + ", Enter task-ID to play: " + tasks.getTaskId());
 
             }
             System.out.print("Enter Task ID: ");
-            long taskId = Main.input.nextLong();
+            long taskId = valid.readLongOnly();
             Optional<Gametask> optionalGametask = Main.igametask.findById(taskId);
             Gametask gametask = optionalGametask.orElse(null);
 
