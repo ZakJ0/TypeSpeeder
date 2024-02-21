@@ -27,6 +27,9 @@ public class Attempt {
     @Basic
     @Column(name = "end_time", nullable = false)
     private Timestamp endTime;
+    @Basic
+    @Column(name = "gamename", nullable = false)
+    private String gamename;
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "userid", nullable = false)
     private User userByUserId;
@@ -40,14 +43,21 @@ public class Attempt {
 
     }
 
-    public Attempt(long userId, long taskId, String outcome, Timestamp timestamp) {
+    public Attempt(long userId, long taskId, String outcome, Timestamp timestamp, String gamename) {
         this.userId = userId;
         this.taskId = taskId;
         this.outcome = outcome;
         this.endTime = timestamp;
+        this.gamename = gamename;
     }
 
+    public String getGamename() {
+        return gamename;
+    }
 
+    public void setGamename(String gamename) {
+        this.gamename = gamename;
+    }
 
     public long getAttemptId() {
         return attemptId;
