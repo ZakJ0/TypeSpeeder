@@ -7,6 +7,7 @@ import se.ju23.typespeeder.databas.Leaderboard;
 
 import se.ju23.typespeeder.databas.User;
 import se.ju23.typespeeder.io.UserCreateUpdate;
+import se.ju23.typespeeder.io.Valid;
 import se.ju23.typespeeder.logic.Game;
 import se.ju23.typespeeder.logic.Games;
 
@@ -25,11 +26,40 @@ public class Menu implements MenuService{
     GameStatistics gameStatistics;
     UserCreateUpdate u = new UserCreateUpdate();
 
+    private String language = "svenska";
+    private Valid valid= new Valid();
+    UserCreateUpdate up = new UserCreateUpdate();
     public Menu() {
         this.user = new User();
     }
 
-    private String language = "svenska";
+
+
+    public void loginMenu(){
+        boolean loggedIn = false;
+        System.out.println("Welcome");
+
+        do {
+            System.out.println("0. Quit");
+            System.out.println("Do you have an account?/Har du ett konto?" + "\n");
+            System.out.println("1. Login/Logga in");
+            System.out.println("2. Create account/Skapa konto");
+
+            System.out.print(">");
+            int answer = valid.readIntOnly();
+            if (answer == 1) {
+                up.login();
+                loggedIn = true;
+            } else if (answer == 2) {
+                System.out.println("Creating account, remember ID and other important account features!");
+                up.createUser();
+                loggedIn = true;
+            } else if (answer == 0) {
+                System.exit(0);
+                System.out.println("Bye..");
+            }
+        } while (!loggedIn);
+    }
 
     public void languageChoosing() {
         try {
@@ -38,7 +68,7 @@ public class Menu implements MenuService{
             String selectedLanguage="svenska";
             while (selectedLanguage.isBlank()) {
                 if (input.hasNextLine()) {
-                    selectedLanguage = input.nextLine().toLowerCase();
+                    selectedLanguage = valid.validInput().toLowerCase();
                 } else {
                     System.out.println("No input detected. Please enter the language choice.");
                 }
@@ -64,9 +94,11 @@ public class Menu implements MenuService{
         do {
             System.out.println("Welcome to TypeSpeeder - ");
             displayMenu();
-
             System.out.print("Choose an option: ");
-            choice = input.nextInt();
+            choice = valid.readIntOnly();
+            if (choice > 6) {
+                System.out.println("Du har kanppat in siffra utanför intervallet!");
+            }
 
             switch (choice) {
 
@@ -95,7 +127,7 @@ public class Menu implements MenuService{
                 case 6 -> {
                     List<Leaderboard> leaderboards = leaderboard.findAll();
                     if (leaderboards == null) {
-                        System.out.println("No leaderboard data available.");
+                        System.out.println("Ingen rankingsLista finns.");
                         return;
                     }
                     gameStatistics = new GameStatistics(leaderboards);
@@ -121,31 +153,37 @@ public class Menu implements MenuService{
             System.out.println("5. Switch to swedish");
             System.out.println("6. Show Leaderboard");
             System.out.print("Choose an option: ");
-            choice = input.nextInt();
-
+            choice = valid.readIntOnly();
+            if (choice > 6) {
+                System.out.println("you have entered a wrong number!");
+            }
             switch (choice) {
-
                 case 1 -> {
                     System.out.println("You chose to update a User.");
                     u.updateUserInDatabase();
                 }
-
                 case 2 -> {
                     System.out.println("You chose to play Ranked SpeedTyping Game");
                     game.playGame();
                 }
-
                 case 3 -> {
                     System.out.println("You Chose to warmup");
                     games.warmUp();
                 }
-
                 case 4 -> {
                     System.out.println("You chose Count-Uppercase Game");
                     games.countUppercaseWordsGame();
                 }
-
                 case 5 -> start();
+                case 6 -> {
+                    List<Leaderboard> leaderboards = leaderboard.findAll();
+                    if (leaderboards == null) {
+                        System.out.println("No leaderboard data available.");
+                        return;
+                    }
+                    gameStatistics = new GameStatistics(leaderboards);
+                    gameStatistics.displayGameStatistics();
+                }
             }
         } while (choice != 0);
 
