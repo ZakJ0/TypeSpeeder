@@ -30,6 +30,7 @@ public class Game {
     Valid valid = new Valid();
 
     public Game() {
+
     }
 
     public void playGame() {

@@ -1,5 +1,5 @@
 /*
-Emanuel sleyman, Zakaria Jaouhari
+Emanuel sleyman
 2024-02-17
 */
 package se.ju23.typespeeder.logic;
@@ -26,13 +26,13 @@ public class Games {
 
     public void warmUp(){
         try {
-            System.out.println("3");
+            System.out.println(ConsoleColor.BLUE+"3");
             TimeUnit.SECONDS.sleep(1);
 
             System.out.println("2");
             TimeUnit.SECONDS.sleep(1);
 
-            System.out.println("1");
+            System.out.println("1"+ ConsoleColor.RESET);
             TimeUnit.SECONDS.sleep(1);
 
             Random randomWords = new Random();
@@ -47,9 +47,24 @@ public class Games {
 
                 selectedIndexes.add(randomIndex);
 
-                System.out.print(ConsoleColor.YELLOW+words[randomIndex] + " ");
+                String word = words[randomIndex];
+                if (word.contains("a")) {
+                    System.out.print(ConsoleColor.LIGHT_PINK + word + " " + ConsoleColor.RESET);
+                }
+                else if (word.contains("b") || word.contains("P") || word.contains("s")) {
+                    System.out.print(ConsoleColor.LIGHT_BLUE + word + " " + ConsoleColor.RESET);
+                }
+                else if (word.contains("o")) {
+                    System.out.print(ConsoleColor.LIGHT_GREEN + word + " " + ConsoleColor.RESET);
+                }
+                else if (word.contains("H") || word.contains("y") || word.contains("w")) {
+                    System.out.print(ConsoleColor.RED + word + " " + ConsoleColor.RESET);
+                }else {
+                    System.out.print(word + " ");
+                }
             }
-            System.out.println(ConsoleColor.RESET);
+            System.out.println();
+
             double start = LocalTime.now().toNanoOfDay();
             String typedWords = valid.validInput();
             double end = LocalTime.now().toNanoOfDay();
@@ -59,7 +74,6 @@ public class Games {
             System.out.println(seconds + " Seconds");
 
             String[] typedWordsArr = typedWords.split(" ");
-            Set<String> alreadyCounted = new HashSet<>();
             int incorrectTypedWords = 0;
             int correctTypedWords = 0;
 
@@ -78,7 +92,7 @@ public class Games {
 
             int numChars = typedWords.length();
             String wpm = String.valueOf((int) (((double) (numChars / 5) / seconds) * 60));
-            System.out.println(ConsoleColor.RESET+"Your WPM " +"="+ wpm + "!"+ "\n");
+            System.out.println("Your WPM " +"="+ wpm + "!"+ "\n"+ConsoleColor.RESET );
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -105,8 +119,8 @@ public class Games {
                     "iguana", "jellyfish", "kiwi", "lemon", "mango", "noodle", "octopus", "peanut", "quinoa", "raspberry"};
 
             int uppercaseWordsCount = 0;
-            System.out.println(ConsoleColor.YELLOW + "Type the number of words with uppercase letters:");
-            System.out.println(ConsoleColor.RESET);
+            System.out.println(ConsoleColor.LIGHT_PINK + "Type the number of words with uppercase letters:"+ConsoleColor.RESET+ "\n");
+
 
             for (int i = 0; i < totalWords; i++) {
                 int randomIndex;
@@ -123,16 +137,13 @@ public class Games {
                 }
             }
             System.out.println(ConsoleColor.RESET);
-
             int userAnswer = valid.readIntOnly();
-
             if (userAnswer == uppercaseWordsCount) {
-                System.out.println(ConsoleColor.LIGHT_PINK+"Correct! The number of words with uppercase letters is " + uppercaseWordsCount);
-                System.out.println(ConsoleColor.RESET);
+                System.out.println(ConsoleColor.LIGHT_PINK+"Correct! The number of words with uppercase letters is " + uppercaseWordsCount+ ConsoleColor.RESET);
             } else {
-                System.out.println(ConsoleColor.RED);
-                System.out.println("Incorrect! The number of words with uppercase letters is " + uppercaseWordsCount);
-                System.out.println(ConsoleColor.RESET);
+
+                System.out.println(ConsoleColor.RED+"Incorrect! The number of words with uppercase letters is " + uppercaseWordsCount+ ConsoleColor.RESET);
+
             }
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
