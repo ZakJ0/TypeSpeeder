@@ -28,6 +28,8 @@ public class Menu implements MenuService{
 
     private String language = "svenska";
     private Valid valid= new Valid();
+    private Patch patch=new Patch();
+    private NewsLetter newsLetter=new NewsLetter();
     UserCreateUpdate up = new UserCreateUpdate();
     public Menu() {
         this.user = new User();
@@ -38,7 +40,8 @@ public class Menu implements MenuService{
     public void loginMenu(){
         boolean loggedIn = false;
         System.out.println("Welcome");
-
+        newsLetter.printNewsLetter();
+        patch.printNewRealease();
         do {
             System.out.println("0. Quit");
             System.out.println("1. Login/Logga in");
