@@ -41,7 +41,6 @@ public class Menu implements MenuService{
 
         do {
             System.out.println("0. Quit");
-            System.out.println("Do you have an account?/Har du ett konto?" + "\n");
             System.out.println("1. Login/Logga in");
             System.out.println("2. Create account/Skapa konto");
 
