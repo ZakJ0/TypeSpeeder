@@ -3,6 +3,7 @@ package se.ju23.typespeeder.logic;
 Zakaria Jaouhari, Emanuel Sleyman
 2024-02-14
  */
+
 import org.springframework.stereotype.Component;
 import se.ju23.typespeeder.Main;
 import se.ju23.typespeeder.databas.Leaderboard;
@@ -23,58 +24,64 @@ public class Game {
     private int Hard = 3;
 
     Scanner input = new Scanner(System.in);
-    private User user;
+    User user = new User();
     XPlevel xPlevel = new XPlevel();
 
     public Game() {
     }
 
-    public void playGame()  {
+    public void playGame() {
         try {
-            System.out.print("Enter your User ID: " + "\n");
-            long userId = input.nextLong();
-            Optional<User> optionalUser = Main.iuser.findById(userId);
+            System.out.print("Enter your gameName: " + "\n");
+            String gameName = input.nextLine();
+            Optional<User> optionalUser = Main.iuser.findByGamename(gameName);
             user = optionalUser.orElse(null);
 
             if (user == null) {
-                System.out.println("Error: User with ID " + userId + " not found.");
+                System.out.println("Error: User with gameName:" + gameName + " not found.");
                 return;
             }
-
 
             System.out.println("Choose difficulty");
-            System.out.println("1. Easy"+ "\n"+"2. Medium" +"\n"+ "3. Hard");
+            System.out.println("1. Easy" + "\n" + "2. Medium" + "\n" + "3. Hard");
             System.out.print(">");
-            int chosenDifficulty = input.nextInt();
 
-            String chosenDiff;
-            if (chosenDifficulty == Easy)
-                chosenDiff = "Easy";
-            else if (chosenDifficulty == Medium){
-                chosenDiff = "Medium";
-            }else if (chosenDifficulty == Hard){
-                chosenDiff = "Hard";
-            }else {
-                System.out.println("Invalid choice. Please choose 1, 2 or 3");
-                return;
-            }
+                int chosenDifficulty;
+                chosenDifficulty = input.nextInt();
+                input.nextLine();
+
+                String chosenDiff;
+                if (chosenDifficulty == Easy)
+                    chosenDiff = "Easy";
+                else if (chosenDifficulty == Medium) {
+                    chosenDiff = "Medium";
+                } else if (chosenDifficulty == Hard) {
+                    chosenDiff = "Hard";
+                } else {
+                    System.out.println("Invalid choice. Please choose 1, 2 or 3");
+                    return;
+                }
+
 
             System.out.println("Enter taskID to play");
             List<Gametask> allTypes = Main.igametask.findGametaskByTaskType(chosenDifficulty);
             for (int i = 0; i < allTypes.size(); i++) {
-                System.out.print("Language="+ allTypes.get(i).getLanguage() + " ");
-                System.out.print("Task=" + allTypes.get(i).getTaskId()+" ");
+                System.out.print("Language=" + allTypes.get(i).getLanguage() + " ");
+                System.out.print("Task=" + allTypes.get(i).getTaskId() + " ");
                 System.out.println("Name=" + allTypes.get(i).getName());
             }
             System.out.println();
 
-            System.out.println("Choose your preferred language:" );
+
+            String chosenLanguage;
+            chosenLanguage = null;
+            int languageChoice;
+            System.out.println("Choose your preferred language:");
             System.out.println("1. English");
             System.out.println("2. Svenska");
             System.out.print(">");
-            int languageChoice = input.nextInt();
-            String chosenLanguage;
-
+            languageChoice = input.nextInt();
+            input.nextLine();
             if (languageChoice == 1) {
                 chosenLanguage = "engelska";
             } else if (languageChoice == 2) {
@@ -89,27 +96,35 @@ public class Game {
                 if (task.getLanguage().equals(chosenLanguage)) {
                     taskType.add(task);
                 }
+                if (taskType.isEmpty()) {
+                    System.out.println("No available task for the choosen language sorry");
+                    return;
+                }
             }
             for (Gametask tasks : taskType) {
-                System.out.println(chosenLanguage + " taskID -> " + tasks.getTaskId());
+                System.out.println(chosenLanguage + " " + tasks.getName() + " taskID ->" + tasks.getTaskId());
             }
 
 
+            long taskId = 0;
+            Gametask gametask = null;
 
-            System.out.print("Enter Task ID: ");
-            long taskId = input.nextLong();
-            Optional<Gametask> optionalGametask = Main.igametask.findById(taskId);
-            Gametask gametask = optionalGametask.orElse(null);
+                System.out.print("Enter Task ID: ");
+                taskId = input.nextLong();
+                input.nextLine();
+                Optional<Gametask> optionalGametask = Main.igametask.findById(taskId);
+                gametask = optionalGametask.orElse(null);
 
-            if (gametask == null) {
-                System.out.println("Error: Gametask with ID " + taskId + " not found.");
-                return;
-            }
+                if (gametask == null) {
+                    System.out.println("Error: Gametask with ID " + taskId + " not found.");
+                    return;
+                }
 
-            if (!Objects.equals(chosenLanguage, gametask.getLanguage())) {
-                System.out.println("Error: Chosen language does not match the task language.");
-                return;
-            }
+                if (!Objects.equals(chosenLanguage, gametask.getLanguage())) {
+                    System.out.println("Error: Chosen language does not match the task language.");
+                    return;
+                }
+
 
             countdown();
 
@@ -137,17 +152,17 @@ public class Game {
             int mostWordsInOrder = accuracyInfo[2];
 
             printResults(correctTypedWords, incorrectTypedWords, typedWords, user, mostWordsInOrder, calculateAccuracyPercentage(correctTypedWords, solution.length));
-            System.out.println(user.getGamename() + ": your wpm:" + calculateWpm(typedWords, seconds)+ "!");
+            System.out.println(user.getGamename() + ": your wpm:" + calculateWpm(typedWords, seconds) + "!");
 
             int saveXp = xPlevel.levelUp(user, calculateAccuracyPercentage(correctTypedWords, solution.length));
             System.out.println();
             System.out.println(ConsoleColor.RESET);
-            Attempt newAttempt = new Attempt(userId, taskId, calculateWpm(typedWords, seconds), Timestamp.valueOf(LocalDateTime.now()));
+            Attempt newAttempt = new Attempt(user.getUserid(), taskId, calculateWpm(typedWords, seconds), Timestamp.valueOf(LocalDateTime.now()), gameName);
             newAttempt.setGametaskByTaskId(gametask);
             newAttempt.setUserByUserId(user);
             Main.attemptRepo.save(newAttempt);
 
-            Leaderboard newLeaderboard = new Leaderboard(calculateAccuracyPercentage(correctTypedWords, solution.length), calculateWpm(typedWords, seconds), userId, seconds, correctTypedWords, mostWordsInOrder);
+            Leaderboard newLeaderboard = new Leaderboard(calculateAccuracyPercentage(correctTypedWords, solution.length), calculateWpm(typedWords, seconds), user.getUserid(), seconds, correctTypedWords, mostWordsInOrder);
             newLeaderboard.setUserByPlayerid(user);
             Main.leaderboard.save(newLeaderboard);
             user.setXp(user.getXp() + saveXp);

@@ -15,4 +15,6 @@ public interface iGameTask extends JpaRepository <Gametask,Long>{
 
     List<Gametask> findGametaskByTaskType(int taskType);
 
+    Optional findByName(String name);
+
 }
