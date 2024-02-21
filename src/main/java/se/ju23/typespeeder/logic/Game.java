@@ -9,6 +9,7 @@ import se.ju23.typespeeder.Main;
 import se.ju23.typespeeder.databas.Leaderboard;
 import se.ju23.typespeeder.databas.User;
 import se.ju23.typespeeder.io.ConsoleColor;
+import se.ju23.typespeeder.io.Valid;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -26,6 +27,7 @@ public class Game {
     Scanner input = new Scanner(System.in);
     User user = new User();
     XPlevel xPlevel = new XPlevel();
+    Valid valid = new Valid();
 
     public Game() {
     }
@@ -47,8 +49,7 @@ public class Game {
             System.out.print(">");
 
                 int chosenDifficulty;
-                chosenDifficulty = input.nextInt();
-                input.nextLine();
+                chosenDifficulty = valid.readIntOnly();
 
                 String chosenDiff;
                 if (chosenDifficulty == Easy)
@@ -74,14 +75,12 @@ public class Game {
 
 
             String chosenLanguage;
-            chosenLanguage = null;
             int languageChoice;
             System.out.println("Choose your preferred language:");
             System.out.println("1. English");
             System.out.println("2. Svenska");
             System.out.print(">");
-            languageChoice = input.nextInt();
-            input.nextLine();
+            languageChoice = valid.readIntOnly();
             if (languageChoice == 1) {
                 chosenLanguage = "engelska";
             } else if (languageChoice == 2) {
@@ -96,11 +95,12 @@ public class Game {
                 if (task.getLanguage().equals(chosenLanguage)) {
                     taskType.add(task);
                 }
-                if (taskType.isEmpty()) {
-                    System.out.println("No available task for the choosen language sorry");
-                    return;
-                }
             }
+            if (taskType.isEmpty()) {
+                System.out.println("No available task for the choosen language sorry");
+                return;
+            }
+
             for (Gametask tasks : taskType) {
                 System.out.println(chosenLanguage + " " + tasks.getName() + " taskID ->" + tasks.getTaskId());
             }
@@ -110,8 +110,7 @@ public class Game {
             Gametask gametask = null;
 
                 System.out.print("Enter Task ID: ");
-                taskId = input.nextLong();
-                input.nextLine();
+                taskId = valid.readLongOnly();
                 Optional<Gametask> optionalGametask = Main.igametask.findById(taskId);
                 gametask = optionalGametask.orElse(null);
 
@@ -134,9 +133,9 @@ public class Game {
 
 
             double start = LocalTime.now().toNanoOfDay();
-            Scanner scan = new Scanner(System.in);
+
             System.out.println(ConsoleColor.RESET);
-            String typedWords = scan.nextLine();
+            String typedWords = valid.validInput();
             double end = LocalTime.now().toNanoOfDay();
 
             double elapsedTime = end - start;

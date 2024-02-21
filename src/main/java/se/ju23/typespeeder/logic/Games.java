@@ -92,17 +92,20 @@ public class Games {
             System.out.println("2");
             TimeUnit.SECONDS.sleep(1);
 
-            System.out.println(ConsoleColor.RESET+"1");
+            System.out.println("1"+ ConsoleColor.RESET);
             TimeUnit.SECONDS.sleep(1);
 
             Random randomWords = new Random();
             Set<Integer> selectedIndexes = new HashSet<>();
             int totalWords = 10;
             String[] words = {"Hello", "WORLD", "upPERCASE", "game", "WORD", "Java", "ComPuter",
-                    "player", "apple", "UP", "Left", "riGht", "YoU", "kNow", "hej","Fell", "asTro", "trOn","fail","snail"};
+                    "player", "apple", "UP", "Left", "riGht", "YoU", "kNow", "hej","Fell", "asTro", "trOn","fail","snail",
+                    "Book", "PAGE", "sKy", "FiSH", "gRaSS", "tRee", "cLoUd", "moOn", "sUn", "stAr", "wAtEr", "caR", "PlaNe",
+                    "hiLl", "mOuNtAiN", "vAlLeY", "oCeAn", "foReSt", "DesErT", "sAnd", "apple", "banana", "carrot", "dog", "elephant", "giraffe", "hamster",
+                    "iguana", "jellyfish", "kiwi", "lemon", "mango", "noodle", "octopus", "peanut", "quinoa", "raspberry"};
 
             int uppercaseWordsCount = 0;
-            System.out.println(ConsoleColor.YELLOW+"Type the number of words with uppercase letters:");
+            System.out.println(ConsoleColor.YELLOW + "Type the number of words with uppercase letters:");
             System.out.println(ConsoleColor.RESET);
 
             for (int i = 0; i < totalWords; i++) {
@@ -124,8 +127,7 @@ public class Games {
             int userAnswer = valid.readIntOnly();
 
             if (userAnswer == uppercaseWordsCount) {
-                System.out.println(ConsoleColor.GREEN);
-                System.out.println("Correct! The number of words with uppercase letters is " + uppercaseWordsCount);
+                System.out.println(ConsoleColor.LIGHT_PINK+"Correct! The number of words with uppercase letters is " + uppercaseWordsCount);
                 System.out.println(ConsoleColor.RESET);
             } else {
                 System.out.println(ConsoleColor.RED);

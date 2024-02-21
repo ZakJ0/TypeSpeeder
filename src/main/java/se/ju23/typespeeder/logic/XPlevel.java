@@ -21,14 +21,14 @@ public class XPlevel {
         int xpGained = 0;
         if (accuracyPercentage >= 70) {
             // Gain XP
-            xpGained = 5; // Adjust the XP gained as per your requirements
-            user.setXp(user.getXp() + xpGained); // Update user's XP
+            xpGained = 5;
+            user.setXp(user.getXp() + xpGained);
             System.out.println("Congratulations! You gained " + xpGained*2 + " XP.");
         } else {
             // Lose XP (if not already at level 1)
             if (user.getXp() > 5) {
-                xpGained = -5; // Adjust the XP lost as per your requirements
-                user.setXp(Math.max(0, user.getXp() + xpGained)); // Update user's XP
+                xpGained = -5;
+                user.setXp(Math.max(0, user.getXp() + xpGained));
                 System.out.println("You lost " + -xpGained*2 + " XP.");
             } else {
                 System.out.println("You are already at the lowest level and cannot lose further XP.");
