@@ -3,9 +3,10 @@ package se.ju23.typespeeder.databas;
 Zakaria Jaouhari, Emanuel Sleyman
 2024-02-20
  */
+import se.ju23.typespeeder.Menu;
+
 import java.sql.*;
 public class Login {
-
 
     public long authenticateUser(String username, String password) {
         // Connect to the database and retrieve user information

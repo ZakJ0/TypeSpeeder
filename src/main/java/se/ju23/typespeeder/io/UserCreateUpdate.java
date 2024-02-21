@@ -54,7 +54,7 @@ public class UserCreateUpdate {
         Optional<User> names = Main.iuser.findByUsername(userName);
         if (names.isPresent()) {
             System.out.println("UserName is taken!");
-            return;
+            createUser();
 
         }
         System.out.print("Enter gameName: ");
@@ -62,7 +62,7 @@ public class UserCreateUpdate {
         Optional<User> name = Main.iuser.findByGamename(gameName);
         if (name.isPresent()) {
             System.out.println("gameName is taken!");
-            return;
+            createUser();
         } else {
             System.out.print("Enter password: ");
             password = valid.validInput();
@@ -93,9 +93,11 @@ public class UserCreateUpdate {
                 System.out.println("Attempts left: " + attempts);
                 System.out.println("Login failed. Invalid username or password.");
             }
+            if (attempts ==0){
+                System.out.println("Total attempts reached, loggin out from program");
+                System.exit(0);
+            }
 
-        } while (attempts != 0);
-
-        return -1;
+        } while (true);
     }
 }
