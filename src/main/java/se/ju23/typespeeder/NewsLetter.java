@@ -26,7 +26,7 @@ public class NewsLetter {
     public boolean printNewsLetter(){
         content = "This is a new game that's is being released. We want as many users as possible to try it out, " +
                 "so we can find bugs and get feedback from users on what we need to fix! Spread it in " +
-                "your social media, maximize publicity.\"";
+                "your social media, maximize publicity please.\"";
         publishDateTime = LocalDateTime.of(2024, 2, 21, 16, 00, 00);
         System.out.println("Do you want to see the newsLetter? (yes/no)");
         String input = valid.validInput().trim().toLowerCase();

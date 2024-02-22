@@ -7,9 +7,7 @@ import se.ju23.typespeeder.io.ConsoleColor;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 public class GameStatistics {
@@ -59,4 +57,6 @@ public class GameStatistics {
             System.out.println(ConsoleColor.RESET+"-------------------------------------");
         }
     }
+
 }
+
