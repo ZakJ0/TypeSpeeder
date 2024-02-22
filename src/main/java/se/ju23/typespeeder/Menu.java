@@ -20,12 +20,13 @@ import java.util.Scanner;
 import static se.ju23.typespeeder.Main.leaderboard;
 
 public class Menu implements MenuService{
+
     User user;
     Game game = new Game();
     Games games = new Games();
-    GameStatistics gameStatistics;
+    GameStatistics gameStatistics=new GameStatistics();
+
     UserCreateUpdate u = new UserCreateUpdate();
-    Challenge challenge=new Challenge();
 
     private String language = "svenska";
     private Valid valid= new Valid();
@@ -35,8 +36,6 @@ public class Menu implements MenuService{
     public Menu() {
         this.user = new User();
     }
-
-
 
     public void loginMenu(){
         boolean loggedIn = false;
@@ -133,7 +132,7 @@ public class Menu implements MenuService{
                         System.out.println("Ingen rankingsLista finns.");
                         return;
                     }
-                    gameStatistics = new GameStatistics(leaderboards);
+                     gameStatistics = new GameStatistics(leaderboards);
                     gameStatistics.displayGameStatistics();
                 }
             }

@@ -1,5 +1,8 @@
 package se.ju23.typespeeder;
-
+/*
+Zakaria Jaouhari, Emanuel Sleyman
+2024-02-10
+ */
 import se.ju23.typespeeder.databas.Leaderboard;
 import se.ju23.typespeeder.databas.User;
 import se.ju23.typespeeder.io.ConsoleColor;
@@ -12,6 +15,9 @@ import java.util.*;
 
 public class GameStatistics {
     private List<Leaderboard> leaderboards;
+
+    public GameStatistics() {
+    }
 
     public GameStatistics(List<Leaderboard> leaderboards) {
         this.leaderboards = leaderboards;
@@ -33,6 +39,9 @@ public class GameStatistics {
             int numEntries = 0; // Count the total number of entries
             long id = players.get(i).getUserid();
             List<Leaderboard> lead = Main.leaderboard.findByPlayerid(id);
+            if (lead.isEmpty()) {
+                continue;
+            }
             for (int j = 0; j < lead.size(); j++) {
                 totalSeconds += lead.get(j).getSpeed();
                 totalMostRightWords += lead.get(j).getMostrights();

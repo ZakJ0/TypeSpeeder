@@ -17,6 +17,7 @@ public class UserCreateUpdate {
 
     Valid valid = new Valid();
 
+
     public void updateUserInDatabase() {
         System.out.println("Update user information");
         System.out.print("Write  userID to uppdate: ");
@@ -58,7 +59,6 @@ public class UserCreateUpdate {
             if (names.isPresent()) {
                 System.out.println("UserName is taken!");
                 createUser();
-
             }
             System.out.print("Enter gameName: ");
             gameName = valid.validInput().trim();
@@ -73,6 +73,8 @@ public class UserCreateUpdate {
             User user1 = new User(userName, password, gameName);
             Main.iuser.save(user1);
             System.out.println("User " + userName + " has been added.");
+            Menu menu = new Menu();
+            menu.loginMenu();
         } else if (answer.equalsIgnoreCase("no")) {
             Menu menu = new Menu();
             menu.loginMenu();
