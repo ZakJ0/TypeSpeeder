@@ -29,8 +29,19 @@ public class Gametask {
     @Basic
     @Column(name = "solution", nullable = false, length = -1)
     private String solution;
+    @Basic
+    @Column(name = "name", nullable = false)
+    private String name;
     @OneToMany(mappedBy = "gametaskByTaskId")
     private Collection<Attempt> attemptsByTaskId;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public long getTaskId() {
         return taskId;
@@ -104,10 +115,7 @@ public class Gametask {
         this.attemptsByTaskId = attemptsByTaskId;
     }
     public static Gametask getGameTaskByLanguage(String language) {
-        // Assume you have a method to fetch from the database based on language
-        // Example: GametaskDAO.getGameTaskByLanguage(language);
-        // Implement your database logic here
-        // Return a sample task for demonstration
+
         Gametask task = new Gametask();
         task.setLanguage(language);
         task.setTaskType(1); // Assuming a task type

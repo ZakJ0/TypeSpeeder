@@ -6,7 +6,7 @@ import se.ju23.typespeeder.databas.User;
 import se.ju23.typespeeder.databas.iUser;
 
 public class XPlevel {
-    iUser user;
+
     private int experience;
 
     public int getExperience() {
@@ -16,29 +16,33 @@ public class XPlevel {
     public void setExperience(int experience) {
         this.experience = experience;
     }
-    public void levelUp(User user, double accuracyPercentage) {
+
+    public int levelUp(User user, double accuracyPercentage) {
         int xpGained = 0;
         if (accuracyPercentage >= 70) {
             // Gain XP
-            xpGained = 10;
-            setExperience(getExperience() + xpGained);
-            System.out.println("Congratulations! You gained " + xpGained + " XP.");
+            xpGained = 5;
+            user.setXp(user.getXp() + xpGained);
+            System.out.println("Congratulations! You gained " + xpGained*2 + " XP.");
         } else {
             // Lose XP (if not already at level 1)
-            if (getExperience() > 0) {
-                xpGained = 5; // Adjust the XP lost as per your requirements
-                setExperience(Math.max(0, getExperience() - xpGained));
-                System.out.println("You lost " + xpGained + " XP.");
+            if (user.getXp() > 5) {
+                xpGained = -5;
+                user.setXp(Math.max(0, user.getXp() + xpGained));
+                System.out.println("You lost " + -xpGained*2 + " XP.");
             } else {
                 System.out.println("You are already at the lowest level and cannot lose further XP.");
             }
         }
+
         // Check for level up
-        while (getExperience() >= 100) {
+        while (user.getXp() >= 99) {
             // Level up
-            user.setGamelevel((user.getGamelevel() + 1));
-            setExperience(getExperience() - 100); // Deduct 100 XP for each level up
+            user.setGamelevel(user.getGamelevel() + 1);
+            user.setXp(user.getXp() - 99);
             System.out.println("Congratulations! You leveled up to level " + user.getGamelevel() + ".");
         }
+
+        return xpGained;
     }
 }

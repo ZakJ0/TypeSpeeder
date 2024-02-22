@@ -1,9 +1,15 @@
+package se.ju23.typespeeder;
+
+import se.ju23.typespeeder.io.Valid;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Patch {
+public class Patch implements iPatch{
     private String patchVersion;
     public LocalDateTime realeaseDateTime;
+    private Valid valid= new Valid();
+
 
     // Constructor
     public Patch() {
@@ -14,6 +20,7 @@ public class Patch {
         this.patchVersion = patchVersion;
         this.realeaseDateTime = releaseDateTime;
     }
+
 
     public Patch(LocalDateTime releaseDateTime) {
         this.realeaseDateTime = releaseDateTime;
@@ -28,26 +35,34 @@ public class Patch {
         this.patchVersion = patchVersion;
     }
 
-
     public void getRealeaseDateTime() {
-
         if (realeaseDateTime == null) {
-
             throw new IllegalStateException("Publish date time has not been set.");
-
         }
-
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
         String expectedFormat = "yyyy-MM-dd HH:mm:ss";
-
         String formattedDateTime = realeaseDateTime.format(formatter);
-
         if (!formattedDateTime.equals("2024-02-17 11:41:38")) {
-
             throw new IllegalStateException("PublishDateTime is not in the expected format.");
-
         }
+    }
+    public boolean printNewRealease() {
 
+        patchVersion = "1.0";
+        realeaseDateTime = LocalDateTime.now();
+        System.out.println("Do you want to see the updates? (yes/no)");
+        String input = valid.validInput().trim().toLowerCase();
+        if (input.equals("yes")) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String formattedDateTime = realeaseDateTime.format(formatter);
+            System.out.println("New Beta Version!!! , Version: " + patchVersion + " Datum " + formattedDateTime);
+            return true;
+        } else if (input.equals("no")) {
+            System.out.println("Updates declined.");
+            return false;
+        } else {
+            System.out.println("Invalid input. Updates declined.");
+            return false;
+        }
     }
 }

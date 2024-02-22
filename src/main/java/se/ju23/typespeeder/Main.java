@@ -1,22 +1,13 @@
 package se.ju23.typespeeder;
-/*
-Zakaria Jaouhari, Emanuel Sleyman
-2024-02-8
- */
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import se.ju23.typespeeder.databas.Leaderboard;
 import se.ju23.typespeeder.databas.LeaderboardRepo;
-import se.ju23.typespeeder.databas.User;
 import se.ju23.typespeeder.databas.iUser;
 import se.ju23.typespeeder.logic.AttemptRepo;
-
-import se.ju23.typespeeder.logic.Game;
 import se.ju23.typespeeder.logic.iGameTask;
-
-
-import java.util.List;
+import se.ju23.typespeeder.iPatch;
 import java.util.Scanner;
 
 @Component
@@ -39,17 +30,14 @@ public class Main implements CommandLineRunner {
         this.leaderboard = leaderboard;
     }
 
-    User user = new User();
-    Game game = new Game();
-    GameStatistics gameStatistics;
-
     public static Scanner input = new Scanner(System.in);
 
     @Override
     public void run(String[] args) {
-        Menu menu = new Menu();
-        user.login();
-        menu.start();
-    }
 
+        Menu menu = new Menu();
+        menu.loginMenu();
+        menu.start();
+        System.out.println();
+    }
 }
