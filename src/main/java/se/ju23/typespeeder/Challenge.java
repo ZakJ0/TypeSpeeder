@@ -4,6 +4,9 @@ Zakaria Jaouhari, Emanuel Sleyman
  */
 package se.ju23.typespeeder;
 
+import se.ju23.typespeeder.io.ConsoleColor;
+
+import java.io.Console;
 import java.time.LocalTime;
 import java.util.*;
 
@@ -31,7 +34,11 @@ public class Challenge {
             } while (selectedIndexes.contains(randomIndex));
 
             selectedIndexes.add(randomIndex);
-
+            if (words[randomIndex].contains("a")) {
+                System.out.println(ConsoleColor.LIGHT_PINK+ words[randomIndex]+ ConsoleColor.RESET);
+            } else if (words[randomIndex].contains("b")) {
+                System.out.println(ConsoleColor.LIGHT_BLUE + words[randomIndex]+ ConsoleColor.RESET);
+            }
             System.out.print(words[randomIndex] + " ");
         }
         System.out.println();
