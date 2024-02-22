@@ -28,7 +28,7 @@ public class NewsLetter {
                 "so we can find bugs and get feedback from users on what we need to fix! Spread it in " +
                 "your social media, maximize publicity please.\"";
         publishDateTime = LocalDateTime.of(2024, 2, 21, 16, 00, 00);
-        System.out.println("Do you want to see the newsLetter? (yes/no)");
+        System.out.println("Do you want to see the newsLetter sent-out by admin? (yes/no)");
         String input = valid.validInput().trim().toLowerCase();
         if (input.equals("yes")) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

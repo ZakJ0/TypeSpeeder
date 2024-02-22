@@ -1,16 +1,20 @@
 /*
 Zakaria Jaouhari, Emanuel Sleyman
 2024-02-16
+This class is only for testing
  */
 package se.ju23.typespeeder;
 
 import se.ju23.typespeeder.io.ConsoleColor;
+import se.ju23.typespeeder.io.Valid;
 
 import java.io.Console;
 import java.time.LocalTime;
 import java.util.*;
 
 public class Challenge {
+
+
     public static String[] words = {"water","house","hus","kom","look","sir","hear",
             "se","kolla","bil","bild","fodral","glasögon","ferrari","adidas","batman",
             "corn", "bike", "hund", "Skola", "dator", "Lax", "Skatt", "President", "lång",
@@ -18,7 +22,7 @@ public class Challenge {
 
     public void startChallenge() {
         lettersToType();
-        String typedWords = getRandomInput(); // Generate random input for testing
+        String typedWords = getRandomInput();
         calculateTypingSpeed(typedWords);
     }
 
@@ -75,9 +79,9 @@ public class Challenge {
         double seconds = elapsedTime / 1000000000.0;
 
         int numChars = typedWords.replaceAll("\\s+", "").length(); // Counting total characters without spaces
-        int wpm = ((int) (((double) (numChars / 5) / seconds) * 60));// Adjusted WPM calculation
+        int wordsInOrder = ((int) (((double) (numChars / 5) / seconds) * 60));// Adjusted WPM calculation
 
-        displayResults(correctTypedWords, totalWords, wpm);
+        displayResults(correctTypedWords, totalWords, wordsInOrder);
     }
 
     private void displayResults(int correctTypedWords, int totalWords, int wpm) {
@@ -88,4 +92,5 @@ public class Challenge {
         System.out.println("Your WPM = " + wpm);
         System.out.println();
     }
+
 }

@@ -50,7 +50,7 @@ public class Patch implements iPatch{
 
         patchVersion = "1.0";
         realeaseDateTime = LocalDateTime.now();
-        System.out.println("Do you want to see the updates? (yes/no)");
+        System.out.println("Do you want to see the patches? (yes/no)");
         String input = valid.validInput().trim().toLowerCase();
         if (input.equals("yes")) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

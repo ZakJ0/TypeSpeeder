@@ -25,6 +25,7 @@ public class Menu implements MenuService{
     Games games = new Games();
     GameStatistics gameStatistics;
     UserCreateUpdate u = new UserCreateUpdate();
+    Challenge challenge=new Challenge();
 
     private String language = "svenska";
     private Valid valid= new Valid();
