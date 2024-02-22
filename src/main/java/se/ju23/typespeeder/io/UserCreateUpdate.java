@@ -5,6 +5,7 @@ Zakaria Jaouhari, Emanuel Sleyman
  */
 
 import se.ju23.typespeeder.Main;
+import se.ju23.typespeeder.Menu;
 import se.ju23.typespeeder.databas.Login;
 import se.ju23.typespeeder.databas.User;
 
@@ -47,33 +48,39 @@ public class UserCreateUpdate {
         String userName;
         String gameName;
         String password = null;
-        boolean trueName = true;
 
-        System.out.print("Enter userName: ");
-        userName = valid.validInput();
-        Optional<User> names = Main.iuser.findByUsername(userName);
-        if (names.isPresent()) {
-            System.out.println("UserName is taken!");
-            createUser();
+        System.out.print("Do you want to create an account yes/no?:");
+        String answer = valid.validInput().trim();
+        if (answer.equalsIgnoreCase("yes")){
+            System.out.print("Enter userName: ");
+            userName = valid.validInput().trim();
+            Optional<User> names = Main.iuser.findByUsername(userName);
+            if (names.isPresent()) {
+                System.out.println("UserName is taken!");
+                createUser();
 
+            }
+            System.out.print("Enter gameName: ");
+            gameName = valid.validInput().trim();
+            Optional<User> name = Main.iuser.findByGamename(gameName);
+            if (name.isPresent()) {
+                System.out.println("gameName is taken!");
+                createUser();
+            } else {
+                System.out.print("Enter password: ");
+                password = valid.validInput().trim();
+            }
+            User user1 = new User(userName, password, gameName);
+            Main.iuser.save(user1);
+            System.out.println("User " + userName + " has been added.");
+        } else if (answer.equalsIgnoreCase("no")) {
+            Menu menu = new Menu();
+            menu.loginMenu();
         }
-        System.out.print("Enter gameName: ");
-        gameName = valid.validInput();
-        Optional<User> name = Main.iuser.findByGamename(gameName);
-        if (name.isPresent()) {
-            System.out.println("gameName is taken!");
-            createUser();
-        } else {
-            System.out.print("Enter password: ");
-            password = valid.validInput();
-        }
-        User user1 = new User(userName, password, gameName);
-        Main.iuser.save(user1);
-        System.out.println("User " + userName + " has been added.");
+
     }
 
     public long login() {
-        User user = new User();
         int attempts = 3;
 
         do {
