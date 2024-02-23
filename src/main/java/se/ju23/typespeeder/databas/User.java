@@ -30,9 +30,8 @@ public class User {
     private String gamename;
 
     @Basic
-    @Column(name = "xp",nullable=false)
+    @Column(name = "xp", nullable = false)
     private int xp;
-
     @OneToMany(mappedBy = "userByUserId")
     private Collection<Attempt> attemptsByUserid;
     @OneToMany(mappedBy = "userByPlayerid")

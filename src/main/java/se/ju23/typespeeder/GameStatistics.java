@@ -3,6 +3,7 @@ package se.ju23.typespeeder;
 Zakaria Jaouhari, Emanuel Sleyman
 2024-02-10
  */
+
 import se.ju23.typespeeder.databas.Leaderboard;
 import se.ju23.typespeeder.databas.User;
 import se.ju23.typespeeder.io.ConsoleColor;
@@ -11,7 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.*;
-
 
 public class GameStatistics {
     private List<Leaderboard> leaderboards;
@@ -29,7 +29,6 @@ public class GameStatistics {
             return;
         }
         List<User> players = Main.iuser.findAll();
-
         for (int i = 0; i < players.size(); i++) {
             double totalSeconds = 0;
             int totalMostRightWords = 0;
@@ -55,7 +54,7 @@ public class GameStatistics {
             int averageMostWordsInOrder = totalMostWordsInOrder / numEntries;
             double averageAccuracyPercentage = totalAccuracyPercentage / numEntries;
             int averageWpm = totalWpm / numEntries;
-            System.out.println(ConsoleColor.LIGHT_BLUE+"Alias: " + players.get(i).getGamename());
+            System.out.println(ConsoleColor.LIGHT_BLUE + "Alias: " + players.get(i).getGamename());
 
             System.out.println("------ Average Game Statistics ------");
             System.out.println("Average Speed: " + averageSeconds + " seconds");
@@ -63,9 +62,8 @@ public class GameStatistics {
             System.out.println("Average Correct words typed in order: " + averageMostWordsInOrder);
             System.out.println("Average Accuracy: " + averageAccuracyPercentage + "%");
             System.out.println("Average Words per minute (WPM): " + averageWpm);
-            System.out.println(ConsoleColor.RESET+"-------------------------------------");
+            System.out.println(ConsoleColor.RESET + "-------------------------------------");
         }
     }
-
 }
 

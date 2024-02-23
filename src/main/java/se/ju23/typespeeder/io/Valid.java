@@ -3,6 +3,7 @@ package se.ju23.typespeeder.io;
 Zakaria Jaouhari, Emanuel Sleyman
 2024-02-20
  */
+
 import se.ju23.typespeeder.Main;
 
 public class Valid {

@@ -22,9 +22,7 @@ public class UserCreateUpdate {
         System.out.println("Update user information");
         System.out.print("Write  userID to uppdate: ");
         long userIdToUpdate = valid.readLongOnly();
-
         Optional<User> optionalUser = Main.iuser.findById(userIdToUpdate);
-
         if (optionalUser.isPresent()) {
             User existingUser = optionalUser.get();
             System.out.print("write your username: ");
@@ -52,7 +50,7 @@ public class UserCreateUpdate {
 
         System.out.print("Do you want to create an account yes/no?:");
         String answer = valid.validInput().trim();
-        if (answer.equalsIgnoreCase("yes")){
+        if (answer.equalsIgnoreCase("yes")) {
             System.out.print("Enter userName: ");
             userName = valid.validInput().trim();
             Optional<User> names = Main.iuser.findByUsername(userName);
@@ -79,7 +77,6 @@ public class UserCreateUpdate {
             Menu menu = new Menu();
             menu.loginMenu();
         }
-
     }
 
     public long login() {
@@ -102,7 +99,7 @@ public class UserCreateUpdate {
                 System.out.println("Attempts left: " + attempts);
                 System.out.println("Login failed. Invalid username or password.");
             }
-            if (attempts ==0){
+            if (attempts == 0) {
                 System.out.println("Total attempts reached, loggin out from program");
                 System.exit(0);
             }

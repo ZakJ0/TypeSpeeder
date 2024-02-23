@@ -30,7 +30,7 @@ public class Leaderboard {
     @Column(name = "resultcol", nullable = false, length = 45)
     private String resultcol;
     @Basic
-    @Column(name = "playerid", nullable = false, updatable = false,insertable = false)
+    @Column(name = "playerid", nullable = false, updatable = false, insertable = false)
     private Long playerid;
     @ManyToOne
     @JoinColumn(name = "playerid", referencedColumnName = "userid")

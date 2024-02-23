@@ -3,18 +3,18 @@ package se.ju23.typespeeder;
 Zakaria Jaouhari, Emanuel Sleyman
 2024-02-20
  */
+
 import se.ju23.typespeeder.io.Valid;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Patch implements iPatch{
+public class Patch implements iPatch {
     private String patchVersion;
     public LocalDateTime realeaseDateTime;
-    private Valid valid= new Valid();
+    private Valid valid = new Valid();
 
 
-    // Constructor
     public Patch() {
         this.realeaseDateTime = LocalDateTime.of(2024, 2, 17, 11, 41, 38);
     }
@@ -49,6 +49,7 @@ public class Patch implements iPatch{
             throw new IllegalStateException("PublishDateTime is not in the expected format.");
         }
     }
+
     public boolean printNewRealease() {
 
         patchVersion = "1.0";

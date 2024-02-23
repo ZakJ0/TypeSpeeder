@@ -7,10 +7,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface iUser extends JpaRepository<User,Long> {
+public interface iUser extends JpaRepository<User, Long> {
     Optional<User> findById(long userid);
+
     Optional<User> findByUsername(String userName);
+
     Optional<User> findByGamename(String gameName);
-
-
 }

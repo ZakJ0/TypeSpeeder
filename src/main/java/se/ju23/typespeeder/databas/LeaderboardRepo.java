@@ -12,9 +12,7 @@ import java.util.Optional;
 @Repository
 public interface LeaderboardRepo extends JpaRepository<Leaderboard, Long> {
 
-
     Optional<Leaderboard> findById(Long id);
-
 
     List<Leaderboard> findByPlayerid(Long id);
 }

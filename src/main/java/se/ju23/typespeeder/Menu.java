@@ -3,6 +3,7 @@ Zakaria Jaouhari, Emanuel Sleyman
 2024-02-10
  */
 package se.ju23.typespeeder;
+
 import se.ju23.typespeeder.databas.Leaderboard;
 
 import se.ju23.typespeeder.databas.User;
@@ -19,25 +20,24 @@ import java.util.Scanner;
 
 import static se.ju23.typespeeder.Main.leaderboard;
 
-public class Menu implements MenuService{
-
+public class Menu implements MenuService {
     User user;
     Game game = new Game();
     Games games = new Games();
-    GameStatistics gameStatistics=new GameStatistics();
-
+    GameStatistics gameStatistics;
     UserCreateUpdate u = new UserCreateUpdate();
 
     private String language = "svenska";
-    private Valid valid= new Valid();
-    private Patch patch=new Patch();
-    private NewsLetter newsLetter=new NewsLetter();
+    private Valid valid = new Valid();
+    private Patch patch = new Patch();
+    private NewsLetter newsLetter = new NewsLetter();
     UserCreateUpdate up = new UserCreateUpdate();
+
     public Menu() {
         this.user = new User();
     }
 
-    public void loginMenu(){
+    public void loginMenu() {
         boolean loggedIn = false;
         System.out.println("Welcome");
         newsLetter.printNewsLetter();
@@ -67,7 +67,7 @@ public class Menu implements MenuService{
         try {
             Scanner input = new Scanner(System.in);
             System.out.println("Välj språk (svenska/engelska):");
-            String selectedLanguage="svenska";
+            String selectedLanguage = "svenska";
             while (selectedLanguage.isBlank()) {
                 if (input.hasNextLine()) {
                     selectedLanguage = valid.validInput().toLowerCase();
@@ -90,8 +90,7 @@ public class Menu implements MenuService{
         }
     }
 
-    public void start()  {
-        Scanner input = new Scanner(System.in);
+    public void start() {
         int choice;
         do {
             System.out.println("Welcome to TypeSpeeder - ");
@@ -132,7 +131,7 @@ public class Menu implements MenuService{
                         System.out.println("Ingen rankingsLista finns.");
                         return;
                     }
-                     gameStatistics = new GameStatistics(leaderboards);
+                    gameStatistics = new GameStatistics(leaderboards);
                     gameStatistics.displayGameStatistics();
                 }
             }
@@ -142,7 +141,7 @@ public class Menu implements MenuService{
         System.exit(0);
     }
 
-    public void startEnglish()  {
+    public void startEnglish() {
         Scanner input = new Scanner(System.in);
         int choice;
         do {
@@ -235,7 +234,4 @@ public class Menu implements MenuService{
             System.out.println("not enough with alternatives");
         }
     }
-
 }
-
-

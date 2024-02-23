@@ -3,6 +3,7 @@ package se.ju23.typespeeder;
 Zakaria Jaouhari, Emanuel Sleyman
 2024-02-10
  */
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -11,6 +12,7 @@ import se.ju23.typespeeder.databas.iUser;
 import se.ju23.typespeeder.logic.AttemptRepo;
 import se.ju23.typespeeder.logic.iGameTask;
 import se.ju23.typespeeder.iPatch;
+
 import java.util.Scanner;
 
 @Component
@@ -37,7 +39,6 @@ public class Main implements CommandLineRunner {
 
     @Override
     public void run(String[] args) {
-
         Menu menu = new Menu();
         menu.loginMenu();
         menu.start();

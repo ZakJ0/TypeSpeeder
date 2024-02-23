@@ -3,16 +3,17 @@ package se.ju23.typespeeder;
 Zakaria Jaouhari, Emanuel Sleyman
 2024-02-20
  */
+
 import se.ju23.typespeeder.io.Valid;
 
 import java.time.LocalDateTime;
 
-        import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatter;
 
 public class NewsLetter {
     public String content;
     public LocalDateTime publishDateTime;
-    private Valid valid= new Valid();
+    private Valid valid = new Valid();
 
     public NewsLetter() {
         this.content = "This is new game thats is being released. We want as many users to try out, so we can find bugs and get feedback from users on what we need to fix! Spread it in your social media, maximize publicity."; // Initialize content to an empty string
@@ -26,7 +27,8 @@ public class NewsLetter {
     public void setPublishDateTime(LocalDateTime publishDateTime) {
         this.publishDateTime = publishDateTime;
     }
-    public boolean printNewsLetter(){
+
+    public boolean printNewsLetter() {
         content = "This is a new game that's is being released. We want as many users as possible to try it out, " +
                 "so we can find bugs and get feedback from users on what we need to fix! Spread it in " +
                 "your social media, maximize publicity please.\"";
