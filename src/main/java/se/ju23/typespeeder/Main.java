@@ -29,10 +29,10 @@ public class Main implements CommandLineRunner {
 
     @Autowired
     public Main(iUser iuser, AttemptRepo attemptRepo1, iGameTask igametask, LeaderboardRepo leaderboard) {
-        this.iuser = iuser;
-        this.attemptRepo = attemptRepo1;
-        this.igametask = igametask;
-        this.leaderboard = leaderboard;
+        Main.iuser = iuser;
+        Main.attemptRepo = attemptRepo1;
+        Main.igametask = igametask;
+        Main.leaderboard = leaderboard;
     }
 
     public static Scanner input = new Scanner(System.in);
